@@ -287,9 +287,11 @@ fun ChannelItem(
                         )
                     }
                     Text(
-                        text = channel.name,
+                        text = if (isPlaying && channel.epgTitle.isNotEmpty()) "${channel.name} - ${channel.epgTitle}" else channel.name,
                         style = MaterialTheme.typography.titleMedium,
-                        color = MaterialTheme.colorScheme.onSurface
+                        color = MaterialTheme.colorScheme.onSurface,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis
                     )
                 }
                 

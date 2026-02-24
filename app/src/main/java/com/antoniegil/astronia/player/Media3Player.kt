@@ -152,7 +152,9 @@ class Media3Player(private val context: Context) {
             if (s != null && s.isValid) {
                 it.setVideoSurface(s)
             }
-            if (it.playbackState == androidx.media3.common.Player.STATE_IDLE) it.prepare()
+            if (it.playbackState == androidx.media3.common.Player.STATE_IDLE) {
+                it.prepare()
+            }
             it.play()
         }
     }
