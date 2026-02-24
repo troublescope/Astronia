@@ -16,7 +16,6 @@ fun generateTimestampFilename(prefix: String, extension: String): String {
 }
 
 object PlayerConstants {
-    const val MAX_CHANNEL_DISPLAY = 500
     const val MAX_HISTORY_SIZE = 50
     const val AUTO_HIDE_CONTROLS_DELAY_MS = 3000L
     const val M3U8_MAX_SIZE_BYTES = 10 * 1024 * 1024

@@ -63,10 +63,6 @@ object M3U8Parser {
                                 logoUrl = currentLogoUrl
                             )
                         )
-                        
-                        if (channels.size >= PlayerConstants.MAX_CHANNEL_DISPLAY) {
-                            break
-                        }
                     }
                     currentName = ""
                     currentGroup = ""
@@ -190,10 +186,6 @@ object M3U8Parser {
                                 logoUrl = currentLogoUrl
                             )
                         )
-                        
-                        if (channels.size >= PlayerConstants.MAX_CHANNEL_DISPLAY) {
-                            return@forEach
-                        }
                     }
                     currentName = ""
                     currentGroup = ""

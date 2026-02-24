@@ -166,7 +166,7 @@ class PlayerViewModel(application: Application) : AndroidViewModel(application) 
                     }
                 }
                 
-                val channels = parsedChannels.take(com.antoniegil.astronia.util.PlayerConstants.MAX_CHANNEL_DISPLAY)
+                val channels = parsedChannels
                 
                 val startChannel = when {
                     initialChannelUrl != null -> channels.find { it.url == initialChannelUrl }
