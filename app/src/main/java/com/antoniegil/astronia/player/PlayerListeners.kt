@@ -74,8 +74,16 @@ internal object PlayerListeners {
         }
         
         override fun onPlayerError(error: PlaybackException) {
-            if (state.isFixingM3u8) {
-                return
+            if (state.isFixingM3u8) return
+            
+            if (!state.shouldPlayWhenReady) {
+                val isExitRelatedError = error.errorCode in listOf(
+                    PlaybackException.ERROR_CODE_DECODER_INIT_FAILED,
+                    PlaybackException.ERROR_CODE_VIDEO_FRAME_PROCESSING_FAILED,
+                    PlaybackException.ERROR_CODE_AUDIO_TRACK_INIT_FAILED,
+                    PlaybackException.ERROR_CODE_AUDIO_TRACK_WRITE_FAILED
+                )
+                if (isExitRelatedError) return
             }
             
             val player = getPlayer()
@@ -103,6 +111,11 @@ internal object PlayerListeners {
             val isPlaylistStuck = error.cause?.javaClass?.simpleName == "PlaylistStuckException"
             
             when {
+                httpCode == 404 -> {
+                    player?.seekToDefaultPosition()
+                    player?.prepare()
+                    if (state.shouldPlayWhenReady) player?.play()
+                }
                 error.cause is androidx.media3.exoplayer.source.BehindLiveWindowException -> {
                     player?.seekToDefaultPosition()
                     player?.prepare()
