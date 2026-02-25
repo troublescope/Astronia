@@ -94,47 +94,58 @@ fun ChannelListSection(
                     text = stringResource(R.string.channel_count, filteredChannels.size),
                     style = MaterialTheme.typography.titleMedium
                 )
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    IconButton(
-                        onClick = {
-                            view.slightHapticFeedback()
-                            isSearching = !isSearching
-                            if (!isSearching) searchQuery = ""
-                        },
-                        modifier = Modifier.size(40.dp)
-                    ) {
-                        Icon(Icons.Outlined.Search, stringResource(R.string.search))
-                    }
-                    if (showPlayerStatsButton) {
-                        Spacer(modifier = Modifier.width(4.dp))
+                if (channels.size > 1) {
+                    Row(verticalAlignment = Alignment.CenterVertically) {
                         IconButton(
-                            onClick = { showStatsDialog = true },
+                            onClick = {
+                                view.slightHapticFeedback()
+                                isSearching = !isSearching
+                                if (!isSearching) searchQuery = ""
+                            },
                             modifier = Modifier.size(40.dp)
                         ) {
-                            Icon(Icons.Default.Info, "Stats")
+                            Icon(Icons.Outlined.Search, stringResource(R.string.search))
                         }
+                        if (showPlayerStatsButton) {
+                            Spacer(modifier = Modifier.width(4.dp))
+                            IconButton(
+                                onClick = { showStatsDialog = true },
+                                modifier = Modifier.size(40.dp)
+                            ) {
+                                Icon(Icons.Default.Info, "Stats")
+                            }
+                        }
+                    }
+                } else if (showPlayerStatsButton) {
+                    IconButton(
+                        onClick = { showStatsDialog = true },
+                        modifier = Modifier.size(40.dp)
+                    ) {
+                        Icon(Icons.Default.Info, "Stats")
                     }
                 }
             }
 
-            AnimatedVisibility(visible = isSearching) {
-                SearchBar(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 16.dp)
-                        .padding(top = 2.dp, bottom = 0.dp),
-                    text = searchQuery,
-                    placeholderText = stringResource(R.string.search_channels),
-                    onValueChange = { searchQuery = it },
-                    onClear = {
-                        scope.launch {
-                            val currentIndex = channels.indexOfFirst { it.url == currentChannelUrl }
-                            if (currentIndex >= 0) {
-                                listState.animateScrollToItem(currentIndex)
+            if (channels.size > 1) {
+                AnimatedVisibility(visible = isSearching) {
+                    SearchBar(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 16.dp)
+                            .padding(top = 2.dp, bottom = 0.dp),
+                        text = searchQuery,
+                        placeholderText = stringResource(R.string.search_channels),
+                        onValueChange = { searchQuery = it },
+                        onClear = {
+                            scope.launch {
+                                val currentIndex = channels.indexOfFirst { it.url == currentChannelUrl }
+                                if (currentIndex >= 0) {
+                                    listState.animateScrollToItem(currentIndex)
+                                }
                             }
                         }
-                    }
-                )
+                    )
+                }
             }
 
             if (groupSet.size > 1) {

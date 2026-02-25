@@ -285,14 +285,17 @@ object M3U8Parser {
     
     private suspend fun loadEpgData() {
         val url = epgUrl ?: return
-        val request = Request.Builder().url(url).build()
-        val response = client.newCall(request).execute()
-        if (!response.isSuccessful) {
-            return
+        withContext(Dispatchers.IO) {
+            try {
+                val request = Request.Builder().url(url).build()
+                val response = client.newCall(request).execute()
+                if (!response.isSuccessful) return@withContext
+                
+                val xmlContent = response.body.string()
+                epgData = parseEpgXml(xmlContent)
+            } catch (e: Exception) {
+            }
         }
-            
-        val xmlContent = response.body.string()
-        epgData = parseEpgXml(xmlContent)
     }
     
     private fun parseEpgXml(xml: String): Map<String, String> {
@@ -332,7 +335,7 @@ object M3U8Parser {
     
     private fun parseEpgTime(timeStr: String): Long {
         try {
-            val year = timeStr.substring(0, 4).toInt()
+            val year = timeStr.take(4).toInt()
             val month = timeStr.substring(4, 6).toInt()
             val day = timeStr.substring(6, 8).toInt()
             val hour = timeStr.substring(8, 10).toInt()
