@@ -156,70 +156,70 @@ fun PlayerControlsOverlay(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 8.dp, vertical = 8.dp)
-            ) {
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                IconButton(onClick = onPlayPauseClick) {
-                    Icon(
-                        imageVector = if (isPlaying) Icons.Default.Pause else Icons.Default.PlayArrow,
-                        contentDescription = if (isPlaying) stringResource(R.string.paused) else stringResource(
-                            R.string.play
-                        ),
-                        tint = Color.White,
-                        modifier = Modifier.size(28.dp)
+                ){
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                    IconButton(onClick = onPlayPauseClick) {
+                        Icon(
+                            imageVector = if (isPlaying) Icons.Default.Pause else Icons.Default.PlayArrow,
+                            contentDescription = if (isPlaying) stringResource(R.string.paused) else stringResource(
+                                R.string.play
+                            ),
+                            tint = Color.White,
+                            modifier = Modifier.size(28.dp)
+                        )
+                    }
+
+                    Spacer(modifier = Modifier.width(8.dp))
+
+                    ProgressBar(
+                        modifier = Modifier.weight(1f),
+                        isBuffering = isBuffering,
+                        estimatedProgress = estimatedProgress
                     )
-                }
 
-                Spacer(modifier = Modifier.width(8.dp))
+                    Spacer(modifier = Modifier.width(8.dp))
 
-                ProgressBar(
-                    modifier = Modifier.weight(1f),
-                    isBuffering = isBuffering,
-                    estimatedProgress = estimatedProgress
-                )
-
-                Spacer(modifier = Modifier.width(8.dp))
-
-                if (enablePip && Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    IconButton(
-                        onClick = {
-                            activity?.let { act ->
-                                if (act.packageManager.hasSystemFeature(PackageManager.FEATURE_PICTURE_IN_PICTURE)) {
-                                    val aspectRatio = Rational(16, 9)
-                                    val builder = PictureInPictureParams.Builder()
-                                        .setAspectRatio(aspectRatio)
-                                    act.enterPictureInPictureMode(builder.build())
+                    if (enablePip && Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        IconButton(
+                            onClick = {
+                                activity?.let { act ->
+                                    if (act.packageManager.hasSystemFeature(PackageManager.FEATURE_PICTURE_IN_PICTURE)) {
+                                        val aspectRatio = Rational(16, 9)
+                                        val builder = PictureInPictureParams.Builder()
+                                            .setAspectRatio(aspectRatio)
+                                        act.enterPictureInPictureMode(builder.build())
+                                    }
                                 }
-                            }
-                        },
-                        modifier = Modifier.offset(x = 2.dp)
+                            },
+                            modifier = Modifier.offset(x = 2.dp)
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.PictureInPicture,
+                                contentDescription = stringResource(R.string.pip),
+                                tint = Color.White,
+                                modifier = Modifier.size(22.dp)
+                            )
+                        }
+                    }
+
+                    IconButton(
+                        onClick = onFullscreenClick,
+                        modifier = Modifier.offset(x = if (enablePip && Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) (-2).dp else 0.dp)
                     ) {
                         Icon(
-                            imageVector = Icons.Default.PictureInPicture,
-                            contentDescription = stringResource(R.string.pip),
+                            imageVector = if (isFullscreen) Icons.Default.FullscreenExit else Icons.Default.Fullscreen,
+                            contentDescription = if (isFullscreen) stringResource(R.string.exit_fullscreen) else stringResource(
+                                R.string.fullscreen
+                            ),
                             tint = Color.White,
-                            modifier = Modifier.size(22.dp)
+                            modifier = Modifier.size(28.dp)
                         )
                     }
                 }
-
-                IconButton(
-                    onClick = onFullscreenClick,
-                    modifier = Modifier.offset(x = if (enablePip && Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) (-2).dp else 0.dp)
-                ) {
-                    Icon(
-                        imageVector = if (isFullscreen) Icons.Default.FullscreenExit else Icons.Default.Fullscreen,
-                        contentDescription = if (isFullscreen) stringResource(R.string.exit_fullscreen) else stringResource(
-                            R.string.fullscreen
-                        ),
-                        tint = Color.White,
-                        modifier = Modifier.size(28.dp)
-                    )
-                }
             }
-        }
         }
     }
 }

@@ -121,7 +121,7 @@ internal object PlayerListeners {
                     player?.prepare()
                     if (state.shouldPlayWhenReady) player?.play()
                 }
-                isPlaylistStuck && state.hasTriedM3u8Fix -> {
+                isPlaylistStuck -> {
                     state.context?.cacheDir?.listFiles()?.filter { it.name.startsWith("m3u8_") }?.forEach { it.delete() }
                     callbacks.onReloadOriginal()
                 }

@@ -29,6 +29,7 @@ class Media3Player(private val context: Context) {
 
     init {
         NetworkUtils.setupAndroid7SSL()
+        state.context = context
         createPlayer(true)
     }
     
