@@ -139,7 +139,7 @@ fun PlayerControlsOverlay(
             )
         }
 
-        Column(
+        Box(
             modifier = Modifier
                 .align(Alignment.BottomCenter)
                 .fillMaxWidth()
@@ -151,12 +151,16 @@ fun PlayerControlsOverlay(
                         )
                     )
                 )
-                .padding(horizontal = 8.dp, vertical = 8.dp)
         ) {
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.fillMaxWidth()
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 8.dp, vertical = 8.dp)
             ) {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier.fillMaxWidth()
+                ) {
                 IconButton(onClick = onPlayPauseClick) {
                     Icon(
                         imageVector = if (isPlaying) Icons.Default.Pause else Icons.Default.PlayArrow,
@@ -215,6 +219,7 @@ fun PlayerControlsOverlay(
                     )
                 }
             }
+        }
         }
     }
 }

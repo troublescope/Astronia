@@ -361,6 +361,7 @@ class PlayerViewModel(application: Application) : AndroidViewModel(application) 
     fun releasePlayer() {
         localPlayer?.let { player ->
             player.pause()
+            player.onErrorListener = null
             player.release()
         }
         localPlayer = null

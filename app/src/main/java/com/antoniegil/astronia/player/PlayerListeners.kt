@@ -82,7 +82,7 @@ internal object PlayerListeners {
                     PlaybackException.ERROR_CODE_VIDEO_FRAME_PROCESSING_FAILED,
                     PlaybackException.ERROR_CODE_AUDIO_TRACK_INIT_FAILED,
                     PlaybackException.ERROR_CODE_AUDIO_TRACK_WRITE_FAILED
-                )
+                ) || error.cause?.javaClass?.simpleName?.contains("Codec") == true
                 if (isExitRelatedError) return
             }
             
