@@ -13,7 +13,14 @@ data class M3U8Channel(
     val language: String = "",
     val logoUrl: String = "",
     val tvgId: String = "",
-    val epgTitle: String = ""
+    val epgTitle: String = "",
+    val epgPrograms: List<EpgProgram> = emptyList()
+)
+
+data class EpgProgram(
+    val title: String,
+    val startTime: Long,
+    val stopTime: Long
 )
 
 object M3U8Parser {
@@ -27,12 +34,13 @@ object M3U8Parser {
     }
     
     private var epgUrl: String? = null
-    private var epgData: Map<String, String> = emptyMap()
+    private var epgData: Map<String, List<EpgProgram>> = emptyMap()
     
     suspend fun parseM3U8(content: String): Result<List<M3U8Channel>> = withContext(Dispatchers.IO) {
         try {
             extractEpgUrl(content)
             loadEpgData()
+            val currentTime = System.currentTimeMillis()
             
             val channels = mutableListOf<M3U8Channel>()
             val lines = content.lineSequence()
@@ -61,7 +69,9 @@ object M3U8Parser {
                         trimmedLine.startsWith("rtsp") || trimmedLine.startsWith("udp")) {
                         val name = currentName.ifEmpty { "Channel ${channels.size + 1}" }
                         val finalId = "${trimmedLine.hashCode()}_${channels.size}"
-                        val epgTitle = epgData[currentTvgId] ?: ""
+                        val programs = epgData[currentTvgId] ?: emptyList()
+                        val currentProgram = programs.find { currentTime in it.startTime..it.stopTime }
+                        val epgTitle = currentProgram?.title ?: ""
                         
                         channels.add(
                             M3U8Channel(
@@ -73,7 +83,8 @@ object M3U8Parser {
                                 language = currentLanguage,
                                 logoUrl = currentLogoUrl,
                                 tvgId = currentTvgId,
-                                epgTitle = epgTitle
+                                epgTitle = epgTitle,
+                                epgPrograms = programs
                             )
                         )
                     }
@@ -116,9 +127,12 @@ object M3U8Parser {
             }
             
             loadEpgData()
+            val currentTime = System.currentTimeMillis()
             val updatedChannels = result.channels.map { channel ->
-                val epgTitle = epgData[channel.tvgId] ?: ""
-                channel.copy(epgTitle = epgTitle)
+                val programs = epgData[channel.tvgId] ?: emptyList()
+                val currentProgram = programs.find { currentTime in it.startTime..it.stopTime }
+                val epgTitle = currentProgram?.title ?: ""
+                channel.copy(epgTitle = epgTitle, epgPrograms = programs)
             }
             Result.Success(updatedChannels)
         } catch (e: Exception) {
@@ -139,8 +153,12 @@ object M3U8Parser {
                     }
                     
                     loadEpgData()
+                    val currentTime = System.currentTimeMillis()
                     val updatedChannels = result.channels.map { channel ->
-                        channel.copy(epgTitle = epgData[channel.tvgId] ?: "")
+                        val programs = epgData[channel.tvgId] ?: emptyList()
+                        val currentProgram = programs.find { currentTime in it.startTime..it.stopTime }
+                        val epgTitle = currentProgram?.title ?: ""
+                        channel.copy(epgTitle = epgTitle, epgPrograms = programs)
                     }
                     Result.Success(updatedChannels)
                 } catch (fallbackException: Exception) {
@@ -298,8 +316,8 @@ object M3U8Parser {
         }
     }
     
-    private fun parseEpgXml(xml: String): Map<String, String> {
-        val result = mutableMapOf<String, String>()
+    private fun parseEpgXml(xml: String): Map<String, List<EpgProgram>> {
+        val result = mutableMapOf<String, MutableList<EpgProgram>>()
         val currentTime = System.currentTimeMillis()
         
         val programmeRegex = Regex("""<programme\s+start="([^"]+)"\s+stop="([^"]+)"\s+channel="([^"]+)"[^>]*>(.*?)</programme>""", RegexOption.DOT_MATCHES_ALL)
@@ -316,7 +334,7 @@ object M3U8Parser {
             val startTime = parseEpgTime(startTimeStr)
             val stopTime = parseEpgTime(stopTimeStr)
             
-            if (currentTime in startTime..stopTime) {
+            if (stopTime > currentTime) {
                 val titleMatch = titleRegex.find(content)
                 if (titleMatch != null) {
                     val title = titleMatch.groupValues[1]
@@ -325,10 +343,14 @@ object M3U8Parser {
                         .replace("&gt;", ">")
                         .replace("&quot;", "\"")
                         .replace("&apos;", "'")
-                    result[channelId] = title
+                    val program = EpgProgram(title, startTime, stopTime)
+                    val list = result.getOrPut(channelId) { mutableListOf() }
+                    list.add(program)
                 }
             }
         }
+        
+        result.values.forEach { it.sortBy { p -> p.startTime } }
         
         return result
     }
