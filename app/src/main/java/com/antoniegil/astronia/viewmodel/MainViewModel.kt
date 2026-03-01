@@ -14,10 +14,18 @@ data class PlaybackState(
     val initialChannelId: String? = null
 )
 
+data class ChannelEditState(
+    val historyItem: HistoryItem? = null,
+    val channels: List<com.antoniegil.astronia.util.M3U8Channel> = emptyList()
+)
+
 class MainViewModel(application: Application) : AndroidViewModel(application) {
     
     private val _playbackState = MutableStateFlow(PlaybackState())
     val playbackState: StateFlow<PlaybackState> = _playbackState.asStateFlow()
+    
+    private val _channelEditState = MutableStateFlow(ChannelEditState())
+    val channelEditState: StateFlow<ChannelEditState> = _channelEditState.asStateFlow()
     
     fun startPlayback(
         url: String,
@@ -44,5 +52,13 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     
     fun stopPlayback() {
         _playbackState.value = PlaybackState()
+    }
+    
+    fun startChannelEdit(historyItem: HistoryItem, channels: List<com.antoniegil.astronia.util.M3U8Channel>) {
+        _channelEditState.value = ChannelEditState(historyItem = historyItem, channels = channels)
+    }
+    
+    fun stopChannelEdit() {
+        _channelEditState.value = ChannelEditState()
     }
 }

@@ -151,142 +151,163 @@ fun MainScreen(
 
     val shouldShowPlayer = playbackState.playingUrl != null
 
-    if (shouldShowPlayer) {
-        key(playbackState.playingUrl) {
-            PlayerPage(
-                url = playbackState.playingUrl!!,
-                initialChannelUrl = playbackState.initialChannelUrl,
-                initialVideoTitle = playbackState.initialVideoTitle,
-                initialChannelId = playbackState.initialChannelId,
-                onBack = { viewModel.stopPlayback() }
-            )
-        }
-    } else {
-        Box(modifier = Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background)) {
-            NavHost(
-                modifier = Modifier.fillMaxSize(),
-                navController = navController,
-                startDestination = Route.HOME
-            ) {
-                animatedComposable(Route.HOME) {
-                    HomePage(
-                        onNavigateToSettings = {
-                            navController.navigate(Route.SETTINGS) {
-                                launchSingleTop = true
-                                popUpTo(Route.HOME)
-                            }
-                        },
-                        onNavigateToHistory = {
-                            navController.navigate(Route.HISTORY) {
-                                launchSingleTop = true
-                                popUpTo(Route.HOME)
-                            }
-                        },
-                        onPlayUrl = { url -> viewModel.startPlayback(url) },
-                        onPlayHistoryItem = { historyItem ->
-                            viewModel.startPlaybackFromHistory(historyItem)
+    Box(modifier = Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background)) {
+        NavHost(
+            modifier = Modifier.fillMaxSize(),
+            navController = navController,
+            startDestination = Route.HOME
+        ) {
+            animatedComposable(Route.HOME) {
+                HomePage(
+                    onNavigateToSettings = {
+                        navController.navigate(Route.SETTINGS) {
+                            launchSingleTop = true
+                            popUpTo(Route.HOME)
                         }
-                    )
-                }
-                animatedComposable(Route.HISTORY) {
-                    var editingItem by remember { mutableStateOf<com.antoniegil.astronia.util.HistoryItem?>(null) }
-                    var editingChannels by remember { mutableStateOf<List<com.antoniegil.astronia.util.M3U8Channel>>(emptyList()) }
-                    val scope = rememberCoroutineScope()
-                    val context = LocalContext.current
-                    
-                    if (editingItem == null) {
-                        HistoryPage(
-                            onBack = onNavigateBack,
-                            onPlay = { historyItem ->
-                                viewModel.startPlaybackFromHistory(historyItem)
-                            },
-                            onEdit = { historyItem ->
-                                editingItem = historyItem
-                                editingChannels = emptyList()
-                                scope.launch(Dispatchers.IO) {
-                                    val repository = com.antoniegil.astronia.data.repository.PlayerRepository(context)
-                                    when {
-                                        historyItem.url.startsWith("http") || historyItem.url.startsWith("https") -> {
-                                            val result = repository.parseM3U8FromUrl(historyItem.url)
-                                            if (result is com.antoniegil.astronia.util.Result.Success) {
-                                                editingChannels = result.data
-                                            }
-                                        }
-                                        historyItem.url.startsWith("file://") || historyItem.url.startsWith("content://") -> {
-                                            val uri = historyItem.url.toUri()
-                                            context.contentResolver.openInputStream(uri)?.use { inputStream ->
-                                                val content = inputStream.bufferedReader().readText()
-                                                val result = repository.parseM3U8FromContent(content)
-                                                if (result is com.antoniegil.astronia.util.Result.Success) {
-                                                    editingChannels = result.data
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        )
-                    } else {
-                        ChannelEditPage(
-                            historyItem = editingItem!!,
-                            channels = editingChannels,
+                    },
+                    onNavigateToHistory = {
+                        navController.navigate(Route.HISTORY) {
+                            launchSingleTop = true
+                            popUpTo(Route.HOME)
+                        }
+                    },
+                    onPlayUrl = { url ->
+                        viewModel.startPlayback(url)
+                        navController.navigate(Route.PLAYER) {
+                            launchSingleTop = true
+                        }
+                    },
+                    onPlayHistoryItem = { historyItem ->
+                        viewModel.startPlaybackFromHistory(historyItem)
+                        navController.navigate(Route.PLAYER) {
+                            launchSingleTop = true
+                        }
+                    }
+                )
+            }
+            
+            animatedComposable(Route.PLAYER) {
+                val url = playbackState.playingUrl
+                if (url != null) {
+                    key(url) {
+                        PlayerPage(
+                            url = url,
+                            initialChannelUrl = playbackState.initialChannelUrl,
+                            initialVideoTitle = playbackState.initialVideoTitle,
+                            initialChannelId = playbackState.initialChannelId,
                             onBack = {
-                                editingItem = null
-                                editingChannels = emptyList()
+                                viewModel.stopPlayback()
+                                onNavigateBack()
                             }
                         )
                     }
                 }
-                
-                animatedComposable(Route.SETTINGS) {
-                    SettingsPage(
-                        onNavigateBack = onNavigateBack,
-                        onNavigateToPlayer = { navController.navigate(Route.PLAYER_SETTINGS) { launchSingleTop = true } },
-                        onNavigateToVideo = { navController.navigate(Route.VIDEO_SETTINGS) { launchSingleTop = true } },
-                        onNavigateToAppearance = { navController.navigate(Route.APPEARANCE) { launchSingleTop = true } },
-                        onNavigateToDataManagement = { navController.navigate(Route.DATA_MANAGEMENT) { launchSingleTop = true } },
-                        onNavigateToProxy = { navController.navigate(Route.NETWORK) { launchSingleTop = true } },
-                        onNavigateToAbout = { navController.navigate(Route.ABOUT) { launchSingleTop = true } }
+            }
+            
+            animatedComposable(Route.HISTORY) {
+                HistoryPage(
+                    onBack = onNavigateBack,
+                    onPlay = { historyItem ->
+                        viewModel.startPlaybackFromHistory(historyItem)
+                        navController.navigate(Route.PLAYER) {
+                            launchSingleTop = true
+                        }
+                    },
+                    onEdit = { historyItem ->
+                        navController.navigate(Route.CHANNEL_EDIT) {
+                            launchSingleTop = true
+                        }
+                        scope.launch(Dispatchers.IO) {
+                            val repository = com.antoniegil.astronia.data.repository.PlayerRepository(context)
+                            var channels = emptyList<com.antoniegil.astronia.util.M3U8Channel>()
+                            when {
+                                historyItem.url.startsWith("http") || historyItem.url.startsWith("https") -> {
+                                    val result = repository.parseM3U8FromUrl(historyItem.url)
+                                    if (result is com.antoniegil.astronia.util.Result.Success) {
+                                        channels = result.data
+                                    }
+                                }
+                                historyItem.url.startsWith("file://") || historyItem.url.startsWith("content://") -> {
+                                    val uri = historyItem.url.toUri()
+                                    context.contentResolver.openInputStream(uri)?.use { inputStream ->
+                                        val content = inputStream.bufferedReader().readText()
+                                        val result = repository.parseM3U8FromContent(content)
+                                        if (result is com.antoniegil.astronia.util.Result.Success) {
+                                            channels = result.data
+                                        }
+                                    }
+                                }
+                            }
+                            kotlinx.coroutines.withContext(Dispatchers.Main) {
+                                viewModel.startChannelEdit(historyItem, channels)
+                            }
+                        }
+                    }
+                )
+            }
+            
+            animatedComposable(Route.CHANNEL_EDIT) {
+                val editState by viewModel.channelEditState.collectAsState()
+                if (editState.historyItem != null) {
+                    ChannelEditPage(
+                        historyItem = editState.historyItem!!,
+                        channels = editState.channels,
+                        onBack = {
+                            viewModel.stopChannelEdit()
+                            onNavigateBack()
+                        }
                     )
                 }
-                animatedComposable(Route.PLAYER_SETTINGS) {
-                    PlayerSettingsPage(onNavigateBack = onNavigateBack)
-                }
-                animatedComposable(Route.VIDEO_SETTINGS) {
-                    VideoSettingsPage(onNavigateBack = onNavigateBack)
-                }
-                animatedComposable(Route.APPEARANCE) {
-                    AppearancePage(
-                        onNavigateBack = onNavigateBack,
-                        onNavigateToDarkTheme = { navController.navigate(Route.DARK_THEME) { launchSingleTop = true } },
-                        onNavigateToLanguage = { navController.navigate(Route.LANGUAGE) { launchSingleTop = true } }
-                    )
-                }
-                animatedComposable(Route.DARK_THEME) {
-                    DarkThemePage(onNavigateBack = onNavigateBack)
-                }
-                animatedComposable(Route.LANGUAGE) {
-                    LanguagePage(onNavigateBack = onNavigateBack)
-                }
-                animatedComposable(Route.DATA_MANAGEMENT) {
-                    DataManagementPage(onNavigateBack = onNavigateBack)
-                }
-                animatedComposable(Route.NETWORK) {
-                    NetworkPage(onNavigateBack = onNavigateBack)
-                }
-                animatedComposable(Route.ABOUT) {
-                    AboutPage(
-                        onNavigateBack = onNavigateBack,
-                        onNavigateToLicense = { navController.navigate(Route.LICENSE) { launchSingleTop = true } },
-                        onNavigateToUpdate = { navController.navigate(Route.UPDATE) { launchSingleTop = true } }
-                    )
-                }
-                animatedComposable(Route.LICENSE) {
-                    LicensePage(onNavigateBack = onNavigateBack)
-                }
-                animatedComposable(Route.UPDATE) {
-                    UpdatePage(onNavigateBack = onNavigateBack)
-                }
+            }
+            
+            animatedComposable(Route.SETTINGS) {
+                SettingsPage(
+                    onNavigateBack = onNavigateBack,
+                    onNavigateToPlayer = { navController.navigate(Route.PLAYER_SETTINGS) { launchSingleTop = true } },
+                    onNavigateToVideo = { navController.navigate(Route.VIDEO_SETTINGS) { launchSingleTop = true } },
+                    onNavigateToAppearance = { navController.navigate(Route.APPEARANCE) { launchSingleTop = true } },
+                    onNavigateToDataManagement = { navController.navigate(Route.DATA_MANAGEMENT) { launchSingleTop = true } },
+                    onNavigateToProxy = { navController.navigate(Route.NETWORK) { launchSingleTop = true } },
+                    onNavigateToAbout = { navController.navigate(Route.ABOUT) { launchSingleTop = true } }
+                )
+            }
+            animatedComposable(Route.PLAYER_SETTINGS) {
+                PlayerSettingsPage(onNavigateBack = onNavigateBack)
+            }
+            animatedComposable(Route.VIDEO_SETTINGS) {
+                VideoSettingsPage(onNavigateBack = onNavigateBack)
+            }
+            animatedComposable(Route.APPEARANCE) {
+                AppearancePage(
+                    onNavigateBack = onNavigateBack,
+                    onNavigateToDarkTheme = { navController.navigate(Route.DARK_THEME) { launchSingleTop = true } },
+                    onNavigateToLanguage = { navController.navigate(Route.LANGUAGE) { launchSingleTop = true } }
+                )
+            }
+            animatedComposable(Route.DARK_THEME) {
+                DarkThemePage(onNavigateBack = onNavigateBack)
+            }
+            animatedComposable(Route.LANGUAGE) {
+                LanguagePage(onNavigateBack = onNavigateBack)
+            }
+            animatedComposable(Route.DATA_MANAGEMENT) {
+                DataManagementPage(onNavigateBack = onNavigateBack)
+            }
+            animatedComposable(Route.NETWORK) {
+                NetworkPage(onNavigateBack = onNavigateBack)
+            }
+            animatedComposable(Route.ABOUT) {
+                AboutPage(
+                    onNavigateBack = onNavigateBack,
+                    onNavigateToLicense = { navController.navigate(Route.LICENSE) { launchSingleTop = true } },
+                    onNavigateToUpdate = { navController.navigate(Route.UPDATE) { launchSingleTop = true } }
+                )
+            }
+            animatedComposable(Route.LICENSE) {
+                LicensePage(onNavigateBack = onNavigateBack)
+            }
+            animatedComposable(Route.UPDATE) {
+                UpdatePage(onNavigateBack = onNavigateBack)
             }
         }
     }
