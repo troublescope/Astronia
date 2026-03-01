@@ -96,7 +96,7 @@ fun ChannelEditPage(
     var showMenu by remember { mutableStateOf(false) }
     var searchQuery by remember { mutableStateOf("") }
     var isSearching by remember { mutableStateOf(false) }
-    var isLoading by remember { mutableStateOf(channels.isEmpty()) }
+    var isLoading by remember { mutableStateOf(true) }
     var hasChanges by remember { mutableStateOf(false) }
     var showExitDialog by remember { mutableStateOf(false) }
     val scope = rememberCoroutineScope()

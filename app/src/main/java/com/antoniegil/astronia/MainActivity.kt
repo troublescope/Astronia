@@ -26,7 +26,6 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
-import com.antoniegil.astronia.viewmodel.MainViewModel
 import com.antoniegil.astronia.ui.common.Route
 import com.antoniegil.astronia.ui.common.animatedComposable
 import com.antoniegil.astronia.ui.page.*
@@ -41,58 +40,51 @@ import com.antoniegil.astronia.ui.theme.SettingsProvider
 import com.antoniegil.astronia.util.LanguageContextWrapper
 import com.antoniegil.astronia.util.SettingsManager
 import com.antoniegil.astronia.util.UpdateUtil
+import com.antoniegil.astronia.viewmodel.MainViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        
+
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
             val locale = SettingsManager.getLocaleFromPreference(this)
             com.antoniegil.astronia.util.setLanguage(locale)
         }
-        
+
         enableEdgeToEdge()
         setContent {
             val context = LocalContext.current
-            
-            LaunchedEffect(Unit) {
-                SettingsManager.initializeThemeSettings(context)
-            }
-            
+
+            LaunchedEffect(Unit) { SettingsManager.initializeThemeSettings(context) }
+
             val pendingNav = remember { SettingsManager.getPendingNavigation(context) }
-            
+
             LaunchedEffect(Unit) {
                 if (pendingNav.isNotEmpty()) {
                     SettingsManager.clearPendingNavigation(context)
                 }
             }
-            
-            SettingsProvider {
-                MainScreen(
-                    initialNavigation = pendingNav
-                )
-            }
+
+            SettingsProvider { MainScreen(initialNavigation = pendingNav) }
         }
     }
-    
+
     override fun attachBaseContext(newBase: Context?) {
-        val wrappedContext = if (newBase != null && Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
-            val locale = SettingsManager.getLocaleFromPreference(newBase)
-            LanguageContextWrapper.wrap(newBase, locale)
-        } else {
-            newBase
-        }
+        val wrappedContext =
+                if (newBase != null && Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
+                    val locale = SettingsManager.getLocaleFromPreference(newBase)
+                    LanguageContextWrapper.wrap(newBase, locale)
+                } else {
+                    newBase
+                }
         super.attachBaseContext(wrappedContext)
     }
 }
 
 @Composable
-fun MainScreen(
-    initialNavigation: String = "",
-    viewModel: MainViewModel = viewModel()
-) {
+fun MainScreen(initialNavigation: String = "", viewModel: MainViewModel = viewModel()) {
     val playbackState by viewModel.playbackState.collectAsState()
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
@@ -100,13 +92,15 @@ fun MainScreen(
     var latestRelease by remember { mutableStateOf(UpdateUtil.LatestRelease()) }
 
     val navController = rememberNavController()
-    
+
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
         val notificationPermission = android.Manifest.permission.POST_NOTIFICATIONS
-        val permissionLauncher = androidx.activity.compose.rememberLauncherForActivityResult(
-            androidx.activity.result.contract.ActivityResultContracts.RequestPermission()
-        ) { }
-        
+        val permissionLauncher =
+                androidx.activity.compose.rememberLauncherForActivityResult(
+                        androidx.activity.result.contract.ActivityResultContracts
+                                .RequestPermission()
+                ) {}
+
         LaunchedEffect(Unit) {
             val mmkv = com.tencent.mmkv.MMKV.defaultMMKV()
             val hasRequested = mmkv.decodeBool("notification_permission_requested", false)
@@ -116,7 +110,7 @@ fun MainScreen(
             }
         }
     }
-    
+
     LaunchedEffect(Unit) {
         if (SettingsManager.getAutoUpdate(context)) {
             scope.launch(Dispatchers.IO) {
@@ -129,7 +123,7 @@ fun MainScreen(
             }
         }
     }
-    
+
     LaunchedEffect(initialNavigation) {
         if (initialNavigation.isNotEmpty()) {
             when (initialNavigation) {
@@ -153,122 +147,155 @@ fun MainScreen(
 
     Box(modifier = Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background)) {
         NavHost(
-            modifier = Modifier.fillMaxSize(),
-            navController = navController,
-            startDestination = Route.HOME
+                modifier = Modifier.fillMaxSize(),
+                navController = navController,
+                startDestination = Route.HOME
         ) {
             animatedComposable(Route.HOME) {
                 HomePage(
-                    onNavigateToSettings = {
-                        navController.navigate(Route.SETTINGS) {
-                            launchSingleTop = true
-                            popUpTo(Route.HOME)
+                        onNavigateToSettings = {
+                            navController.navigate(Route.SETTINGS) {
+                                launchSingleTop = true
+                                popUpTo(Route.HOME)
+                            }
+                        },
+                        onNavigateToHistory = {
+                            navController.navigate(Route.HISTORY) {
+                                launchSingleTop = true
+                                popUpTo(Route.HOME)
+                            }
+                        },
+                        onPlayUrl = { url ->
+                            viewModel.startPlayback(url)
+                            navController.navigate(Route.PLAYER) { launchSingleTop = true }
+                        },
+                        onPlayHistoryItem = { historyItem ->
+                            viewModel.startPlaybackFromHistory(historyItem)
+                            navController.navigate(Route.PLAYER) { launchSingleTop = true }
                         }
-                    },
-                    onNavigateToHistory = {
-                        navController.navigate(Route.HISTORY) {
-                            launchSingleTop = true
-                            popUpTo(Route.HOME)
-                        }
-                    },
-                    onPlayUrl = { url ->
-                        viewModel.startPlayback(url)
-                        navController.navigate(Route.PLAYER) {
-                            launchSingleTop = true
-                        }
-                    },
-                    onPlayHistoryItem = { historyItem ->
-                        viewModel.startPlaybackFromHistory(historyItem)
-                        navController.navigate(Route.PLAYER) {
-                            launchSingleTop = true
-                        }
-                    }
                 )
             }
-            
+
             animatedComposable(Route.PLAYER) {
                 val url = playbackState.playingUrl
+                val displayUrl = remember { mutableStateOf(url) }
+                val displayChannelUrl = remember { mutableStateOf(playbackState.initialChannelUrl) }
+                val displayVideoTitle = remember { mutableStateOf(playbackState.initialVideoTitle) }
+                val displayChannelId = remember { mutableStateOf(playbackState.initialChannelId) }
+
                 if (url != null) {
-                    key(url) {
+                    displayUrl.value = url
+                    displayChannelUrl.value = playbackState.initialChannelUrl
+                    displayVideoTitle.value = playbackState.initialVideoTitle
+                    displayChannelId.value = playbackState.initialChannelId
+                }
+
+                if (displayUrl.value != null) {
+                    key(displayUrl.value) {
                         PlayerPage(
-                            url = url,
-                            initialChannelUrl = playbackState.initialChannelUrl,
-                            initialVideoTitle = playbackState.initialVideoTitle,
-                            initialChannelId = playbackState.initialChannelId,
-                            onBack = {
-                                viewModel.stopPlayback()
-                                onNavigateBack()
-                            }
+                                url = displayUrl.value!!,
+                                initialChannelUrl = displayChannelUrl.value,
+                                initialVideoTitle = displayVideoTitle.value,
+                                initialChannelId = displayChannelId.value,
+                                onBack = {
+                                    onNavigateBack()
+                                    viewModel.stopPlayback()
+                                }
                         )
                     }
                 }
             }
-            
+
             animatedComposable(Route.HISTORY) {
                 HistoryPage(
-                    onBack = onNavigateBack,
-                    onPlay = { historyItem ->
-                        viewModel.startPlaybackFromHistory(historyItem)
-                        navController.navigate(Route.PLAYER) {
-                            launchSingleTop = true
-                        }
-                    },
-                    onEdit = { historyItem ->
-                        navController.navigate(Route.CHANNEL_EDIT) {
-                            launchSingleTop = true
-                        }
-                        scope.launch(Dispatchers.IO) {
-                            val repository = com.antoniegil.astronia.data.repository.PlayerRepository(context)
-                            var channels = emptyList<com.antoniegil.astronia.util.M3U8Channel>()
-                            when {
-                                historyItem.url.startsWith("http") || historyItem.url.startsWith("https") -> {
-                                    val result = repository.parseM3U8FromUrl(historyItem.url)
-                                    if (result is com.antoniegil.astronia.util.Result.Success) {
-                                        channels = result.data
-                                    }
-                                }
-                                historyItem.url.startsWith("file://") || historyItem.url.startsWith("content://") -> {
-                                    val uri = historyItem.url.toUri()
-                                    context.contentResolver.openInputStream(uri)?.use { inputStream ->
-                                        val content = inputStream.bufferedReader().readText()
-                                        val result = repository.parseM3U8FromContent(content)
+                        onBack = onNavigateBack,
+                        onPlay = { historyItem ->
+                            viewModel.startPlaybackFromHistory(historyItem)
+                            navController.navigate(Route.PLAYER) { launchSingleTop = true }
+                        },
+                        onEdit = { historyItem ->
+                            viewModel.startChannelEdit(historyItem, emptyList())
+                            navController.navigate(Route.CHANNEL_EDIT) { launchSingleTop = true }
+                            scope.launch(Dispatchers.IO) {
+                                val repository =
+                                        com.antoniegil.astronia.data.repository.PlayerRepository(
+                                                context
+                                        )
+                                var channels = emptyList<com.antoniegil.astronia.util.M3U8Channel>()
+                                when {
+                                    historyItem.url.startsWith("http") ||
+                                            historyItem.url.startsWith("https") -> {
+                                        val result = repository.parseM3U8FromUrl(historyItem.url)
                                         if (result is com.antoniegil.astronia.util.Result.Success) {
                                             channels = result.data
                                         }
                                     }
+                                    historyItem.url.startsWith("file://") ||
+                                            historyItem.url.startsWith("content://") -> {
+                                        val uri = historyItem.url.toUri()
+                                        context.contentResolver.openInputStream(uri)?.use {
+                                                inputStream ->
+                                            val content = inputStream.bufferedReader().readText()
+                                            val result = repository.parseM3U8FromContent(content)
+                                            if (result is
+                                                            com.antoniegil.astronia.util.Result.Success
+                                            ) {
+                                                channels = result.data
+                                            }
+                                        }
+                                    }
+                                }
+                                kotlinx.coroutines.withContext(Dispatchers.Main) {
+                                    viewModel.updateChannels(channels)
                                 }
                             }
-                            kotlinx.coroutines.withContext(Dispatchers.Main) {
-                                viewModel.startChannelEdit(historyItem, channels)
-                            }
                         }
-                    }
                 )
             }
-            
+
             animatedComposable(Route.CHANNEL_EDIT) {
                 val editState by viewModel.channelEditState.collectAsState()
+                val displayItem = remember { mutableStateOf(editState.historyItem) }
+                val displayChannels = remember { mutableStateOf(editState.channels) }
+
                 if (editState.historyItem != null) {
+                    displayItem.value = editState.historyItem
+                    displayChannels.value = editState.channels
+                }
+
+                if (displayItem.value != null) {
                     ChannelEditPage(
-                        historyItem = editState.historyItem!!,
-                        channels = editState.channels,
-                        onBack = {
-                            viewModel.stopChannelEdit()
-                            onNavigateBack()
-                        }
+                            historyItem = displayItem.value!!,
+                            channels = displayChannels.value,
+                            onBack = {
+                                onNavigateBack()
+                                viewModel.stopChannelEdit()
+                            }
                     )
                 }
             }
-            
+
             animatedComposable(Route.SETTINGS) {
                 SettingsPage(
-                    onNavigateBack = onNavigateBack,
-                    onNavigateToPlayer = { navController.navigate(Route.PLAYER_SETTINGS) { launchSingleTop = true } },
-                    onNavigateToVideo = { navController.navigate(Route.VIDEO_SETTINGS) { launchSingleTop = true } },
-                    onNavigateToAppearance = { navController.navigate(Route.APPEARANCE) { launchSingleTop = true } },
-                    onNavigateToDataManagement = { navController.navigate(Route.DATA_MANAGEMENT) { launchSingleTop = true } },
-                    onNavigateToProxy = { navController.navigate(Route.NETWORK) { launchSingleTop = true } },
-                    onNavigateToAbout = { navController.navigate(Route.ABOUT) { launchSingleTop = true } }
+                        onNavigateBack = onNavigateBack,
+                        onNavigateToPlayer = {
+                            navController.navigate(Route.PLAYER_SETTINGS) { launchSingleTop = true }
+                        },
+                        onNavigateToVideo = {
+                            navController.navigate(Route.VIDEO_SETTINGS) { launchSingleTop = true }
+                        },
+                        onNavigateToAppearance = {
+                            navController.navigate(Route.APPEARANCE) { launchSingleTop = true }
+                        },
+                        onNavigateToDataManagement = {
+                            navController.navigate(Route.DATA_MANAGEMENT) { launchSingleTop = true }
+                        },
+                        onNavigateToProxy = {
+                            navController.navigate(Route.NETWORK) { launchSingleTop = true }
+                        },
+                        onNavigateToAbout = {
+                            navController.navigate(Route.ABOUT) { launchSingleTop = true }
+                        }
                 )
             }
             animatedComposable(Route.PLAYER_SETTINGS) {
@@ -279,43 +306,38 @@ fun MainScreen(
             }
             animatedComposable(Route.APPEARANCE) {
                 AppearancePage(
-                    onNavigateBack = onNavigateBack,
-                    onNavigateToDarkTheme = { navController.navigate(Route.DARK_THEME) { launchSingleTop = true } },
-                    onNavigateToLanguage = { navController.navigate(Route.LANGUAGE) { launchSingleTop = true } }
+                        onNavigateBack = onNavigateBack,
+                        onNavigateToDarkTheme = {
+                            navController.navigate(Route.DARK_THEME) { launchSingleTop = true }
+                        },
+                        onNavigateToLanguage = {
+                            navController.navigate(Route.LANGUAGE) { launchSingleTop = true }
+                        }
                 )
             }
-            animatedComposable(Route.DARK_THEME) {
-                DarkThemePage(onNavigateBack = onNavigateBack)
-            }
-            animatedComposable(Route.LANGUAGE) {
-                LanguagePage(onNavigateBack = onNavigateBack)
-            }
+            animatedComposable(Route.DARK_THEME) { DarkThemePage(onNavigateBack = onNavigateBack) }
+            animatedComposable(Route.LANGUAGE) { LanguagePage(onNavigateBack = onNavigateBack) }
             animatedComposable(Route.DATA_MANAGEMENT) {
                 DataManagementPage(onNavigateBack = onNavigateBack)
             }
-            animatedComposable(Route.NETWORK) {
-                NetworkPage(onNavigateBack = onNavigateBack)
-            }
+            animatedComposable(Route.NETWORK) { NetworkPage(onNavigateBack = onNavigateBack) }
             animatedComposable(Route.ABOUT) {
                 AboutPage(
-                    onNavigateBack = onNavigateBack,
-                    onNavigateToLicense = { navController.navigate(Route.LICENSE) { launchSingleTop = true } },
-                    onNavigateToUpdate = { navController.navigate(Route.UPDATE) { launchSingleTop = true } }
+                        onNavigateBack = onNavigateBack,
+                        onNavigateToLicense = {
+                            navController.navigate(Route.LICENSE) { launchSingleTop = true }
+                        },
+                        onNavigateToUpdate = {
+                            navController.navigate(Route.UPDATE) { launchSingleTop = true }
+                        }
                 )
             }
-            animatedComposable(Route.LICENSE) {
-                LicensePage(onNavigateBack = onNavigateBack)
-            }
-            animatedComposable(Route.UPDATE) {
-                UpdatePage(onNavigateBack = onNavigateBack)
-            }
+            animatedComposable(Route.LICENSE) { LicensePage(onNavigateBack = onNavigateBack) }
+            animatedComposable(Route.UPDATE) { UpdatePage(onNavigateBack = onNavigateBack) }
         }
     }
-    
+
     if (showUpdateDialog) {
-        UpdateDialog(
-            onDismissRequest = { showUpdateDialog = false },
-            latestRelease = latestRelease
-        )
+        UpdateDialog(onDismissRequest = { showUpdateDialog = false }, latestRelease = latestRelease)
     }
 }

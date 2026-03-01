@@ -58,6 +58,10 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         _channelEditState.value = ChannelEditState(historyItem = historyItem, channels = channels)
     }
     
+    fun updateChannels(channels: List<com.antoniegil.astronia.util.M3U8Channel>) {
+        _channelEditState.value = _channelEditState.value.copy(channels = channels)
+    }
+    
     fun stopChannelEdit() {
         _channelEditState.value = ChannelEditState()
     }
