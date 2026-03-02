@@ -2,12 +2,14 @@ package com.antoniegil.astronia.ui.component
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.PlayArrow
@@ -20,6 +22,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clipToBounds
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
@@ -30,7 +33,6 @@ import com.antoniegil.astronia.util.M3U8Channel
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Date
-import java.util.Locale
 
 @Composable
 fun ChannelListSection(
@@ -290,7 +292,7 @@ fun ChannelItem(
                 modifier = Modifier
                     .fillMaxWidth()
                     .defaultMinSize(minHeight = 96.dp)
-                    .padding(horizontal = 16.dp, vertical = 12.dp),
+                    .padding(horizontal = 16.dp, vertical = 6.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Column(modifier = Modifier.weight(1f)) {
@@ -362,15 +364,12 @@ fun ChannelItem(
                 
                 if (upcomingPrograms.isNotEmpty()) {
                     val currentProgram = upcomingPrograms.first()
-                    HorizontalDivider(
-                        modifier = Modifier.padding(horizontal = 16.dp),
-                        color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.3f)
-                    )
                     Column(
                         modifier = Modifier
                             .fillMaxWidth()
                             .clickable { isEpgExpanded = !isEpgExpanded }
-                            .padding(horizontal = 16.dp, vertical = 4.dp)
+                            .padding(horizontal = 16.dp)
+                            .padding(top = 0.dp, bottom = 12.dp)
                     ) {
                         Row(
                             modifier = Modifier.fillMaxWidth(),
@@ -379,7 +378,7 @@ fun ChannelItem(
                         ) {
                             Text(
                                 text = currentProgram.title,
-                                style = MaterialTheme.typography.bodySmall,
+                                style = MaterialTheme.typography.bodyMedium,
                                 color = MaterialTheme.colorScheme.primary,
                                 maxLines = 1,
                                 overflow = TextOverflow.Ellipsis,
@@ -397,18 +396,47 @@ fun ChannelItem(
                             Column(
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                    .padding(top = 8.dp),
-                                verticalArrangement = Arrangement.spacedBy(6.dp)
+                                    .padding(top = 8.dp)
                             ) {
-                                val dateFormat = remember { SimpleDateFormat("HH:mm", Locale.getDefault()) }
-                                upcomingPrograms.take(10).forEach { program ->
+                                val locale = LocalConfiguration.current.locales[0]
+                                val dateFormat = remember(locale) { SimpleDateFormat("HH:mm", locale) }
+                                upcomingPrograms.take(10).forEachIndexed { index, program ->
                                     val startTimeStr = dateFormat.format(Date(program.startTime))
-                                    val stopTimeStr = dateFormat.format(Date(program.stopTime))
-                                    Text(
-                                        text = "${program.title} - $startTimeStr - $stopTimeStr",
-                                        style = MaterialTheme.typography.bodySmall,
-                                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                                    )
+                                    Row(
+                                        modifier = Modifier.fillMaxWidth(),
+                                        verticalAlignment = Alignment.CenterVertically
+                                    ) {
+                                        Column(
+                                            horizontalAlignment = Alignment.CenterHorizontally,
+                                            modifier = Modifier.padding(vertical = 6.dp)
+                                        ) {
+                                            Box(
+                                                modifier = Modifier
+                                                    .size(6.dp)
+                                                    .background(
+                                                        color = MaterialTheme.colorScheme.primary,
+                                                        shape = CircleShape
+                                                    )
+                                            )
+                                            if (index < upcomingPrograms.take(10).size - 1) {
+                                                Spacer(
+                                                    modifier = Modifier
+                                                        .width(1.dp)
+                                                        .height(24.dp)
+                                                        .background(MaterialTheme.colorScheme.primary.copy(alpha = 0.6f))
+                                                )
+                                            }
+                                        }
+                                        Text(
+                                            text = "$startTimeStr - ${program.title}",
+                                            style = MaterialTheme.typography.bodyMedium,
+                                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                            modifier = Modifier
+                                                .weight(1f)
+                                                .padding(start = 8.dp)
+                                                .padding(vertical = 6.dp)
+                                        )
+                                    }
                                 }
                             }
                         }

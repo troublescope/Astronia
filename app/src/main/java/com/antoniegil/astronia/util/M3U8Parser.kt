@@ -36,7 +36,6 @@ object M3U8Parser {
     
     private var epgUrl: String? = null
     private var epgData: Map<String, List<EpgProgram>> = emptyMap()
-    private var epgNameMap: Map<String, String> = emptyMap()
     
     suspend fun parseM3U8(content: String): Result<List<M3U8Channel>> = withContext(Dispatchers.IO) {
         try {
@@ -74,7 +73,7 @@ object M3U8Parser {
                         val name = currentName.ifEmpty { "Channel ${channels.size + 1}" }
                         val finalId = "${trimmedLine.hashCode()}_${channels.size}"
                         
-                        val epgChannelId = epgNameMap[currentTvgName] ?: currentTvgId
+                        val epgChannelId = currentTvgId
                         val programs = epgData[epgChannelId] ?: emptyList()
                         val currentProgram = programs.find { currentTime in it.startTime..it.stopTime }
                         val epgTitle = currentProgram?.title ?: ""
@@ -137,7 +136,7 @@ object M3U8Parser {
             loadEpgData()
             val currentTime = System.currentTimeMillis()
             val updatedChannels = result.channels.map { channel ->
-                val epgChannelId = epgNameMap[channel.tvgName] ?: channel.tvgId
+                val epgChannelId = channel.tvgId
                 val programs = epgData[epgChannelId] ?: emptyList()
                 val currentProgram = programs.find { currentTime in it.startTime..it.stopTime }
                 val epgTitle = currentProgram?.title ?: ""
@@ -164,7 +163,7 @@ object M3U8Parser {
                     loadEpgData()
                     val currentTime = System.currentTimeMillis()
                     val updatedChannels = result.channels.map { channel ->
-                        val epgChannelId = epgNameMap[channel.tvgName] ?: channel.tvgId
+                        val epgChannelId = channel.tvgId
                         val programs = epgData[epgChannelId] ?: emptyList()
                         val currentProgram = programs.find { currentTime in it.startTime..it.stopTime }
                         val epgTitle = currentProgram?.title ?: ""
@@ -336,25 +335,15 @@ object M3U8Parser {
                 
                 val xmlContent = response.body.string()
                 
-                val (data, nameMap) = parseEpgXml(xmlContent)
-                epgData = data
-                epgNameMap = nameMap
+                epgData = parseEpgXml(xmlContent)
             } catch (e: Exception) {
             }
         }
     }
     
-    private fun parseEpgXml(xml: String): Pair<Map<String, List<EpgProgram>>, Map<String, String>> {
+    private fun parseEpgXml(xml: String): Map<String, List<EpgProgram>> {
         val result = mutableMapOf<String, MutableList<EpgProgram>>()
-        val nameMap = mutableMapOf<String, String>()
         val currentTime = System.currentTimeMillis()
-        
-        val channelRegex = Regex("""<channel\s+id="([^"]+)"[^>]*>.*?<display-name[^>]*>([^<]+)</display-name>.*?</channel>""", RegexOption.DOT_MATCHES_ALL)
-        channelRegex.findAll(xml).forEach { match ->
-            val channelId = match.groupValues[1]
-            val displayName = match.groupValues[2]
-            nameMap[displayName] = channelId
-        }
         
         val programmeRegex = Regex("""<programme\s+start="([^"]+)"\s+stop="([^"]+)"\s+channel="([^"]+)"[^>]*>(.*?)</programme>""", RegexOption.DOT_MATCHES_ALL)
         val titleRegex = Regex("""<title[^>]*>([^<]+)</title>""")
@@ -386,7 +375,7 @@ object M3U8Parser {
         
         result.values.forEach { it.sortBy { p -> p.startTime } }
         
-        return Pair(result, nameMap)
+        return result
     }
     
     private fun parseEpgTime(timeStr: String): Long {
