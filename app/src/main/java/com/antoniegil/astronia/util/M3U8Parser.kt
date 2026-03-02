@@ -13,6 +13,7 @@ data class M3U8Channel(
     val language: String = "",
     val logoUrl: String = "",
     val tvgId: String = "",
+    val tvgName: String = "",
     val epgTitle: String = "",
     val epgPrograms: List<EpgProgram> = emptyList()
 )
@@ -35,6 +36,7 @@ object M3U8Parser {
     
     private var epgUrl: String? = null
     private var epgData: Map<String, List<EpgProgram>> = emptyMap()
+    private var epgNameMap: Map<String, String> = emptyMap()
     
     suspend fun parseM3U8(content: String): Result<List<M3U8Channel>> = withContext(Dispatchers.IO) {
         try {
@@ -51,6 +53,7 @@ object M3U8Parser {
             var currentLanguage = ""
             var currentLogoUrl = ""
             var currentTvgId = ""
+            var currentTvgName = ""
             
             for (line in lines) {
                 val trimmedLine = line.trim()
@@ -64,12 +67,15 @@ object M3U8Parser {
                     currentLanguage = extractLanguage(trimmedLine)
                     currentLogoUrl = extractLogoUrl(trimmedLine)
                     currentTvgId = extractTvgId(trimmedLine)
+                    currentTvgName = extractTvgName(trimmedLine)
                 } else if (!trimmedLine.startsWith("#")) {
                     if (trimmedLine.startsWith("http") || trimmedLine.startsWith("rtmp") || 
                         trimmedLine.startsWith("rtsp") || trimmedLine.startsWith("udp")) {
                         val name = currentName.ifEmpty { "Channel ${channels.size + 1}" }
                         val finalId = "${trimmedLine.hashCode()}_${channels.size}"
-                        val programs = epgData[currentTvgId] ?: emptyList()
+                        
+                        val epgChannelId = epgNameMap[currentTvgName] ?: currentTvgId
+                        val programs = epgData[epgChannelId] ?: emptyList()
                         val currentProgram = programs.find { currentTime in it.startTime..it.stopTime }
                         val epgTitle = currentProgram?.title ?: ""
                         
@@ -83,6 +89,7 @@ object M3U8Parser {
                                 language = currentLanguage,
                                 logoUrl = currentLogoUrl,
                                 tvgId = currentTvgId,
+                                tvgName = currentTvgName,
                                 epgTitle = epgTitle,
                                 epgPrograms = programs
                             )
@@ -94,6 +101,7 @@ object M3U8Parser {
                     currentLanguage = ""
                     currentLogoUrl = ""
                     currentTvgId = ""
+                    currentTvgName = ""
                 }
             }
             
@@ -129,7 +137,8 @@ object M3U8Parser {
             loadEpgData()
             val currentTime = System.currentTimeMillis()
             val updatedChannels = result.channels.map { channel ->
-                val programs = epgData[channel.tvgId] ?: emptyList()
+                val epgChannelId = epgNameMap[channel.tvgName] ?: channel.tvgId
+                val programs = epgData[epgChannelId] ?: emptyList()
                 val currentProgram = programs.find { currentTime in it.startTime..it.stopTime }
                 val epgTitle = currentProgram?.title ?: ""
                 channel.copy(epgTitle = epgTitle, epgPrograms = programs)
@@ -155,7 +164,8 @@ object M3U8Parser {
                     loadEpgData()
                     val currentTime = System.currentTimeMillis()
                     val updatedChannels = result.channels.map { channel ->
-                        val programs = epgData[channel.tvgId] ?: emptyList()
+                        val epgChannelId = epgNameMap[channel.tvgName] ?: channel.tvgId
+                        val programs = epgData[epgChannelId] ?: emptyList()
                         val currentProgram = programs.find { currentTime in it.startTime..it.stopTime }
                         val epgTitle = currentProgram?.title ?: ""
                         channel.copy(epgTitle = epgTitle, epgPrograms = programs)
@@ -193,6 +203,7 @@ object M3U8Parser {
         var currentLanguage = ""
         var currentLogoUrl = ""
         var currentTvgId = ""
+        var currentTvgName = ""
         var totalBytesRead = 0
         
         response.body.byteStream().bufferedReader().use { reader ->
@@ -216,6 +227,7 @@ object M3U8Parser {
                     currentLanguage = extractLanguage(trimmedLine)
                     currentLogoUrl = extractLogoUrl(trimmedLine)
                     currentTvgId = extractTvgId(trimmedLine)
+                    currentTvgName = extractTvgName(trimmedLine)
                 } else if (!trimmedLine.startsWith("#")) {
                     if (trimmedLine.startsWith("http") || trimmedLine.startsWith("rtmp") || 
                         trimmedLine.startsWith("rtsp") || trimmedLine.startsWith("udp")) {
@@ -232,6 +244,7 @@ object M3U8Parser {
                                 language = currentLanguage,
                                 logoUrl = currentLogoUrl,
                                 tvgId = currentTvgId,
+                                tvgName = currentTvgName,
                                 epgTitle = ""
                             )
                         )
@@ -242,6 +255,7 @@ object M3U8Parser {
                     currentLanguage = ""
                     currentLogoUrl = ""
                     currentTvgId = ""
+                    currentTvgName = ""
                 }
             }
         }
@@ -294,38 +308,58 @@ object M3U8Parser {
         return tvgIdMatch?.groupValues?.get(1) ?: ""
     }
     
+    private fun extractTvgName(line: String): String {
+        val tvgNameMatch = Regex("""tvg-name="([^"]+)"""").find(line)
+        return tvgNameMatch?.groupValues?.get(1) ?: ""
+    }
+    
     private fun extractEpgUrl(line: String) {
+        val xTvgUrlMatch = Regex("""x-tvg-url="([^"]+)"""").find(line)
         val urlTvgMatch = Regex("""url-tvg="([^"]+)"""").find(line)
-        if (urlTvgMatch != null) {
+        
+        if (xTvgUrlMatch != null) {
+            epgUrl = xTvgUrlMatch.groupValues[1]
+        } else if (urlTvgMatch != null) {
             epgUrl = urlTvgMatch.groupValues[1]
         }
     }
     
     private suspend fun loadEpgData() {
         val url = epgUrl ?: return
+        
         withContext(Dispatchers.IO) {
             try {
                 val request = Request.Builder().url(url).build()
                 val response = client.newCall(request).execute()
+                
                 if (!response.isSuccessful) return@withContext
                 
                 val xmlContent = response.body.string()
-                epgData = parseEpgXml(xmlContent)
+                
+                val (data, nameMap) = parseEpgXml(xmlContent)
+                epgData = data
+                epgNameMap = nameMap
             } catch (e: Exception) {
             }
         }
     }
     
-    private fun parseEpgXml(xml: String): Map<String, List<EpgProgram>> {
+    private fun parseEpgXml(xml: String): Pair<Map<String, List<EpgProgram>>, Map<String, String>> {
         val result = mutableMapOf<String, MutableList<EpgProgram>>()
+        val nameMap = mutableMapOf<String, String>()
         val currentTime = System.currentTimeMillis()
+        
+        val channelRegex = Regex("""<channel\s+id="([^"]+)"[^>]*>.*?<display-name[^>]*>([^<]+)</display-name>.*?</channel>""", RegexOption.DOT_MATCHES_ALL)
+        channelRegex.findAll(xml).forEach { match ->
+            val channelId = match.groupValues[1]
+            val displayName = match.groupValues[2]
+            nameMap[displayName] = channelId
+        }
         
         val programmeRegex = Regex("""<programme\s+start="([^"]+)"\s+stop="([^"]+)"\s+channel="([^"]+)"[^>]*>(.*?)</programme>""", RegexOption.DOT_MATCHES_ALL)
         val titleRegex = Regex("""<title[^>]*>([^<]+)</title>""")
         
-        var matchCount = 0
         programmeRegex.findAll(xml).forEach { match ->
-            matchCount++
             val startTimeStr = match.groupValues[1]
             val stopTimeStr = match.groupValues[2]
             val channelId = match.groupValues[3]
@@ -352,7 +386,7 @@ object M3U8Parser {
         
         result.values.forEach { it.sortBy { p -> p.startTime } }
         
-        return result
+        return Pair(result, nameMap)
     }
     
     private fun parseEpgTime(timeStr: String): Long {
