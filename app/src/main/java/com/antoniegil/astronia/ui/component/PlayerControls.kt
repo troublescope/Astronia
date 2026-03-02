@@ -57,7 +57,9 @@ fun PlayerControlsOverlay(
     onPlayPauseClick: () -> Unit,
     onBackClick: () -> Unit,
     onFullscreenClick: () -> Unit,
-    onSettingsClick: () -> Unit
+    onSettingsClick: () -> Unit,
+    isLocked: Boolean,
+    onLockChange: (Boolean) -> Unit
 ) {
     var currentPosition by remember { mutableLongStateOf(media3Player?.currentPosition ?: 0L) }
     var bufferedPosition by remember { mutableLongStateOf(media3Player?.bufferedPosition ?: 0L) }
@@ -111,112 +113,146 @@ fun PlayerControlsOverlay(
                 )
         )
         
-        IconButton(
-            onClick = onSettingsClick,
-            modifier = Modifier
-                .align(Alignment.TopEnd)
-                .padding(8.dp)
-        ) {
-            Icon(
-                imageVector = Icons.Default.Settings,
-                contentDescription = stringResource(R.string.player_settings),
-                tint = Color.White,
-                modifier = Modifier.size(26.dp)
-            )
+        if (isFullscreen) {
+            IconButton(
+                onClick = { onLockChange(!isLocked) },
+                modifier = Modifier
+                    .align(Alignment.TopEnd)
+                    .padding(8.dp)
+            ) {
+                Icon(
+                    imageVector = if (isLocked) Icons.Default.Lock else Icons.Default.LockOpen,
+                    contentDescription = null,
+                    tint = Color.White,
+                    modifier = Modifier.size(26.dp)
+                )
+            }
         }
         
-        IconButton(
-            onClick = onBackClick,
-            modifier = Modifier
-                .align(Alignment.TopStart)
-                .padding(8.dp)
-        ) {
-            Icon(
-                imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                contentDescription = stringResource(R.string.back),
-                tint = Color.White,
-                modifier = Modifier.size(28.dp)
-            )
-        }
-
-        Box(
-            modifier = Modifier
-                .align(Alignment.BottomCenter)
-                .fillMaxWidth()
-                .background(
-                    Brush.verticalGradient(
-                        colors = listOf(
-                            Color.Transparent,
-                            Color.Black.copy(alpha = 0.7f)
-                        )
+        if (!isLocked) {
+            if (isFullscreen) {
+                IconButton(
+                    onClick = onSettingsClick,
+                    modifier = Modifier
+                        .align(Alignment.TopEnd)
+                        .padding(top = 8.dp, end = 56.dp)
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Settings,
+                        contentDescription = stringResource(R.string.player_settings),
+                        tint = Color.White,
+                        modifier = Modifier.size(26.dp)
                     )
-                )
-        ) {
-            Column(
+                }
+            } else {
+                IconButton(
+                    onClick = onSettingsClick,
+                    modifier = Modifier
+                        .align(Alignment.TopEnd)
+                        .padding(8.dp)
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Settings,
+                        contentDescription = stringResource(R.string.player_settings),
+                        tint = Color.White,
+                        modifier = Modifier.size(26.dp)
+                    )
+                }
+            }
+            
+            IconButton(
+                onClick = onBackClick,
                 modifier = Modifier
+                    .align(Alignment.TopStart)
+                    .padding(8.dp)
+            ) {
+                Icon(
+                    imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                    contentDescription = stringResource(R.string.back),
+                    tint = Color.White,
+                    modifier = Modifier.size(28.dp)
+                )
+            }
+
+            Box(
+                modifier = Modifier
+                    .align(Alignment.BottomCenter)
                     .fillMaxWidth()
-                    .padding(horizontal = 8.dp, vertical = 8.dp)
-                ){
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically,
-                        modifier = Modifier.fillMaxWidth()
-                    ) {
-                    IconButton(onClick = onPlayPauseClick) {
-                        Icon(
-                            imageVector = if (isPlaying) Icons.Default.Pause else Icons.Default.PlayArrow,
-                            contentDescription = if (isPlaying) stringResource(R.string.paused) else stringResource(
-                                R.string.play
-                            ),
-                            tint = Color.White,
-                            modifier = Modifier.size(28.dp)
+                    .background(
+                        Brush.verticalGradient(
+                            colors = listOf(
+                                Color.Transparent,
+                                Color.Black.copy(alpha = 0.7f)
+                            )
                         )
-                    }
-
-                    Spacer(modifier = Modifier.width(8.dp))
-
-                    ProgressBar(
-                        modifier = Modifier.weight(1f),
-                        isBuffering = isBuffering,
-                        estimatedProgress = estimatedProgress
                     )
-
-                    Spacer(modifier = Modifier.width(8.dp))
-
-                    if (enablePip && Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                        IconButton(
-                            onClick = {
-                                activity?.let { act ->
-                                    if (act.packageManager.hasSystemFeature(PackageManager.FEATURE_PICTURE_IN_PICTURE)) {
-                                        val aspectRatio = Rational(16, 9)
-                                        val builder = PictureInPictureParams.Builder()
-                                            .setAspectRatio(aspectRatio)
-                                        act.enterPictureInPictureMode(builder.build())
-                                    }
-                                }
-                            },
-                            modifier = Modifier.offset(x = 2.dp)
+            ) {
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 8.dp, vertical = 8.dp)
+                    ){
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            modifier = Modifier.fillMaxWidth()
                         ) {
+                        IconButton(onClick = onPlayPauseClick) {
                             Icon(
-                                imageVector = Icons.Default.PictureInPicture,
-                                contentDescription = stringResource(R.string.pip),
+                                imageVector = if (isPlaying) Icons.Default.Pause else Icons.Default.PlayArrow,
+                                contentDescription = if (isPlaying) stringResource(R.string.paused) else stringResource(
+                                    R.string.play
+                                ),
                                 tint = Color.White,
-                                modifier = Modifier.size(22.dp)
+                                modifier = Modifier.size(28.dp)
                             )
                         }
-                    }
 
-                    IconButton(
-                        onClick = onFullscreenClick,
-                        modifier = Modifier.offset(x = if (enablePip && Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) (-2).dp else 0.dp)
-                    ) {
-                        Icon(
-                            imageVector = if (isFullscreen) Icons.Default.FullscreenExit else Icons.Default.Fullscreen,
-                            contentDescription = if (isFullscreen) stringResource(R.string.exit_fullscreen) else stringResource(
-                                R.string.fullscreen
-                            ),
-                            tint = Color.White,
-                            modifier = Modifier.size(28.dp)
+                        Spacer(modifier = Modifier.width(8.dp))
+
+                        ProgressBar(
+                            modifier = Modifier.weight(1f),
+                            isBuffering = isBuffering,
+                            estimatedProgress = estimatedProgress
                         )
+
+                        Spacer(modifier = Modifier.width(8.dp))
+
+                        if (enablePip && Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                            IconButton(
+                                onClick = {
+                                    activity?.let { act ->
+                                        if (act.packageManager.hasSystemFeature(PackageManager.FEATURE_PICTURE_IN_PICTURE)) {
+                                            val aspectRatio = Rational(16, 9)
+                                            val builder = PictureInPictureParams.Builder()
+                                                .setAspectRatio(aspectRatio)
+                                            act.enterPictureInPictureMode(builder.build())
+                                        }
+                                    }
+                                },
+                                modifier = Modifier.offset(x = 2.dp)
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Default.PictureInPicture,
+                                    contentDescription = stringResource(R.string.pip),
+                                    tint = Color.White,
+                                    modifier = Modifier.size(22.dp)
+                                )
+                            }
+                        }
+
+                        IconButton(
+                            onClick = onFullscreenClick,
+                            modifier = Modifier.offset(x = if (enablePip && Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) (-2).dp else 0.dp)
+                        ) {
+                            Icon(
+                                imageVector = if (isFullscreen) Icons.Default.FullscreenExit else Icons.Default.Fullscreen,
+                                contentDescription = if (isFullscreen) stringResource(R.string.exit_fullscreen) else stringResource(
+                                    R.string.fullscreen
+                                ),
+                                tint = Color.White,
+                                modifier = Modifier.size(28.dp)
+                            )
+                        }
                     }
                 }
             }

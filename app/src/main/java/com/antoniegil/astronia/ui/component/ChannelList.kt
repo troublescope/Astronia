@@ -275,6 +275,7 @@ fun ChannelItem(
     Card(
         modifier = Modifier
             .fillMaxWidth()
+            .defaultMinSize(minHeight = 96.dp)
             .clickable(onClick = onClick),
         colors = CardDefaults.cardColors(
             containerColor = if (isPlaying) 

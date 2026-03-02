@@ -45,7 +45,8 @@ data class PlayerUiState(
     val shouldScrollToChannel: Boolean = false,
     val isFullscreen: Boolean = false,
     val availableQualities: List<VideoQuality> = emptyList(),
-    val currentQuality: VideoQuality? = null
+    val currentQuality: VideoQuality? = null,
+    val isLocked: Boolean = false
 )
 
 data class PlayerProgressState(
@@ -264,6 +265,15 @@ class PlayerViewModel(application: Application) : AndroidViewModel(application) 
     
     fun hideControls() {
         _uiState.value = _uiState.value.copy(showControls = false)
+    }
+    
+    fun setLocked(locked: Boolean) {
+        _uiState.value = _uiState.value.copy(isLocked = locked)
+        if (locked) {
+            orientationHelper?.pause()
+        } else {
+            orientationHelper?.resume()
+        }
     }
     
     fun switchChannel(channel: M3U8Channel) {

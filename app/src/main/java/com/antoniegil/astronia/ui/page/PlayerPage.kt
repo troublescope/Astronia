@@ -421,7 +421,9 @@ private fun PlayerPageContent(
                                 onPlayPauseClick = onPlayPauseClick,
                                 onBackClick = onBackClick,
                                 onFullscreenClick = onFullscreenClick,
-                                onSettingsClick = onSettingsClick
+                                onSettingsClick = onSettingsClick,
+                                isLocked = uiState.isLocked,
+                                onLockChange = { viewModel.setLocked(it) }
                             )
                         }
 

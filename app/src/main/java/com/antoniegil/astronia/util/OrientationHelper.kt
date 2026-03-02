@@ -206,6 +206,14 @@ class OrientationHelper(
         isEnable = true
         orientationEventListener.enable()
     }
+    
+    fun pause() {
+        isPause = true
+    }
+    
+    fun resume() {
+        isPause = false
+    }
 
     fun release() {
         orientationEventListener.disable()
