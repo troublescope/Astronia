@@ -1,0 +1,5 @@
+Add support for EPG (Electronic Program Guide) in M3U8 files.
+Add support for locking the screen in full-screen mode.
+Remove the maximum display limit of 500 channels in "ChannelList".
+
+For full changelogs, please refer to GitHub

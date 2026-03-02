@@ -143,8 +143,6 @@ fun MainScreen(initialNavigation: String = "", viewModel: MainViewModel = viewMo
         }
     }
 
-    val shouldShowPlayer = playbackState.playingUrl != null
-
     Box(modifier = Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background)) {
         NavHost(
                 modifier = Modifier.fillMaxSize(),
