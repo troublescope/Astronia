@@ -1,0 +1,194 @@
+package com.antoniegil.astronia.ui.component
+
+import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Close
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
+import com.antoniegil.astronia.R
+import com.antoniegil.astronia.util.EpgProgram
+import java.text.SimpleDateFormat
+import java.util.*
+
+@Composable
+fun EpgSidebar(
+    visible: Boolean,
+    programs: List<EpgProgram>,
+    onDismiss: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Box(
+        modifier = modifier
+            .fillMaxHeight()
+            .width(320.dp)
+            .background(MaterialTheme.colorScheme.surface.copy(alpha = 0.95f))
+    ) {
+        Column(
+            modifier = Modifier.fillMaxSize()
+        ) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(start = 16.dp, top = 16.dp, end = 16.dp, bottom = 4.dp),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    text = stringResource(R.string.program_list),
+                    style = MaterialTheme.typography.titleMedium,
+                    color = MaterialTheme.colorScheme.onSurface,
+                    fontWeight = FontWeight.Bold
+                )
+                IconButton(onClick = onDismiss) {
+                    Icon(
+                        imageVector = Icons.Default.Close,
+                        contentDescription = stringResource(R.string.close),
+                        tint = MaterialTheme.colorScheme.onSurface
+                    )
+                }
+            }
+            
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp, vertical = 4.dp),
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                val locale = LocalConfiguration.current.locales[0]
+                val dateFormat = remember(locale) { SimpleDateFormat("MM/dd", locale) }
+                val availableDates = remember(programs) {
+                    programs.map { program ->
+                        dateFormat.format(Date(program.startTime))
+                    }.distinct().sorted()
+                }
+                
+                FilterChip(
+                    selected = true,
+                    onClick = { },
+                    label = { Text(stringResource(R.string.all)) }
+                )
+                
+                availableDates.forEach { date ->
+                    FilterChip(
+                        selected = false,
+                        onClick = { },
+                        label = { Text(date) }
+                    )
+                }
+            }
+            
+            EpgProgramList(
+                programs = programs,
+                modifier = Modifier.fillMaxSize()
+            )
+        }
+    }
+}
+
+@Composable
+private fun EpgProgramList(
+    programs: List<EpgProgram>,
+    modifier: Modifier = Modifier
+) {
+    val currentTime = System.currentTimeMillis()
+    val upcomingPrograms = remember(programs) {
+        programs.filter { it.stopTime > currentTime }.take(20)
+    }
+    
+    val locale = LocalConfiguration.current.locales[0]
+    val timeFormat = remember(locale) { SimpleDateFormat("HH:mm", locale) }
+    val dateFormat = remember(locale) { SimpleDateFormat("MM/dd", locale) }
+    
+    LazyColumn(
+        modifier = modifier.padding(horizontal = 16.dp),
+        verticalArrangement = Arrangement.spacedBy(0.dp),
+        contentPadding = PaddingValues(vertical = 4.dp)
+    ) {
+        items(upcomingPrograms.size) { index ->
+            val program = upcomingPrograms[index]
+            val startTime = Date(program.startTime)
+            val endTime = Date(program.stopTime)
+            val startTimeStr = timeFormat.format(startTime)
+            val endTimeStr = timeFormat.format(endTime)
+            val dateStr = dateFormat.format(startTime)
+            val programCount = upcomingPrograms.size
+            val lineColor = MaterialTheme.colorScheme.primary.copy(alpha = 0.6f)
+            val dotColor = MaterialTheme.colorScheme.primary
+            val isCurrentProgram = currentTime in program.startTime..program.stopTime
+            
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.Top
+            ) {
+                Box(
+                    modifier = Modifier
+                        .width(14.dp)
+                        .height(56.dp),
+                    contentAlignment = Alignment.TopCenter
+                ) {
+                    if (programCount > 1) {
+                        Canvas(
+                            modifier = Modifier.fillMaxSize()
+                        ) {
+                            val centerX = size.width / 2
+                            val dotY = 12.dp.toPx()
+                            
+                            if (index > 0) {
+                                drawLine(
+                                    color = lineColor,
+                                    start = androidx.compose.ui.geometry.Offset(centerX, 0f),
+                                    end = androidx.compose.ui.geometry.Offset(centerX, dotY),
+                                    strokeWidth = 1.dp.toPx()
+                                )
+                            }
+                            if (index < programCount - 1) {
+                                drawLine(
+                                    color = lineColor,
+                                    start = androidx.compose.ui.geometry.Offset(centerX, dotY),
+                                    end = androidx.compose.ui.geometry.Offset(centerX, size.height),
+                                    strokeWidth = 1.dp.toPx()
+                                )
+                            }
+                        }
+                    }
+                    Box(
+                        modifier = Modifier
+                            .padding(top = 9.dp)
+                            .size(6.dp)
+                            .background(
+                                color = if (isCurrentProgram) MaterialTheme.colorScheme.primary else dotColor,
+                                shape = CircleShape
+                            )
+                    )
+                }
+                Column(
+                    modifier = Modifier
+                        .weight(1f)
+                        .padding(start = 8.dp, top = 4.dp, bottom = 8.dp)
+                ) {
+                    Text(
+                        text = program.title,
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = if (isCurrentProgram) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface,
+                        fontWeight = if (isCurrentProgram) FontWeight.Bold else FontWeight.Normal
+                    )
+                    Text(
+                        text = "$dateStr $startTimeStr - $endTimeStr",
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                }
+            }
+        }
+    }
+}

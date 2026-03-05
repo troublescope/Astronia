@@ -46,6 +46,7 @@
     <string name="quality">Quality</string>
     <string name="auto">Auto</string>
     <string name="bitrate">Bitrate</string>
+    <string name="program_list">Program List</string>
 
     <string name="resolution">Resolution</string>
     <string name="frames">Frames (Dropped / Total)</string>

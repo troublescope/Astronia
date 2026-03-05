@@ -44,6 +44,7 @@
     <string name="quality">畫質</string>
     <string name="auto">自動</string>
     <string name="bitrate">位元率</string>
+    <string name="program_list">節目列表</string>
     
     <string name="resolution">解析度</string>
     <string name="frames">影格數（掉幀 / 總數）</string>

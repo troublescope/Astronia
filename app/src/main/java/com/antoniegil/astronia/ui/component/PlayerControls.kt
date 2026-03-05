@@ -59,7 +59,9 @@ fun PlayerControlsOverlay(
     onFullscreenClick: () -> Unit,
     onSettingsClick: () -> Unit,
     isLocked: Boolean,
-    onLockChange: (Boolean) -> Unit
+    onLockChange: (Boolean) -> Unit,
+    onEpgClick: () -> Unit = {},
+    hasEpgData: Boolean = false
 ) {
     var currentPosition by remember { mutableLongStateOf(media3Player?.currentPosition ?: 0L) }
     var bufferedPosition by remember { mutableLongStateOf(media3Player?.bufferedPosition ?: 0L) }
@@ -240,9 +242,25 @@ fun PlayerControlsOverlay(
                             }
                         }
 
+                        if (isFullscreen && enablePip && Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && hasEpgData) {
+                            IconButton(
+                                onClick = onEpgClick,
+                                modifier = Modifier.offset(x = (-2).dp)
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Default.List,
+                                    contentDescription = "EPG",
+                                    tint = Color.White,
+                                    modifier = Modifier.size(22.dp)
+                                )
+                            }
+                        }
+
                         IconButton(
                             onClick = onFullscreenClick,
-                            modifier = Modifier.offset(x = if (enablePip && Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) (-2).dp else 0.dp)
+                            modifier = Modifier.offset(x = if (enablePip && Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                                if (isFullscreen && hasEpgData) (-6).dp else (-2).dp
+                            } else 0.dp)
                         ) {
                             Icon(
                                 imageVector = if (isFullscreen) Icons.Default.FullscreenExit else Icons.Default.Fullscreen,

@@ -104,6 +104,7 @@ private fun PlayerPageContent(
     val isFullscreen = uiState.isFullscreen
     val listState = rememberLazyListState()
     var showPlayerSettings by remember { mutableStateOf(false) }
+    var showEpgSidebar by remember { mutableStateOf(false) }
     
     val gestureState = rememberGestureControlState(context, activity)
     
@@ -337,108 +338,133 @@ private fun PlayerPageContent(
                                 Modifier.aspectRatio(16f / 9f)
                             }
                         )
-                        .gestureControlModifier(
-                                context = context,
-                                activity = activity,
-                                gestureState = gestureState,
-                                onGestureStateChange = { gestureState.value = it }
-                            )
-                            .clickable(
-                                indication = null,
-                                interactionSource = remember { androidx.compose.foundation.interaction.MutableInteractionSource() }
-                            ) {
-                                viewModel.toggleControls()
-                            }
+                ) {
+                    Row(
+                        modifier = Modifier.fillMaxSize()
                     ) {
-                        if (uiState.currentChannelUrl.isNotEmpty() && isPlayerClean) {
-                            PlayerSurface(
-                                player = media3Player,
-                                aspectRatio = uiState.aspectRatio,
-                                mirrorFlip = uiState.mirrorFlip,
-                                isBackgroundRetained = true,
-                                onSurfaceReady = {
-                                    if (pendingAutoPlay && !media3Player.isPlaying) {
-                                        pendingAutoPlay = false
-                                        media3Player.start()
-                                    } else if (pendingAutoPlay) {
-                                        pendingAutoPlay = false
-                                    }
-                                },
-                                currentChannelUrl = uiState.currentChannelUrl
-                            )
-                        }
-                        
-                        val onPlayPauseClick = remember(uiState.isPlaying) {
-                            {
-                                if (uiState.isPlaying) {
-                                    media3Player.pause()
-                                } else {
-                                    media3Player.start()
+                        Box(
+                            modifier = Modifier
+                                .weight(1f)
+                                .fillMaxHeight()
+                                .gestureControlModifier(
+                                    context = context,
+                                    activity = activity,
+                                    gestureState = gestureState,
+                                    onGestureStateChange = { gestureState.value = it }
+                                )
+                                .clickable(
+                                    indication = null,
+                                    interactionSource = remember { androidx.compose.foundation.interaction.MutableInteractionSource() }
+                                ) {
+                                    viewModel.toggleControls()
                                 }
-                            }
-                        }
-                        
-                        val onBackClick = remember(isFullscreen) {
-                            {
-                                if (isFullscreen) {
-                                    val delay = viewModel.backToPortrait()
-                                    if (delay > 0) {
-                                        scope.launch {
-                                            delay(delay.toLong())
-                                        }
-                                    }
-                                } else {
-                                    viewModel.saveHistory(force = true)
-                                    onBack()
-                                }
-                            }
-                        }
-                        
-                        val onFullscreenClick = remember {
-                            { viewModel.toggleFullscreen() }
-                        }
-                        
-                        val onSettingsClick = remember {
-                            { showPlayerSettings = true }
-                        }
-                        
-                        androidx.compose.animation.AnimatedVisibility(
-                            visible = uiState.showControls && !isInPictureInPictureMode,
-                            enter = fadeIn(tween(100)),
-                            exit = fadeOut(tween(100))
                         ) {
-                            PlayerControlsOverlay(
-                                modifier = Modifier.fillMaxSize(),
-                                isPlaying = uiState.isPlaying,
-                                isFullscreen = isFullscreen,
-                                enablePip = uiState.enablePip,
-                                isBuffering = uiState.isBuffering,
-                                activity = activity,
-                                media3Player = media3Player,
-                                watchTimeTracker = watchTimeTracker,
-                                currentCycleDuration = progressState.currentCycleDuration,
-                                onCycleDurationChange = { viewModel.updateCycleDuration(it) },
-                                onPlayPauseClick = onPlayPauseClick,
-                                onBackClick = onBackClick,
-                                onFullscreenClick = onFullscreenClick,
-                                onSettingsClick = onSettingsClick,
-                                isLocked = uiState.isLocked,
-                                onLockChange = { viewModel.setLocked(it) }
+                            if (uiState.currentChannelUrl.isNotEmpty() && isPlayerClean) {
+                                PlayerSurface(
+                                    player = media3Player,
+                                    aspectRatio = uiState.aspectRatio,
+                                    mirrorFlip = uiState.mirrorFlip,
+                                    isBackgroundRetained = true,
+                                    onSurfaceReady = {
+                                        if (pendingAutoPlay && !media3Player.isPlaying) {
+                                            pendingAutoPlay = false
+                                            media3Player.start()
+                                        } else if (pendingAutoPlay) {
+                                            pendingAutoPlay = false
+                                        }
+                                    },
+                                    currentChannelUrl = uiState.currentChannelUrl
+                                )
+                            }
+                            
+                            val onPlayPauseClick = remember(uiState.isPlaying) {
+                                {
+                                    if (uiState.isPlaying) {
+                                        media3Player.pause()
+                                    } else {
+                                        media3Player.start()
+                                    }
+                                }
+                            }
+                            
+                            val onBackClick = remember(isFullscreen) {
+                                {
+                                    if (isFullscreen) {
+                                        val delay = viewModel.backToPortrait()
+                                        if (delay > 0) {
+                                            scope.launch {
+                                                delay(delay.toLong())
+                                            }
+                                        }
+                                    } else {
+                                        viewModel.saveHistory(force = true)
+                                        onBack()
+                                    }
+                                }
+                            }
+                            
+                            val onFullscreenClick = remember {
+                                { viewModel.toggleFullscreen() }
+                            }
+                            
+                            val onSettingsClick = remember {
+                                { showPlayerSettings = true }
+                            }
+                            
+                            val onEpgClick = remember {
+                                { showEpgSidebar = true }
+                            }
+                            
+                            androidx.compose.animation.AnimatedVisibility(
+                                visible = uiState.showControls && !isInPictureInPictureMode,
+                                enter = fadeIn(tween(100)),
+                                exit = fadeOut(tween(100))
+                            ) {
+                                PlayerControlsOverlay(
+                                    modifier = Modifier.fillMaxSize(),
+                                    isPlaying = uiState.isPlaying,
+                                    isFullscreen = isFullscreen,
+                                    enablePip = uiState.enablePip,
+                                    isBuffering = uiState.isBuffering,
+                                    activity = activity,
+                                    media3Player = media3Player,
+                                    watchTimeTracker = watchTimeTracker,
+                                    currentCycleDuration = progressState.currentCycleDuration,
+                                    onCycleDurationChange = { viewModel.updateCycleDuration(it) },
+                                    onPlayPauseClick = onPlayPauseClick,
+                                    onBackClick = onBackClick,
+                                    onFullscreenClick = onFullscreenClick,
+                                    onSettingsClick = onSettingsClick,
+                                    isLocked = uiState.isLocked,
+                                    onLockChange = { viewModel.setLocked(it) },
+                                    onEpgClick = onEpgClick,
+                                    hasEpgData = uiState.channels.find { it.url == uiState.currentChannelUrl }?.epgPrograms?.isNotEmpty() == true
+                                )
+                            }
+
+                            VolumeIndicator(
+                                show = gestureState.value.showVolumeIndicator,
+                                value = gestureState.value.volumeIndicatorValue,
+                                modifier = Modifier.align(Alignment.Center)
+                            )
+
+                            BrightnessIndicator(
+                                show = gestureState.value.showBrightnessIndicator,
+                                value = gestureState.value.brightnessIndicatorValue,
+                                modifier = Modifier.align(Alignment.Center)
                             )
                         }
-
-                        VolumeIndicator(
-                            show = gestureState.value.showVolumeIndicator,
-                            value = gestureState.value.volumeIndicatorValue,
-                            modifier = Modifier.align(Alignment.Center)
-                        )
-
-                        BrightnessIndicator(
-                            show = gestureState.value.showBrightnessIndicator,
-                            value = gestureState.value.brightnessIndicatorValue,
-                            modifier = Modifier.align(Alignment.Center)
-                        )
+                        
+                        if (isFullscreen && showEpgSidebar) {
+                            val currentChannel = uiState.channels.find { it.url == uiState.currentChannelUrl }
+                            EpgSidebar(
+                                visible = true,
+                                programs = currentChannel?.epgPrograms ?: emptyList(),
+                                onDismiss = { showEpgSidebar = false }
+                            )
+                        }
                     }
+                }
 
                 if (!isFullscreen && !isInPictureInPictureMode) {
                     if (uiState.videoTitle.isNotEmpty()) {
