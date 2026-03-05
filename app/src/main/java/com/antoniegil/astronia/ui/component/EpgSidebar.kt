@@ -126,7 +126,8 @@ fun EpgSidebar(
 fun EpgProgramList(
     programs: List<EpgProgram>,
     selectedDate: String?,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    scrollable: Boolean = true
 ) {
     val currentTime = System.currentTimeMillis()
     val locale = LocalConfiguration.current.locales[0]
@@ -144,86 +145,123 @@ fun EpgProgramList(
         }
     }
     
-    LazyColumn(
-        modifier = modifier.padding(horizontal = 16.dp),
-        verticalArrangement = Arrangement.spacedBy(0.dp),
-        contentPadding = PaddingValues(vertical = 4.dp)
+    if (scrollable) {
+        LazyColumn(
+            modifier = modifier.padding(horizontal = 16.dp),
+            verticalArrangement = Arrangement.spacedBy(0.dp),
+            contentPadding = PaddingValues(vertical = 4.dp)
+        ) {
+            items(filteredPrograms.size) { index ->
+                ProgramItem(
+                    program = filteredPrograms[index],
+                    index = index,
+                    programCount = filteredPrograms.size,
+                    currentTime = currentTime,
+                    dateFormat = dateFormat,
+                    timeFormat = timeFormat
+                )
+            }
+        }
+    } else {
+        Column(
+            modifier = modifier,
+            verticalArrangement = Arrangement.spacedBy(0.dp)
+        ) {
+            filteredPrograms.forEachIndexed { index, program ->
+                ProgramItem(
+                    program = program,
+                    index = index,
+                    programCount = filteredPrograms.size,
+                    currentTime = currentTime,
+                    dateFormat = dateFormat,
+                    timeFormat = timeFormat
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun ProgramItem(
+    program: EpgProgram,
+    index: Int,
+    programCount: Int,
+    currentTime: Long,
+    dateFormat: SimpleDateFormat,
+    timeFormat: SimpleDateFormat
+) {
+    val startTime = Date(program.startTime)
+    val endTime = Date(program.stopTime)
+    val startTimeStr = timeFormat.format(startTime)
+    val endTimeStr = timeFormat.format(endTime)
+    val dateStr = dateFormat.format(startTime)
+    val lineColor = MaterialTheme.colorScheme.primary.copy(alpha = 0.6f)
+    val dotColor = MaterialTheme.colorScheme.primary
+    val isCurrentProgram = currentTime in program.startTime..program.stopTime
+    
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        verticalAlignment = Alignment.Top
     ) {
-        items(filteredPrograms.size) { index ->
-            val program = filteredPrograms[index]
-            val startTime = Date(program.startTime)
-            val endTime = Date(program.stopTime)
-            val startTimeStr = timeFormat.format(startTime)
-            val endTimeStr = timeFormat.format(endTime)
-            val dateStr = dateFormat.format(startTime)
-            val programCount = filteredPrograms.size
-            val lineColor = MaterialTheme.colorScheme.primary.copy(alpha = 0.6f)
-            val dotColor = MaterialTheme.colorScheme.primary
-            val isCurrentProgram = currentTime in program.startTime..program.stopTime
-            
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                verticalAlignment = Alignment.Top
-            ) {
-                Box(
-                    modifier = Modifier
-                        .width(14.dp)
-                        .height(56.dp),
-                    contentAlignment = Alignment.TopCenter
+        Box(
+            modifier = Modifier
+                .width(14.dp)
+                .height(56.dp),
+            contentAlignment = Alignment.TopCenter
+        ) {
+            if (programCount > 1) {
+                Canvas(
+                    modifier = Modifier.fillMaxSize()
                 ) {
-                    if (programCount > 1) {
-                        Canvas(
-                            modifier = Modifier.fillMaxSize()
-                        ) {
-                            val centerX = size.width / 2
-                            val dotY = 12.dp.toPx()
-                            
-                            if (index > 0) {
-                                drawLine(
-                                    color = lineColor,
-                                    start = androidx.compose.ui.geometry.Offset(centerX, 0f),
-                                    end = androidx.compose.ui.geometry.Offset(centerX, dotY),
-                                    strokeWidth = 1.dp.toPx()
-                                )
-                            }
-                            if (index < programCount - 1) {
-                                drawLine(
-                                    color = lineColor,
-                                    start = androidx.compose.ui.geometry.Offset(centerX, dotY),
-                                    end = androidx.compose.ui.geometry.Offset(centerX, size.height),
-                                    strokeWidth = 1.dp.toPx()
-                                )
-                            }
-                        }
+                    val centerX = size.width / 2
+                    val dotY = 12.dp.toPx()
+                    
+                    if (index > 0) {
+                        drawLine(
+                            color = lineColor,
+                            start = androidx.compose.ui.geometry.Offset(centerX, 0f),
+                            end = androidx.compose.ui.geometry.Offset(centerX, dotY),
+                            strokeWidth = 1.dp.toPx()
+                        )
                     }
-                    Box(
-                        modifier = Modifier
-                            .padding(top = 9.dp)
-                            .size(6.dp)
-                            .background(
-                                color = if (isCurrentProgram) MaterialTheme.colorScheme.primary else dotColor,
-                                shape = CircleShape
-                            )
-                    )
-                }
-                Column(
-                    modifier = Modifier
-                        .weight(1f)
-                        .padding(start = 8.dp, top = 4.dp, bottom = 8.dp)
-                ) {
-                    Text(
-                        text = program.title,
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = if (isCurrentProgram) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface,
-                        fontWeight = if (isCurrentProgram) FontWeight.Bold else FontWeight.Normal
-                    )
-                    Text(
-                        text = "$dateStr $startTimeStr - $endTimeStr",
-                        style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
+                    if (index < programCount - 1) {
+                        drawLine(
+                            color = lineColor,
+                            start = androidx.compose.ui.geometry.Offset(centerX, dotY),
+                            end = androidx.compose.ui.geometry.Offset(centerX, size.height),
+                            strokeWidth = 1.dp.toPx()
+                        )
+                    }
                 }
             }
+            Box(
+                modifier = Modifier
+                    .padding(top = 9.dp)
+                    .size(6.dp)
+                    .background(
+                        color = if (isCurrentProgram) MaterialTheme.colorScheme.primary else dotColor,
+                        shape = CircleShape
+                    )
+            )
+        }
+        Column(
+            modifier = Modifier
+                .weight(1f)
+                .padding(start = 8.dp, top = 4.dp, bottom = 8.dp)
+        ) {
+            Text(
+                text = program.title,
+                style = MaterialTheme.typography.bodyMedium,
+                color = if (isCurrentProgram) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface,
+                fontWeight = if (isCurrentProgram) FontWeight.Bold else FontWeight.Normal,
+                maxLines = 1,
+                overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis
+            )
+            Text(
+                text = "$dateStr $startTimeStr - $endTimeStr",
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant
+            )
         }
     }
 }

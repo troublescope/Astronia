@@ -14,9 +14,9 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.PlayArrow
-import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -27,6 +27,7 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.antoniegil.astronia.R
@@ -395,73 +396,14 @@ fun ChannelItem(
                         }
                         
                         AnimatedVisibility(visible = isEpgExpanded) {
-                            Column(
+                            EpgProgramList(
+                                programs = upcomingPrograms.take(10),
+                                selectedDate = null,
+                                scrollable = false,
                                 modifier = Modifier
                                     .fillMaxWidth()
                                     .padding(top = 8.dp)
-                            ) {
-                                val locale = LocalConfiguration.current.locales[0]
-                                val dateFormat = remember(locale) { SimpleDateFormat("HH:mm", locale) }
-                                val programCount = upcomingPrograms.take(10).size
-                                val lineColor = MaterialTheme.colorScheme.primary.copy(alpha = 0.6f)
-                                val dotColor = MaterialTheme.colorScheme.primary
-                                upcomingPrograms.take(10).forEachIndexed { index, program ->
-                                    val startTimeStr = dateFormat.format(Date(program.startTime))
-                                    Row(
-                                        modifier = Modifier.fillMaxWidth(),
-                                        verticalAlignment = Alignment.CenterVertically
-                                    ) {
-                                        Box(
-                                            modifier = Modifier
-                                                .width(14.dp)
-                                                .height(36.dp),
-                                            contentAlignment = Alignment.Center
-                                        ) {
-                                            if (programCount > 1) {
-                                                Canvas(
-                                                    modifier = Modifier.fillMaxSize()
-                                                ) {
-                                                    val centerX = size.width / 2
-                                                    val centerY = size.height / 2
-                                                    
-                                                    if (index > 0) {
-                                                        drawLine(
-                                                            color = lineColor,
-                                                            start = Offset(centerX, 0f),
-                                                            end = Offset(centerX, centerY),
-                                                            strokeWidth = 1.dp.toPx()
-                                                        )
-                                                    }
-                                                    if (index < programCount - 1) {
-                                                        drawLine(
-                                                            color = lineColor,
-                                                            start = Offset(centerX, centerY),
-                                                            end = Offset(centerX, size.height),
-                                                            strokeWidth = 1.dp.toPx()
-                                                        )
-                                                    }
-                                                }
-                                            }
-                                            Box(
-                                                modifier = Modifier
-                                                    .size(6.dp)
-                                                    .background(
-                                                        color = dotColor,
-                                                        shape = CircleShape
-                                                    )
-                                            )
-                                        }
-                                        Text(
-                                            text = "$startTimeStr - ${program.title}",
-                                            style = MaterialTheme.typography.bodyMedium,
-                                            color = MaterialTheme.colorScheme.onSurfaceVariant,
-                                            modifier = Modifier
-                                                .weight(1f)
-                                                .padding(start = 8.dp)
-                                        )
-                                    }
-                                }
-                            }
+                            )
                         }
                     }
                 }
@@ -469,3 +411,4 @@ fun ChannelItem(
         }
     }
 }
+
