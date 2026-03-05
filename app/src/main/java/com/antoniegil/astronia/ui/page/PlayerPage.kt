@@ -426,7 +426,7 @@ private fun PlayerPageContent(
                             }
                             
                             val onEpgClick = remember {
-                                { showEpgSidebar = true }
+                                { showEpgSidebar = !showEpgSidebar }
                             }
                             
                             androidx.compose.animation.AnimatedVisibility(
@@ -469,10 +469,10 @@ private fun PlayerPageContent(
                             )
                         }
                         
-                        if (isFullscreen && showEpgSidebar) {
+                        if (isFullscreen) {
                             val currentChannel = uiState.channels.find { it.url == uiState.currentChannelUrl }
                             EpgSidebar(
-                                visible = true,
+                                visible = showEpgSidebar,
                                 programs = currentChannel?.epgPrograms ?: emptyList(),
                                 onDismiss = { showEpgSidebar = false }
                             )

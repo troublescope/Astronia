@@ -2,6 +2,8 @@ package com.antoniegil.astronia.ui.component
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.tween
+import androidx.compose.animation.expandHorizontally
+import androidx.compose.animation.shrinkHorizontally
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.foundation.Canvas
@@ -38,9 +40,15 @@ fun EpgSidebar(
         enter = slideInHorizontally(
             initialOffsetX = { it },
             animationSpec = tween(300)
+        ) + expandHorizontally(
+            expandFrom = androidx.compose.ui.Alignment.End,
+            animationSpec = tween(300)
         ),
         exit = slideOutHorizontally(
             targetOffsetX = { it },
+            animationSpec = tween(300)
+        ) + shrinkHorizontally(
+            shrinkTowards = androidx.compose.ui.Alignment.End,
             animationSpec = tween(300)
         )
     ) {
@@ -53,57 +61,57 @@ fun EpgSidebar(
             Column(
                 modifier = Modifier.fillMaxSize()
             ) {
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(start = 16.dp, top = 16.dp, end = 16.dp, bottom = 4.dp),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Text(
-                    text = stringResource(R.string.program_list),
-                    style = MaterialTheme.typography.titleMedium,
-                    color = MaterialTheme.colorScheme.onSurface,
-                    fontWeight = FontWeight.Bold
-                )
-                IconButton(onClick = onDismiss) {
-                    Icon(
-                        imageVector = Icons.Default.Close,
-                        contentDescription = stringResource(R.string.close),
-                        tint = MaterialTheme.colorScheme.onSurface
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(start = 16.dp, top = 16.dp, end = 16.dp, bottom = 4.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(
+                        text = stringResource(R.string.program_list),
+                        style = MaterialTheme.typography.titleMedium,
+                        color = MaterialTheme.colorScheme.onSurface,
+                        fontWeight = FontWeight.Bold
                     )
+                    IconButton(onClick = onDismiss) {
+                        Icon(
+                            imageVector = Icons.Default.Close,
+                            contentDescription = stringResource(R.string.close),
+                            tint = MaterialTheme.colorScheme.onSurface
+                        )
+                    }
                 }
-            }
-            
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp, vertical = 4.dp),
-                horizontalArrangement = Arrangement.spacedBy(8.dp)
-            ) {
-                val locale = LocalConfiguration.current.locales[0]
-                val dateFormat = remember(locale) { SimpleDateFormat("MM/dd", locale) }
-                val availableDates = remember(programs) {
-                    programs.map { program ->
-                        dateFormat.format(Date(program.startTime))
-                    }.distinct().sorted()
-                }
-                
-                FilterChip(
-                    selected = selectedDate == null,
-                    onClick = { selectedDate = null },
-                    label = { Text(stringResource(R.string.all)) }
-                )
-                
-                availableDates.forEach { date ->
+
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp, vertical = 4.dp),
+                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    val locale = LocalConfiguration.current.locales[0]
+                    val dateFormat = remember(locale) { SimpleDateFormat("MM/dd", locale) }
+                    val availableDates = remember(programs) {
+                        programs.map { program ->
+                            dateFormat.format(Date(program.startTime))
+                        }.distinct().sorted()
+                    }
+
                     FilterChip(
-                        selected = selectedDate == date,
-                        onClick = { selectedDate = date },
-                        label = { Text(date) }
+                        selected = selectedDate == null,
+                        onClick = { selectedDate = null },
+                        label = { Text(stringResource(R.string.all)) }
                     )
+
+                    availableDates.forEach { date ->
+                        FilterChip(
+                            selected = selectedDate == date,
+                            onClick = { selectedDate = date },
+                            label = { Text(date) }
+                        )
+                    }
                 }
-            }
-            
+
                 EpgProgramList(
                     programs = programs,
                     selectedDate = selectedDate,
@@ -115,7 +123,7 @@ fun EpgSidebar(
 }
 
 @Composable
-private fun EpgProgramList(
+fun EpgProgramList(
     programs: List<EpgProgram>,
     selectedDate: String?,
     modifier: Modifier = Modifier
