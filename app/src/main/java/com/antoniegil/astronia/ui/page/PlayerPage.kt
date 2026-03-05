@@ -299,6 +299,20 @@ private fun PlayerPageContent(
         }
     }
 
+    LaunchedEffect(isFullscreen) {
+        activity?.window?.let { window ->
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                if (isFullscreen) {
+                    window.insetsController?.hide(android.view.WindowInsets.Type.systemBars())
+                    window.insetsController?.systemBarsBehavior = 
+                        android.view.WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+                } else {
+                    window.insetsController?.show(android.view.WindowInsets.Type.systemBars())
+                }
+            }
+        }
+    }
+
     BackHandler(enabled = true) {
         if (isFullscreen) {
             val delay = viewModel.backToPortrait()

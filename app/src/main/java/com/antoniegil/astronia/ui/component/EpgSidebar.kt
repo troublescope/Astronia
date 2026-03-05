@@ -1,5 +1,9 @@
 package com.antoniegil.astronia.ui.component
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -27,15 +31,28 @@ fun EpgSidebar(
     onDismiss: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    Box(
-        modifier = modifier
-            .fillMaxHeight()
-            .width(320.dp)
-            .background(MaterialTheme.colorScheme.surface.copy(alpha = 0.95f))
+    var selectedDate by remember { mutableStateOf<String?>(null) }
+    
+    AnimatedVisibility(
+        visible = visible,
+        enter = slideInHorizontally(
+            initialOffsetX = { it },
+            animationSpec = tween(300)
+        ),
+        exit = slideOutHorizontally(
+            targetOffsetX = { it },
+            animationSpec = tween(300)
+        )
     ) {
-        Column(
-            modifier = Modifier.fillMaxSize()
+        Box(
+            modifier = modifier
+                .fillMaxHeight()
+                .width(320.dp)
+                .background(MaterialTheme.colorScheme.surface.copy(alpha = 0.95f))
         ) {
+            Column(
+                modifier = Modifier.fillMaxSize()
+            ) {
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -73,24 +90,26 @@ fun EpgSidebar(
                 }
                 
                 FilterChip(
-                    selected = true,
-                    onClick = { },
+                    selected = selectedDate == null,
+                    onClick = { selectedDate = null },
                     label = { Text(stringResource(R.string.all)) }
                 )
                 
                 availableDates.forEach { date ->
                     FilterChip(
-                        selected = false,
-                        onClick = { },
+                        selected = selectedDate == date,
+                        onClick = { selectedDate = date },
                         label = { Text(date) }
                     )
                 }
             }
             
-            EpgProgramList(
-                programs = programs,
-                modifier = Modifier.fillMaxSize()
-            )
+                EpgProgramList(
+                    programs = programs,
+                    selectedDate = selectedDate,
+                    modifier = Modifier.fillMaxSize()
+                )
+            }
         }
     }
 }
@@ -98,30 +117,38 @@ fun EpgSidebar(
 @Composable
 private fun EpgProgramList(
     programs: List<EpgProgram>,
+    selectedDate: String?,
     modifier: Modifier = Modifier
 ) {
     val currentTime = System.currentTimeMillis()
-    val upcomingPrograms = remember(programs) {
-        programs.filter { it.stopTime > currentTime }.take(20)
-    }
-    
     val locale = LocalConfiguration.current.locales[0]
-    val timeFormat = remember(locale) { SimpleDateFormat("HH:mm", locale) }
     val dateFormat = remember(locale) { SimpleDateFormat("MM/dd", locale) }
+    val timeFormat = remember(locale) { SimpleDateFormat("HH:mm", locale) }
+    
+    val filteredPrograms = remember(programs, selectedDate) {
+        val upcomingPrograms = programs.filter { it.stopTime > currentTime }
+        if (selectedDate == null) {
+            upcomingPrograms.take(20)
+        } else {
+            upcomingPrograms.filter { program ->
+                dateFormat.format(Date(program.startTime)) == selectedDate
+            }.take(20)
+        }
+    }
     
     LazyColumn(
         modifier = modifier.padding(horizontal = 16.dp),
         verticalArrangement = Arrangement.spacedBy(0.dp),
         contentPadding = PaddingValues(vertical = 4.dp)
     ) {
-        items(upcomingPrograms.size) { index ->
-            val program = upcomingPrograms[index]
+        items(filteredPrograms.size) { index ->
+            val program = filteredPrograms[index]
             val startTime = Date(program.startTime)
             val endTime = Date(program.stopTime)
             val startTimeStr = timeFormat.format(startTime)
             val endTimeStr = timeFormat.format(endTime)
             val dateStr = dateFormat.format(startTime)
-            val programCount = upcomingPrograms.size
+            val programCount = filteredPrograms.size
             val lineColor = MaterialTheme.colorScheme.primary.copy(alpha = 0.6f)
             val dotColor = MaterialTheme.colorScheme.primary
             val isCurrentProgram = currentTime in program.startTime..program.stopTime

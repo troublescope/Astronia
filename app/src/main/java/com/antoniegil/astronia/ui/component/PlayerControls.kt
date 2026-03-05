@@ -251,7 +251,7 @@ fun PlayerControlsOverlay(
                                     imageVector = Icons.Default.List,
                                     contentDescription = "EPG",
                                     tint = Color.White,
-                                    modifier = Modifier.size(22.dp)
+                                    modifier = Modifier.size(28.dp)
                                 )
                             }
                         }
