@@ -12,6 +12,7 @@ import androidx.media3.session.MediaSession
 import androidx.media3.session.MediaSessionService
 import com.antoniegil.astronia.MainActivity
 import com.antoniegil.astronia.R
+import com.antoniegil.astronia.util.M3U8Channel
 
 @androidx.annotation.OptIn(androidx.media3.common.util.UnstableApi::class)
 class PlaybackService : MediaSessionService() {
@@ -23,6 +24,8 @@ class PlaybackService : MediaSessionService() {
         private const val CHANNEL_ID = "astronia_playback"
         var currentPlayer: Player? = null
         var currentTitle: String = ""
+        var currentChannel: M3U8Channel? = null
+        var isBuffering: Boolean = false
     }
     
     override fun onCreate() {
@@ -72,6 +75,7 @@ class PlaybackService : MediaSessionService() {
             }
             
             override fun onPlaybackStateChanged(playbackState: Int) {
+                isBuffering = playbackState == Player.STATE_BUFFERING
                 when (playbackState) {
                     Player.STATE_ENDED, Player.STATE_IDLE -> {
                         if (!player.isPlaying) {
@@ -107,9 +111,12 @@ class PlaybackService : MediaSessionService() {
     
     private fun createNotification(): Notification {
         val session = mediaSession ?: return createFallbackNotification()
+
+        val currentEpgTitle = currentChannel?.epgTitle ?: ""
         
         return NotificationCompat.Builder(this, CHANNEL_ID)
             .setContentTitle(currentTitle)
+            .setContentText(currentEpgTitle)
             .setSmallIcon(R.drawable.ic_notification)
             .setStyle(androidx.media3.session.MediaStyleNotificationHelper.MediaStyle(session))
             .setOngoing(true)

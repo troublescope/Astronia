@@ -249,6 +249,8 @@ private fun PlayerPageContent(
                         media3Player.exoPlayer?.let { player ->
                             PlaybackService.currentPlayer = player
                             PlaybackService.currentTitle = uiState.videoTitle
+                            val currentChannel = uiState.channels.find { it.url == uiState.currentChannelUrl }
+                            PlaybackService.currentChannel = currentChannel
                             val serviceIntent = Intent(context, PlaybackService::class.java)
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                                 context.startForegroundService(serviceIntent)
