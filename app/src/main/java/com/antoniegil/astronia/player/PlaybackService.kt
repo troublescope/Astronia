@@ -61,7 +61,28 @@ class PlaybackService : MediaSessionService() {
                     startForeground(NOTIFICATION_ID, createNotification())
                 } else {
                     stopForeground(STOP_FOREGROUND_DETACH)
+                    mediaSession?.let {
+                        it.release()
+                        mediaSession = null
+                        
+                        val notificationManager = getSystemService(NotificationManager::class.java)
+                        notificationManager?.cancel(NOTIFICATION_ID)
+                    }
                 }
+            }
+            
+            override fun onPlaybackStateChanged(playbackState: Int) {
+                when (playbackState) {
+                    Player.STATE_ENDED, Player.STATE_IDLE -> {
+                        if (!player.isPlaying) {
+                            stopSelfAndCleanup()
+                        }
+                    }
+                }
+            }
+            
+            override fun onPlayerError(error: androidx.media3.common.PlaybackException) {
+                stopSelfAndCleanup()
             }
         })
         
@@ -106,10 +127,27 @@ class PlaybackService : MediaSessionService() {
         return mediaSession
     }
     
-    override fun onDestroy() {
-        mediaSession?.release()
-        mediaSession = null
+    private fun stopSelfAndCleanup() {
+        mediaSession?.let {
+            it.release()
+            mediaSession = null
+        }
         currentPlayer = null
+        
+        val notificationManager = getSystemService(NotificationManager::class.java)
+        notificationManager?.cancel(NOTIFICATION_ID)
+        
+        stopForeground(STOP_FOREGROUND_REMOVE)
+        stopSelf()
+    }
+    
+    override fun onDestroy() {
+        stopSelfAndCleanup()
         super.onDestroy()
+    }
+    
+    override fun onTaskRemoved(rootIntent: Intent?) {
+        super.onTaskRemoved(rootIntent)
+        stopSelfAndCleanup()
     }
 }
