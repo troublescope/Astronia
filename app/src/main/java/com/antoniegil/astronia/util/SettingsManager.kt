@@ -263,7 +263,7 @@ internal class PreferenceManagerImpl(context: Context) {
     
     fun getHistory(): List<HistoryItem> = _historyFlow.value
     
-    fun addOrUpdateHistory(url: String, name: String, lastChannelUrl: String? = null, lastChannelId: String? = null, logoUrl: String = "") {
+    fun addOrUpdateHistory(url: String, name: String, lastChannelUrl: String? = null, lastChannelId: String? = null, logoUrl: String = "", timestamp: Long? = null) {
         val currentList = _historyFlow.value.toMutableList()
         val iterator = currentList.iterator()
         var existingItem: HistoryItem? = null
@@ -283,7 +283,7 @@ internal class PreferenceManagerImpl(context: Context) {
             lastChannelUrl = lastChannelUrl ?: existingItem?.lastChannelUrl,
             lastChannelId = lastChannelId ?: existingItem?.lastChannelId,
             logoUrl = logoUrl.ifEmpty { existingItem?.logoUrl ?: "" },
-            timestamp = System.currentTimeMillis()
+            timestamp = timestamp ?: System.currentTimeMillis()
         )
         
         currentList.add(0, newItem)
@@ -304,6 +304,11 @@ internal class PreferenceManagerImpl(context: Context) {
     fun clearHistory() {
         _historyFlow.value = emptyList()
         historyPrefs.edit { remove(KEY_HISTORY) }
+    }
+    
+    fun restoreHistoryList(list: List<HistoryItem>) {
+        _historyFlow.value = list.sortedByDescending { it.timestamp }
+        saveHistory(_historyFlow.value)
     }
     
     fun deleteHistoryItem(item: HistoryItem) {

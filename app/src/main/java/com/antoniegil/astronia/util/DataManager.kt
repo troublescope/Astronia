@@ -130,8 +130,6 @@ object DataManager {
         val existingHistory = prefManager.getHistory()
         val existingUrls = existingHistory.map { it.url }.toSet()
         
-        prefManager.clearHistory()
-        
         val mergedItems = mutableListOf<HistoryItem>()
         mergedItems.addAll(existingHistory)
         
@@ -141,20 +139,9 @@ object DataManager {
             }
         }
         
-        mergedItems.sortByDescending { it.timestamp }
+        prefManager.restoreHistoryList(mergedItems)
         
-        var successCount = 0
-        mergedItems.forEach { item ->
-            prefManager.addOrUpdateHistory(
-                item.url,
-                item.name,
-                item.lastChannelUrl,
-                item.lastChannelId
-            )
-            successCount++
-        }
-        
-        return Pair(true, successCount)
+        return Pair(true, historyItems.size)
     }
 }
 
