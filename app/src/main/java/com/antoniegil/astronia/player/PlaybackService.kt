@@ -44,14 +44,18 @@ class PlaybackService : MediaSessionService() {
         return super.onStartCommand(intent, flags, startId)
     }
     
-    private fun initMediaSession(player: Player) {
+    private fun createMainActivityPendingIntent(): PendingIntent {
         val intent = Intent(this, MainActivity::class.java).apply {
-            flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
+            flags = Intent.FLAG_ACTIVITY_REORDER_TO_FRONT
         }
-        val pendingIntent = PendingIntent.getActivity(
+        return PendingIntent.getActivity(
             this, 0, intent,
             PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
         )
+    }
+    
+    private fun initMediaSession(player: Player) {
+        val pendingIntent = createMainActivityPendingIntent()
         
         mediaSession = MediaSession.Builder(this, player)
             .setSessionActivity(pendingIntent)
@@ -60,25 +64,21 @@ class PlaybackService : MediaSessionService() {
         
         player.addListener(object : Player.Listener {
             override fun onIsPlayingChanged(isPlaying: Boolean) {
-                if (isPlaying) {
-                    startForeground(NOTIFICATION_ID, createNotification())
-                } else {
-                    stopForeground(STOP_FOREGROUND_DETACH)
-                    mediaSession?.let {
-                        it.release()
-                        mediaSession = null
-                        
-                        val notificationManager = getSystemService(NotificationManager::class.java)
-                        notificationManager?.cancel(NOTIFICATION_ID)
-                    }
-                }
+                updateNotification()
             }
             
             override fun onPlaybackStateChanged(playbackState: Int) {
                 isBuffering = playbackState == Player.STATE_BUFFERING
+                updateNotification()
+                
                 when (playbackState) {
-                    Player.STATE_ENDED, Player.STATE_IDLE -> {
+                    Player.STATE_ENDED -> {
                         if (!player.isPlaying) {
+                            stopSelfAndCleanup()
+                        }
+                    }
+                    Player.STATE_IDLE -> {
+                        if (!player.isPlaying && !isBuffering) {
                             stopSelfAndCleanup()
                         }
                     }
@@ -90,8 +90,8 @@ class PlaybackService : MediaSessionService() {
             }
         })
         
-        if (player.isPlaying) {
-            startForeground(NOTIFICATION_ID, createNotification())
+        if (player.isPlaying || isBuffering) {
+            updateNotification()
         }
     }
     
@@ -113,11 +113,13 @@ class PlaybackService : MediaSessionService() {
         val session = mediaSession ?: return createFallbackNotification()
 
         val currentEpgTitle = currentChannel?.epgTitle ?: ""
+        val pendingIntent = createMainActivityPendingIntent()
         
         return NotificationCompat.Builder(this, CHANNEL_ID)
             .setContentTitle(currentTitle)
             .setContentText(currentEpgTitle)
             .setSmallIcon(R.drawable.ic_notification)
+            .setContentIntent(pendingIntent)
             .setStyle(androidx.media3.session.MediaStyleNotificationHelper.MediaStyle(session))
             .setOngoing(true)
             .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
@@ -125,9 +127,16 @@ class PlaybackService : MediaSessionService() {
     }
     
     private fun createFallbackNotification(): Notification {
+        val pendingIntent = createMainActivityPendingIntent()
+        
         return NotificationCompat.Builder(this, CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_notification)
+            .setContentIntent(pendingIntent)
             .build()
+    }
+    
+    private fun updateNotification() {
+        startForeground(NOTIFICATION_ID, createNotification())
     }
     
     override fun onGetSession(controllerInfo: MediaSession.ControllerInfo): MediaSession? {
