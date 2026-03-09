@@ -10,6 +10,8 @@ import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
@@ -17,6 +19,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -34,6 +37,14 @@ fun EpgSidebar(
     modifier: Modifier = Modifier
 ) {
     var selectedDate by remember { mutableStateOf<String?>(null) }
+    
+    val locale = LocalConfiguration.current.locales[0]
+    val dateFormat = remember(locale) { SimpleDateFormat("MM/dd", locale) }
+    val availableDates = remember(programs) {
+        programs.map { program ->
+            dateFormat.format(Date(program.startTime))
+        }.distinct().sorted()
+    }
     
     AnimatedVisibility(
         visible = visible,
@@ -55,7 +66,7 @@ fun EpgSidebar(
         Box(
             modifier = modifier
                 .fillMaxHeight()
-                .width(320.dp)
+                .width(300.dp)
                 .background(MaterialTheme.colorScheme.surface.copy(alpha = 0.95f))
         ) {
             Column(
@@ -64,7 +75,7 @@ fun EpgSidebar(
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(start = 16.dp, top = 16.dp, end = 16.dp, bottom = 4.dp),
+                        .padding(start = 12.dp, top = 16.dp, end = 12.dp, bottom = 4.dp),
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
@@ -83,32 +94,31 @@ fun EpgSidebar(
                     }
                 }
 
-                Row(
+                Box(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(horizontal = 16.dp, vertical = 4.dp),
-                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+                        .padding(horizontal = 12.dp, vertical = 4.dp)
+                        .clipToBounds()
                 ) {
-                    val locale = LocalConfiguration.current.locales[0]
-                    val dateFormat = remember(locale) { SimpleDateFormat("MM/dd", locale) }
-                    val availableDates = remember(programs) {
-                        programs.map { program ->
-                            dateFormat.format(Date(program.startTime))
-                        }.distinct().sorted()
-                    }
+                    LazyRow(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
+                        item {
+                            FilterChip(
+                                selected = selectedDate == null,
+                                onClick = { selectedDate = null },
+                                label = { Text(stringResource(R.string.all)) }
+                            )
+                        }
 
-                    FilterChip(
-                        selected = selectedDate == null,
-                        onClick = { selectedDate = null },
-                        label = { Text(stringResource(R.string.all)) }
-                    )
-
-                    availableDates.forEach { date ->
-                        FilterChip(
-                            selected = selectedDate == date,
-                            onClick = { selectedDate = date },
-                            label = { Text(date) }
-                        )
+                        items(availableDates) { date ->
+                            FilterChip(
+                                selected = selectedDate == date,
+                                onClick = { selectedDate = date },
+                                label = { Text(date) }
+                            )
+                        }
                     }
                 }
 
@@ -147,7 +157,7 @@ fun EpgProgramList(
     
     if (scrollable) {
         LazyColumn(
-            modifier = modifier.padding(horizontal = 16.dp),
+            modifier = modifier.padding(horizontal = 12.dp),
             verticalArrangement = Arrangement.spacedBy(0.dp),
             contentPadding = PaddingValues(vertical = 4.dp)
         ) {
