@@ -2,6 +2,7 @@ package com.antoniegil.astronia.ui.page
 
 import android.content.Intent
 import android.os.Build
+import android.view.WindowManager
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.BackHandler
 import androidx.compose.animation.fadeIn
@@ -67,8 +68,15 @@ private fun PlayerPageContent(
     
     DisposableEffect(Unit) {
         activity?.window?.setSustainedPerformanceMode(true)
+        val keepScreenOn = com.antoniegil.astronia.util.SettingsManager.getKeepScreenOn(context)
+        if (keepScreenOn) {
+            activity?.window?.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+        }
         onDispose {
             activity?.window?.setSustainedPerformanceMode(false)
+            if (keepScreenOn) {
+                activity?.window?.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+            }
         }
     }
     
@@ -454,7 +462,8 @@ private fun PlayerPageContent(
                                     isLocked = uiState.isLocked,
                                     onLockChange = { viewModel.setLocked(it) },
                                     onEpgClick = onEpgClick,
-                                    hasEpgData = uiState.channels.find { it.url == uiState.currentChannelUrl }?.epgPrograms?.isNotEmpty() == true
+                                    hasEpgData = uiState.channels.find { it.url == uiState.currentChannelUrl }?.epgPrograms?.isNotEmpty() == true,
+                                    epgPrograms = uiState.channels.find { it.url == uiState.currentChannelUrl }?.epgPrograms ?: emptyList()
                                 )
                             }
 

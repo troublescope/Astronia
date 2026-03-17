@@ -50,6 +50,7 @@ fun PlayerSettingsPage(onNavigateBack: () -> Unit) {
     var autoHideControls by remember { mutableStateOf(SettingsManager.getAutoHideControls(context)) }
     var enablePictureInPicture by remember { mutableStateOf(SettingsManager.getEnablePip(context)) }
     var backgroundPlay by remember { mutableStateOf(SettingsManager.getBackgroundPlay(context)) }
+    var keepScreenOn by remember { mutableStateOf(SettingsManager.getKeepScreenOn(context)) }
 
     Scaffold(
         modifier = Modifier.fillMaxSize().nestedScroll(scrollBehavior.nestedScrollConnection),
@@ -135,6 +136,19 @@ fun PlayerSettingsPage(onNavigateBack: () -> Unit) {
                     onCheckedChange = { 
                         backgroundPlay = it
                         SettingsManager.setBackgroundPlay(context, it)
+                    }
+                )
+            }
+
+            item {
+                PreferenceSwitch(
+                    title = stringResource(R.string.keep_screen_on),
+                    description = stringResource(R.string.keep_screen_on_desc),
+                    icon = Icons.Outlined.ScreenLockPortrait,
+                    isChecked = keepScreenOn,
+                    onCheckedChange = { 
+                        keepScreenOn = it
+                        SettingsManager.setKeepScreenOn(context, it)
                     }
                 )
             }

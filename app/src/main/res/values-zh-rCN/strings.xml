@@ -95,8 +95,8 @@
     <string name="background_play_battery_hint">需要电池优化豁免权限</string>
     <string name="battery_configuration">电池配置</string>
     <string name="battery_configuration_desc">授予电池优化豁免以实现稳定的后台播放</string>
-    <string name="mirror_flip">镜像翻转</string>
-    <string name="mirror_flip_desc">水平翻转视频画面</string>
+    <string name="keep_screen_on">屏幕常亮</string>
+    <string name="keep_screen_on_desc">播放时防止屏幕自动关闭</string>
 
     <string name="display_settings">显示设置</string>
     <string name="decoder_settings">解码设置</string>
@@ -106,6 +106,8 @@
     <string name="quality_preference">画质偏好</string>
     <string name="quality_preference_default">默认（最高）</string>
     <string name="quality_preference_saver">流量节省</string>
+    <string name="mirror_flip">镜像翻转</string>
+    <string name="mirror_flip_desc">水平翻转视频画面</string>
     <string name="decoder">解码器</string>
     <string name="decoder_hardware">硬解</string>
     <string name="decoder_software">软解</string>

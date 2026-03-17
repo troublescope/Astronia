@@ -91,6 +91,9 @@ object SettingsManager {
     fun getShowPlayerStats(context: Context): Boolean = getInstance(context).getShowPlayerStats()
     fun setShowPlayerStats(context: Context, value: Boolean) = getInstance(context).setShowPlayerStats(value)
     
+    fun getKeepScreenOn(context: Context): Boolean = getInstance(context).getKeepScreenOn()
+    fun setKeepScreenOn(context: Context, value: Boolean) = getInstance(context).setKeepScreenOn(value)
+    
     fun setPendingNavigation(context: Context, navigation: String) = getInstance(context).setPendingNavigation(navigation)
     fun getPendingNavigation(context: Context): String = getInstance(context).getPendingNavigation()
     fun clearPendingNavigation(context: Context) = getInstance(context).clearPendingNavigation()
@@ -246,6 +249,9 @@ internal class PreferenceManagerImpl(context: Context) {
     fun getShowPlayerStats(): Boolean = getBoolean(KEY_SHOW_PLAYER_STATS, false)
     fun setShowPlayerStats(value: Boolean) = putBoolean(KEY_SHOW_PLAYER_STATS, value)
     
+    fun getKeepScreenOn(): Boolean = getBoolean(KEY_KEEP_SCREEN_ON, true)
+    fun setKeepScreenOn(value: Boolean) = putBoolean(KEY_KEEP_SCREEN_ON, value)
+    
     fun setPendingNavigation(navigation: String) = putString(KEY_PENDING_NAVIGATION, navigation)
     fun getPendingNavigation(): String = getString(KEY_PENDING_NAVIGATION, "")
     fun clearPendingNavigation() = remove(KEY_PENDING_NAVIGATION)
@@ -341,6 +347,7 @@ internal class PreferenceManagerImpl(context: Context) {
         private const val KEY_PROXY_HOST = "proxy_host"
         private const val KEY_PROXY_PORT = "proxy_port"
         private const val KEY_SHOW_PLAYER_STATS = "show_player_stats"
+        private const val KEY_KEEP_SCREEN_ON = "keep_screen_on"
         private const val KEY_PENDING_NAVIGATION = "pending_navigation"
         private const val KEY_AUTO_CHECK_UPDATE = "auto_check_update"
         private const val KEY_UPDATE_CHANNEL = "update_channel"

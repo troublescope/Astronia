@@ -95,8 +95,8 @@
     <string name="background_play_battery_hint">需要電池最佳化豁免權限</string>
     <string name="battery_configuration">電池配置</string>
     <string name="battery_configuration_desc">授予電池最佳化豁免，等背景播放更穩定</string>
-    <string name="mirror_flip">鏡像翻轉</string>
-    <string name="mirror_flip_desc">水平翻轉影片畫面</string>
+    <string name="keep_screen_on">螢幕常亮</string>
+    <string name="keep_screen_on_desc">播放時防止螢幕自動熄滅</string>
 
     <string name="display_settings">顯示設定</string>
     <string name="decoder_settings">解碼設定</string>
@@ -106,6 +106,8 @@
     <string name="quality_preference">畫質偏好</string>
     <string name="quality_preference_default">預設（最高）</string>
     <string name="quality_preference_saver">數據慳量</string>
+    <string name="mirror_flip">鏡像翻轉</string>
+    <string name="mirror_flip_desc">水平翻轉影片畫面</string>
     <string name="decoder">解碼器</string>
     <string name="decoder_hardware">硬解</string>
     <string name="decoder_software">軟解</string>

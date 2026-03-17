@@ -98,8 +98,8 @@
     <string name="background_play_battery_hint">Requires battery optimization exemption</string>
     <string name="battery_configuration">Battery Configuration</string>
     <string name="battery_configuration_desc">Grant battery optimization exemption for stable background playback</string>
-    <string name="mirror_flip">Mirror Flip</string>
-    <string name="mirror_flip_desc">Flip video horizontally</string>
+    <string name="keep_screen_on">Keep Screen On</string>
+    <string name="keep_screen_on_desc">Prevent screen from turning off during playback</string>
 
     <string name="display_settings">Display Settings</string>
     <string name="decoder_settings">Decoder Settings</string>
@@ -109,6 +109,8 @@
     <string name="quality_preference">Quality Preference</string>
     <string name="quality_preference_default">Default (Highest)</string>
     <string name="quality_preference_saver">Data Saver</string>
+    <string name="mirror_flip">Mirror Flip</string>
+    <string name="mirror_flip_desc">Flip video horizontally</string>
     <string name="decoder">Decoder</string>
     <string name="decoder_hardware">Hardware</string>
     <string name="decoder_software">Software</string>
