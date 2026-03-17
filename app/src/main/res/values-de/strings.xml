@@ -95,8 +95,6 @@
     <string name="background_play_battery_hint">Erfordert Ausnahme von der Akku-Optimierung</string>
     <string name="battery_configuration">Akku-Konfiguration</string>
     <string name="battery_configuration_desc">Ausnahme von der Akku-Optimierung für stabile Hintergrundwiedergabe gewähren</string>
-    <string name="mirror_flip">Spiegeln</string>
-    <string name="mirror_flip_desc">Video horizontal spiegeln</string>
 
     <string name="display_settings">Anzeigeeinstellungen</string>
     <string name="decoder_settings">Decoder-Einstellungen</string>
@@ -106,6 +104,8 @@
     <string name="quality_preference">Qualitätspräferenz</string>
     <string name="quality_preference_default">Standard (Höchste)</string>
     <string name="quality_preference_saver">Datensparmodus</string>
+    <string name="mirror_flip">Spiegeln</string>
+    <string name="mirror_flip_desc">Video horizontal spiegeln</string>
     <string name="decoder">Decoder</string>
     <string name="decoder_hardware">Hardware</string>
     <string name="decoder_software">Software</string>

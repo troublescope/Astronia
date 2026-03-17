@@ -97,8 +97,6 @@
     <string name="background_play_battery_hint">Vyžaduje výjimku z optimalizace baterie</string>
     <string name="battery_configuration">Konfigurace baterie</string>
     <string name="battery_configuration_desc">Udělit výjimku z optimalizace baterie pro stabilní přehrávání na pozadí</string>
-    <string name="mirror_flip">Zrcadlové převrácení</string>
-    <string name="mirror_flip_desc">Horizontálně převrátit obraz videa</string>
 
     <string name="display_settings">Nastavení zobrazení</string>
     <string name="decoder_settings">Nastavení dekodéru</string>
@@ -108,6 +106,8 @@
     <string name="quality_preference">Preference kvality</string>
     <string name="quality_preference_default">Výchozí (nejvyšší)</string>
     <string name="quality_preference_saver">Úspora dat</string>
+    <string name="mirror_flip">Zrcadlové převrácení</string>
+    <string name="mirror_flip_desc">Horizontálně převrátit obraz videa</string>
     <string name="decoder">Dekodér</string>
     <string name="decoder_hardware">Hardwarový</string>
     <string name="decoder_software">Softwarový</string>

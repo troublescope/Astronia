@@ -95,8 +95,6 @@
     <string name="background_play_battery_hint">Kräver undantag från batterioptimering</string>
     <string name="battery_configuration">Batterikonfiguration</string>
     <string name="battery_configuration_desc">Bevilja undantag från batterioptimering för stabil bakgrundsuppspelning</string>
-    <string name="mirror_flip">Spegla</string>
-    <string name="mirror_flip_desc">Vänd videon horisontellt</string>
 
     <string name="display_settings">Skärminställningar</string>
     <string name="decoder_settings">Avkodarinställningar</string>
@@ -106,6 +104,8 @@
     <string name="quality_preference">Kvalitetsinställning</string>
     <string name="quality_preference_default">Standard (Högsta)</string>
     <string name="quality_preference_saver">Databesparing</string>
+    <string name="mirror_flip">Spegla</string>
+    <string name="mirror_flip_desc">Vänd videon horisontellt</string>
     <string name="decoder">Avkodare</string>
     <string name="decoder_hardware">Hårdvara</string>
     <string name="decoder_software">Mjukvara</string>

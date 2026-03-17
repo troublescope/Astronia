@@ -95,8 +95,6 @@
     <string name="background_play_battery_hint">نیاز به معافیت بهینه‌سازی باتری</string>
     <string name="battery_configuration">پیکربندی باتری</string>
     <string name="battery_configuration_desc">اعطای معافیت بهینه‌سازی باتری برای پخش پایدار در پس‌زمینه</string>
-    <string name="mirror_flip">چرخش آینه‌ای</string>
-    <string name="mirror_flip_desc">چرخش افقی تصویر ویدیو</string>
 
     <string name="display_settings">تنظیمات نمایش</string>
     <string name="decoder_settings">تنظیمات رمزگشا</string>
@@ -106,6 +104,8 @@
     <string name="quality_preference">ترجیح کیفیت</string>
     <string name="quality_preference_default">پیش‌فرض (بالاترین)</string>
     <string name="quality_preference_saver">صرفه‌جویی داده</string>
+    <string name="mirror_flip">چرخش آینه‌ای</string>
+    <string name="mirror_flip_desc">چرخش افقی تصویر ویدیو</string>
     <string name="decoder">رمزگشا</string>
     <string name="decoder_hardware">سخت‌افزاری</string>
     <string name="decoder_software">نرم‌افزاری</string>

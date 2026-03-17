@@ -94,8 +94,6 @@
     <string name="background_play_battery_hint">배터리 최적화 제외가 필요합니다</string>
     <string name="battery_configuration">배터리 구성</string>
     <string name="battery_configuration_desc">안정적인 백그라운드 재생을 위해 배터리 최적화 제외 허용</string>
-    <string name="mirror_flip">미러 반전</string>
-    <string name="mirror_flip_desc">동영상을 수평으로 반전</string>
 
     <string name="display_settings">표시 설정</string>
     <string name="decoder_settings">디코더 설정</string>
@@ -105,6 +103,8 @@
     <string name="quality_preference">화질 설정</string>
     <string name="quality_preference_default">기본 (최고)</string>
     <string name="quality_preference_saver">데이터 절약</string>
+    <string name="mirror_flip">미러 반전</string>
+    <string name="mirror_flip_desc">동영상을 수평으로 반전</string>
     <string name="decoder">디코더</string>
     <string name="decoder_hardware">하드웨어</string>
     <string name="decoder_software">소프트웨어</string>

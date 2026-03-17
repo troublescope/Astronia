@@ -95,8 +95,6 @@
     <string name="background_play_battery_hint">Richiede esenzione dall\'ottimizzazione batteria</string>
     <string name="battery_configuration">Configurazione batteria</string>
     <string name="battery_configuration_desc">Concedi l\'esenzione dall\'ottimizzazione batteria per una riproduzione stabile in background</string>
-    <string name="mirror_flip">Specchio</string>
-    <string name="mirror_flip_desc">Capovolgi il video orizzontalmente</string>
 
     <string name="display_settings">Impostazioni schermo</string>
     <string name="decoder_settings">Impostazioni decoder</string>
@@ -106,6 +104,8 @@
     <string name="quality_preference">Preferenza qualità</string>
     <string name="quality_preference_default">Predefinita (Massima)</string>
     <string name="quality_preference_saver">Risparmio dati</string>
+    <string name="mirror_flip">Specchio</string>
+    <string name="mirror_flip_desc">Capovolgi il video orizzontalmente</string>
     <string name="decoder">Decoder</string>
     <string name="decoder_hardware">Hardware</string>
     <string name="decoder_software">Software</string>

@@ -97,8 +97,6 @@
     <string name="background_play_battery_hint">Wymaga wyłączenia optymalizacji baterii</string>
     <string name="battery_configuration">Konfiguracja baterii</string>
     <string name="battery_configuration_desc">Przyznaj wyłączenie optymalizacji baterii dla stabilnego odtwarzania w tle</string>
-    <string name="mirror_flip">Odbicie lustrzane</string>
-    <string name="mirror_flip_desc">Odwróć wideo poziomo</string>
 
     <string name="display_settings">Ustawienia wyświetlania</string>
     <string name="decoder_settings">Ustawienia dekodera</string>
@@ -108,6 +106,8 @@
     <string name="quality_preference">Preferencje jakości</string>
     <string name="quality_preference_default">Domyślna (Najwyższa)</string>
     <string name="quality_preference_saver">Oszczędzanie danych</string>
+    <string name="mirror_flip">Odbicie lustrzane</string>
+    <string name="mirror_flip_desc">Odwróć wideo poziomo</string>
     <string name="decoder">Dekoder</string>
     <string name="decoder_hardware">Sprzętowy</string>
     <string name="decoder_software">Programowy</string>

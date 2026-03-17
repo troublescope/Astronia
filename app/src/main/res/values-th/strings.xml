@@ -94,8 +94,6 @@
     <string name="background_play_battery_hint">ต้องได้รับการยกเว้นจากการเพิ่มประสิทธิภาพแบตเตอรี่</string>
     <string name="battery_configuration">การกำหนดค่าแบตเตอรี่</string>
     <string name="battery_configuration_desc">อนุญาตการยกเว้นการเพิ่มประสิทธิภาพแบตเตอรี่เพื่อการเล่นเบื้องหลังที่เสถียร</string>
-    <string name="mirror_flip">พลิกกระจก</string>
-    <string name="mirror_flip_desc">พลิกวิดีโอในแนวนอน</string>
 
     <string name="display_settings">การตั้งค่าการแสดงผล</string>
     <string name="decoder_settings">การตั้งค่าตัวถอดรหัส</string>
@@ -105,6 +103,8 @@
     <string name="quality_preference">การตั้งค่าคุณภาพ</string>
     <string name="quality_preference_default">ค่าเริ่มต้น (สูงสุด)</string>
     <string name="quality_preference_saver">ประหยัดข้อมูล</string>
+    <string name="mirror_flip">พลิกกระจก</string>
+    <string name="mirror_flip_desc">พลิกวิดีโอในแนวนอน</string>
     <string name="decoder">ตัวถอดรหัส</string>
     <string name="decoder_hardware">ฮาร์ดแวร์</string>
     <string name="decoder_software">ซอฟต์แวร์</string>

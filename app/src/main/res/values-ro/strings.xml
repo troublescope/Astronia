@@ -96,8 +96,6 @@
     <string name="background_play_battery_hint">Necesită excepție de la optimizarea bateriei</string>
     <string name="battery_configuration">Configurare baterie</string>
     <string name="battery_configuration_desc">Acordă excepție de la optimizarea bateriei pentru redare stabilă în fundal</string>
-    <string name="mirror_flip">Oglindire</string>
-    <string name="mirror_flip_desc">Întoarce video-ul orizontal</string>
 
     <string name="display_settings">Setări afișare</string>
     <string name="decoder_settings">Setări decodor</string>
@@ -107,6 +105,8 @@
     <string name="quality_preference">Preferință calitate</string>
     <string name="quality_preference_default">Implicit (Maximă)</string>
     <string name="quality_preference_saver">Economisire date</string>
+    <string name="mirror_flip">Oglindire</string>
+    <string name="mirror_flip_desc">Întoarce video-ul orizontal</string>
     <string name="decoder">Decodor</string>
     <string name="decoder_hardware">Hardware</string>
     <string name="decoder_software">Software</string>

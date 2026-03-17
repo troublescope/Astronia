@@ -94,8 +94,6 @@
     <string name="background_play_battery_hint">Memerlukan pengecualian pengoptimalan baterai</string>
     <string name="battery_configuration">Konfigurasi Baterai</string>
     <string name="battery_configuration_desc">Berikan pengecualian pengoptimalan baterai untuk pemutaran latar belakang yang stabil</string>
-    <string name="mirror_flip">Balik Cermin</string>
-    <string name="mirror_flip_desc">Balikkan video secara horizontal</string>
 
     <string name="display_settings">Pengaturan Tampilan</string>
     <string name="decoder_settings">Pengaturan Dekoder</string>
@@ -105,6 +103,8 @@
     <string name="quality_preference">Preferensi Kualitas</string>
     <string name="quality_preference_default">Default (Tertinggi)</string>
     <string name="quality_preference_saver">Hemat Data</string>
+    <string name="mirror_flip">Balik Cermin</string>
+    <string name="mirror_flip_desc">Balikkan video secara horizontal</string>
     <string name="decoder">Dekoder</string>
     <string name="decoder_hardware">Perangkat Keras</string>
     <string name="decoder_software">Perangkat Lunak</string>

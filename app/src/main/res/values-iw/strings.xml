@@ -96,8 +96,6 @@
     <string name="background_play_battery_hint">דורש פטור מאופטימיזציית סוללה</string>
     <string name="battery_configuration">תצורת סוללה</string>
     <string name="battery_configuration_desc">הענק פטור מאופטימיזציית סוללה להשמעה יציבה ברקע</string>
-    <string name="mirror_flip">היפוך מראה</string>
-    <string name="mirror_flip_desc">היפוך אופקי של תמונת הוידאו</string>
 
     <string name="display_settings">הגדרות תצוגה</string>
     <string name="decoder_settings">הגדרות מפענח</string>
@@ -107,6 +105,8 @@
     <string name="quality_preference">העדפת איכות</string>
     <string name="quality_preference_default">ברירת מחדל (הגבוהה ביותר)</string>
     <string name="quality_preference_saver">חיסכון בנתונים</string>
+    <string name="mirror_flip">היפוך מראה</string>
+    <string name="mirror_flip_desc">היפוך אופקי של תמונת הוידאו</string>
     <string name="decoder">מפענח</string>
     <string name="decoder_hardware">חומרה</string>
     <string name="decoder_software">תוכנה</string>

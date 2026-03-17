@@ -95,8 +95,6 @@
     <string name="background_play_battery_hint">Pil optimizasyonu muafiyeti gerektirir</string>
     <string name="battery_configuration">Pil Yapılandırması</string>
     <string name="battery_configuration_desc">Kararlı arka plan oynatımı için pil optimizasyonu muafiyeti verin</string>
-    <string name="mirror_flip">Aynala</string>
-    <string name="mirror_flip_desc">Videoyu yatay olarak çevir</string>
 
     <string name="display_settings">Ekran Ayarları</string>
     <string name="decoder_settings">Kod Çözücü Ayarları</string>
@@ -106,6 +104,8 @@
     <string name="quality_preference">Kalite Tercihi</string>
     <string name="quality_preference_default">Varsayılan (En Yüksek)</string>
     <string name="quality_preference_saver">Veri Tasarrufu</string>
+    <string name="mirror_flip">Aynala</string>
+    <string name="mirror_flip_desc">Videoyu yatay olarak çevir</string>
     <string name="decoder">Kod Çözücü</string>
     <string name="decoder_hardware">Donanım</string>
     <string name="decoder_software">Yazılım</string>

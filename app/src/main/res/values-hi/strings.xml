@@ -95,8 +95,6 @@
     <string name="background_play_battery_hint">इसके लिए बैटरी ऑप्टिमाइज़ेशन छूट की आवश्यकता है</string>
     <string name="battery_configuration">बैटरी कॉन्फ़िगरेशन</string>
     <string name="battery_configuration_desc">स्थिर बैकग्राउंड प्लेबैक के लिए बैटरी ऑप्टिमाइज़ेशन छूट प्रदान करें</string>
-    <string name="mirror_flip">मिरर फ्लिप</string>
-    <string name="mirror_flip_desc">वीडियो को क्षैतिज रूप से पलटें</string>
 
     <string name="display_settings">डिस्प्ले सेटिंग्स</string>
     <string name="decoder_settings">डिकोडर सेटिंग्स</string>
@@ -106,6 +104,8 @@
     <string name="quality_preference">गुणवत्ता प्राथमिकता</string>
     <string name="quality_preference_default">डिफ़ॉल्ट (उच्चतम)</string>
     <string name="quality_preference_saver">डेटा सेवर</string>
+    <string name="mirror_flip">मिरर फ्लिप</string>
+    <string name="mirror_flip_desc">वीडियो को क्षैतिज रूप से पलटें</string>
     <string name="decoder">डिकोडर</string>
     <string name="decoder_hardware">हार्डवेयर</string>
     <string name="decoder_software">सॉफ्टवेयर</string>

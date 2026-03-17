@@ -95,8 +95,6 @@
     <string name="background_play_battery_hint">ব্যাটারি অপ্টিমাইজেশন ছাড় প্রয়োজন</string>
     <string name="battery_configuration">ব্যাটারি কনফিগারেশন</string>
     <string name="battery_configuration_desc">স্থিতিশীল ব্যাকগ্রাউন্ড প্লেব্যাকের জন্য ব্যাটারি অপ্টিমাইজেশন ছাড় দিন</string>
-    <string name="mirror_flip">মিরর ফ্লিপ</string>
-    <string name="mirror_flip_desc">ভিডিওটি আড়াআড়িভাবে উল্টান</string>
 
     <string name="display_settings">ডিসপ্লে সেটিংস</string>
     <string name="decoder_settings">ডিকোডার সেটিংস</string>
@@ -106,6 +104,8 @@
     <string name="quality_preference">কোয়ালিটি পছন্দ</string>
     <string name="quality_preference_default">ডিফল্ট (সর্বোচ্চ)</string>
     <string name="quality_preference_saver">ডেটা সেভার</string>
+    <string name="mirror_flip">মিরর ফ্লিপ</string>
+    <string name="mirror_flip_desc">ভিডিওটি আড়াআড়িভাবে উল্টান</string>
     <string name="decoder">ডিকোডার</string>
     <string name="decoder_hardware">হার্ডওয়্যার</string>
     <string name="decoder_software">সফটওয়্যার</string>

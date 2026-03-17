@@ -98,9 +98,7 @@
     <string name="background_play_battery_hint">Требуется разрешение на работу без оптимизации батареи</string>
     <string name="battery_configuration">Настройка батареи</string>
     <string name="battery_configuration_desc">Добавьте приложение в исключения экономии заряда для стабильной работы в фоне</string>
-    <string name="mirror_flip">Зеркальное отражение</string>
-    <string name="mirror_flip_desc">Отразить видео по горизонтали</string>
-
+    
     <string name="display_settings">Настройки экрана</string>
     <string name="decoder_settings">Настройки декодера</string>
     <string name="aspect_ratio">Соотношение сторон</string>
@@ -109,6 +107,8 @@
     <string name="quality_preference">Предпочтение качества</string>
     <string name="quality_preference_default">По умолчанию (Максимальное)</string>
     <string name="quality_preference_saver">Экономия трафика</string>
+    <string name="mirror_flip">Зеркальное отражение</string>
+    <string name="mirror_flip_desc">Отразить видео по горизонтали</string>
     <string name="decoder">Декодер</string>
     <string name="decoder_hardware">Аппаратный</string>
     <string name="decoder_software">Программный</string>

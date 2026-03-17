@@ -99,8 +99,6 @@
     <string name="background_play_battery_hint">يتطلب استثناءً من تحسين البطارية</string>
     <string name="battery_configuration">إعدادات البطارية</string>
     <string name="battery_configuration_desc">منح استثناء من تحسين البطارية لضمان استقرار التشغيل في الخلفية</string>
-    <string name="mirror_flip">انعكاس مرآتي</string>
-    <string name="mirror_flip_desc">قلب الفيديو أفقياً</string>
 
     <string name="display_settings">إعدادات العرض</string>
     <string name="decoder_settings">إعدادات فك التشفير</string>
@@ -110,6 +108,8 @@
     <string name="quality_preference">تفضيل الجودة</string>
     <string name="quality_preference_default">افتراضي (الأعلى)</string>
     <string name="quality_preference_saver">توفير البيانات</string>
+    <string name="mirror_flip">انعكاس مرآتي</string>
+    <string name="mirror_flip_desc">قلب الفيديو أفقياً</string>
     <string name="decoder">أداة فك التشفير</string>
     <string name="decoder_hardware">عتادي</string>
     <string name="decoder_software">برمجي</string>

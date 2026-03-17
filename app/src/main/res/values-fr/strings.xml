@@ -95,8 +95,6 @@
     <string name="background_play_battery_hint">Nécessite une exemption d\'optimisation de la batterie</string>
     <string name="battery_configuration">Configuration batterie</string>
     <string name="battery_configuration_desc">Accorder l\'exemption de batterie pour une lecture stable en arrière-plan</string>
-    <string name="mirror_flip">Miroir</string>
-    <string name="mirror_flip_desc">Inverser la vidéo horizontalement</string>
 
     <string name="display_settings">Paramètres d\'affichage</string>
     <string name="decoder_settings">Paramètres du décodeur</string>
@@ -106,6 +104,8 @@
     <string name="quality_preference">Préférence de qualité</string>
     <string name="quality_preference_default">Par défaut (Maximale)</string>
     <string name="quality_preference_saver">Économie de données</string>
+    <string name="mirror_flip">Miroir</string>
+    <string name="mirror_flip_desc">Inverser la vidéo horizontalement</string>
     <string name="decoder">Décodeur</string>
     <string name="decoder_hardware">Matériel (Hardware)</string>
     <string name="decoder_software">Logiciel (Software)</string>

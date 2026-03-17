@@ -97,8 +97,6 @@
     <string name="background_play_battery_hint">Потрібен виняток з оптимізації батареї</string>
     <string name="battery_configuration">Налаштування батареї</string>
     <string name="battery_configuration_desc">Надати виняток з оптимізації батареї для стабільного фонового відтворення</string>
-    <string name="mirror_flip">Дзеркальне відображення</string>
-    <string name="mirror_flip_desc">Відобразити відео горизонтально</string>
 
     <string name="display_settings">Налаштування дисплея</string>
     <string name="decoder_settings">Налаштування декодера</string>
@@ -108,6 +106,8 @@
     <string name="quality_preference">Перевага якості</string>
     <string name="quality_preference_default">За замовчуванням (Найвища)</string>
     <string name="quality_preference_saver">Економія трафіку</string>
+    <string name="mirror_flip">Дзеркальне відображення</string>
+    <string name="mirror_flip_desc">Відобразити відео горизонтально</string>
     <string name="decoder">Декодер</string>
     <string name="decoder_hardware">Апаратний</string>
     <string name="decoder_software">Програмний</string>

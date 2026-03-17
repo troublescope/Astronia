@@ -95,8 +95,6 @@
     <string name="background_play_battery_hint">Vereist uitzondering op batterij-optimalisatie</string>
     <string name="battery_configuration">Batterijconfiguratie</string>
     <string name="battery_configuration_desc">Uitzondering op batterij-optimalisatie verlenen voor stabiel afspelen op achtergrond</string>
-    <string name="mirror_flip">Spiegelen</string>
-    <string name="mirror_flip_desc">Video horizontaal spiegelen</string>
 
     <string name="display_settings">Weergave-instellingen</string>
     <string name="decoder_settings">Decoder-instellingen</string>
@@ -106,6 +104,8 @@
     <string name="quality_preference">Kwaliteitsvoorkeur</string>
     <string name="quality_preference_default">Standaard (Hoogste)</string>
     <string name="quality_preference_saver">Databesparing</string>
+    <string name="mirror_flip">Spiegelen</string>
+    <string name="mirror_flip_desc">Video horizontaal spiegelen</string>
     <string name="decoder">Decoder</string>
     <string name="decoder_hardware">Hardware</string>
     <string name="decoder_software">Software</string>
