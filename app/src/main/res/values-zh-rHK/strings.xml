@@ -5,6 +5,7 @@
     <string name="clear">清除</string>
     <string name="open">開啟</string>
     <string name="close">關閉</string>
+    <string name="off">關閉</string>
     <string name="back">返回</string>
     <string name="cancel">取消</string>
     <string name="undo">復原</string>
@@ -88,7 +89,6 @@
     <string name="auto_play_desc">開片嗰陣自動開始播放</string>
     <string name="epg_markers">EPG 標記</string>
     <string name="epg_markers_desc">喺進度條上面顯示 EPG 節目段嘅標記</string>
-    <string name="epg_markers_off">關閉</string>
     <string name="auto_hide_controls">自動隱藏控制欄</string>
     <string name="auto_hide_controls_desc">播放時自動收埋控制欄</string>
     <string name="pip">子母畫面</string>

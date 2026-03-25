@@ -1,6 +1,9 @@
 package com.antoniegil.astronia.util
 
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import okhttp3.Request
 
@@ -26,6 +29,8 @@ data class EpgProgram(
 
 object M3U8Parser {
     
+    private val scope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
+    
     private val client by lazy {
         NetworkUtils.createHttpClient(
             connectTimeoutMs = PlayerConstants.M3U8_CONNECTION_TIMEOUT_MS.toLong(),
@@ -40,8 +45,6 @@ object M3U8Parser {
     suspend fun parseM3U8(content: String): Result<List<M3U8Channel>> = withContext(Dispatchers.IO) {
         try {
             extractEpgUrl(content)
-            loadEpgData()
-            val currentTime = System.currentTimeMillis()
             
             val channels = mutableListOf<M3U8Channel>()
             val lines = content.lineSequence()
@@ -73,11 +76,6 @@ object M3U8Parser {
                         val name = currentName.ifEmpty { "Channel ${channels.size + 1}" }
                         val finalId = "${trimmedLine.hashCode()}_${channels.size}"
                         
-                        val epgChannelId = currentTvgId
-                        val programs = epgData[epgChannelId] ?: emptyList()
-                        val currentProgram = programs.find { currentTime in it.startTime..it.stopTime }
-                        val epgTitle = currentProgram?.title ?: ""
-                        
                         channels.add(
                             M3U8Channel(
                                 id = finalId,
@@ -89,8 +87,8 @@ object M3U8Parser {
                                 logoUrl = currentLogoUrl,
                                 tvgId = currentTvgId,
                                 tvgName = currentTvgName,
-                                epgTitle = epgTitle,
-                                epgPrograms = programs
+                                epgTitle = "",
+                                epgPrograms = emptyList()
                             )
                         )
                     }
@@ -102,6 +100,10 @@ object M3U8Parser {
                     currentTvgId = ""
                     currentTvgName = ""
                 }
+            }
+            
+            scope.launch {
+                loadEpgData()
             }
             
             Result.Success(channels)
@@ -133,16 +135,11 @@ object M3U8Parser {
                 return@withContext Result.Success(singleChannel)
             }
             
-            loadEpgData()
-            val currentTime = System.currentTimeMillis()
-            val updatedChannels = result.channels.map { channel ->
-                val epgChannelId = channel.tvgId
-                val programs = epgData[epgChannelId] ?: emptyList()
-                val currentProgram = programs.find { currentTime in it.startTime..it.stopTime }
-                val epgTitle = currentProgram?.title ?: ""
-                channel.copy(epgTitle = epgTitle, epgPrograms = programs)
+            scope.launch {
+                loadEpgData()
             }
-            Result.Success(updatedChannels)
+            
+            Result.Success(result.channels)
         } catch (e: Exception) {
             if (httpsUrl != url) {
                 try {
@@ -160,16 +157,11 @@ object M3U8Parser {
                         return@withContext Result.Success(singleChannel)
                     }
                     
-                    loadEpgData()
-                    val currentTime = System.currentTimeMillis()
-                    val updatedChannels = result.channels.map { channel ->
-                        val epgChannelId = channel.tvgId
-                        val programs = epgData[epgChannelId] ?: emptyList()
-                        val currentProgram = programs.find { currentTime in it.startTime..it.stopTime }
-                        val epgTitle = currentProgram?.title ?: ""
-                        channel.copy(epgTitle = epgTitle, epgPrograms = programs)
+                    scope.launch {
+                        loadEpgData()
                     }
-                    Result.Success(updatedChannels)
+                    
+                    Result.Success(result.channels)
                 } catch (fallbackException: Exception) {
                     Result.Error(fallbackException, "Failed to fetch M3U8 from URL: ${fallbackException.message}")
                 }
@@ -328,14 +320,26 @@ object M3U8Parser {
         
         withContext(Dispatchers.IO) {
             try {
-                val request = Request.Builder().url(url).build()
-                val response = client.newCall(request).execute()
+                val urls = url.split(",").map { it.trim() }.filter { it.isNotEmpty() }
                 
-                if (!response.isSuccessful) return@withContext
-                
-                val xmlContent = response.body.string()
-                
-                epgData = parseEpgXml(xmlContent)
+                for (singleUrl in urls) {
+                    try {
+                        val request = Request.Builder().url(singleUrl).build()
+                        val response = client.newCall(request).execute()
+                        
+                        if (response.isSuccessful) {
+                            val inputStream = if (singleUrl.endsWith(".gz")) {
+                                java.util.zip.GZIPInputStream(response.body.byteStream())
+                            } else {
+                                response.body.byteStream()
+                            }
+                            val xmlContent = inputStream.bufferedReader().use { it.readText() }
+                            epgData = parseEpgXml(xmlContent)
+                            return@withContext
+                        }
+                    } catch (e: Exception) {
+                    }
+                }
             } catch (e: Exception) {
             }
         }
@@ -367,8 +371,12 @@ object M3U8Parser {
                         .replace("&quot;", "\"")
                         .replace("&apos;", "'")
                     val program = EpgProgram(title, startTime, stopTime)
-                    val list = result.getOrPut(channelId) { mutableListOf() }
-                    list.add(program)
+                    
+                    val normalizedId = channelId.replace(".", "")
+                    result.getOrPut(channelId) { mutableListOf() }.add(program)
+                    if (channelId != normalizedId) {
+                        result.getOrPut(normalizedId) { mutableListOf() }.add(program)
+                    }
                 }
             }
         }

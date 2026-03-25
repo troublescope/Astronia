@@ -7,6 +7,7 @@
     <string name="clear">Clear</string>
     <string name="open">Open</string>
     <string name="close">Close</string>
+    <string name="off">Off</string>
     <string name="back">Back</string>
     <string name="cancel">Cancel</string>
     <string name="undo">Undo</string>
@@ -91,7 +92,6 @@
     <string name="auto_play_desc">Automatically start playing when opening video</string>
     <string name="epg_markers">EPG Markers</string>
     <string name="epg_markers_desc">Show EPG program segment markers on progress bar</string>
-    <string name="epg_markers_off">off</string>
     <string name="auto_hide_controls">Auto Hide Controls</string>
     <string name="auto_hide_controls_desc">Automatically hide controls during playback</string>
     <string name="pip">Picture in Picture</string>

@@ -263,7 +263,7 @@ fun PreferenceNumberPicker(
                 modifier = Modifier.padding(start = 16.dp)
             ) {
                 TextField(
-                    value = if (value == 0) stringResource(R.string.epg_markers_off) else value.toString(),
+                    value = if (value == 0) stringResource(R.string.off) else value.toString(),
                     onValueChange = {},
                     readOnly = true,
                     modifier = Modifier
@@ -285,7 +285,7 @@ fun PreferenceNumberPicker(
                 ) {
                     valueRange.forEach { num ->
                         DropdownMenuItem(
-                            text = { Text(if (num == 0) stringResource(R.string.epg_markers_off) else num.toString()) },
+                            text = { Text(if (num == 0) stringResource(R.string.off) else num.toString()) },
                             onClick = {
                                 onValueChange(num)
                                 expanded = false
