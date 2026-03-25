@@ -13,13 +13,16 @@ import android.provider.Settings
 import android.util.Rational
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.animation.core.Animatable
+import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.tween
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.material.icons.filled.*
@@ -35,9 +38,12 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.List
 import com.antoniegil.astronia.player.Media3Player
 import com.antoniegil.astronia.player.VideoQuality
 import com.antoniegil.astronia.util.WatchTimeTracker
+import com.antoniegil.astronia.util.EpgProgram
 import kotlinx.coroutines.delay
 import com.antoniegil.astronia.R
 
@@ -61,7 +67,8 @@ fun PlayerControlsOverlay(
     isLocked: Boolean,
     onLockChange: (Boolean) -> Unit,
     onEpgClick: () -> Unit = {},
-    hasEpgData: Boolean = false
+    hasEpgData: Boolean = false,
+    epgPrograms: List<EpgProgram> = emptyList()
 ) {
     var currentPosition by remember { mutableLongStateOf(media3Player?.currentPosition ?: 0L) }
     var bufferedPosition by remember { mutableLongStateOf(media3Player?.bufferedPosition ?: 0L) }
@@ -214,7 +221,9 @@ fun PlayerControlsOverlay(
                         ProgressBar(
                             modifier = Modifier.weight(1f),
                             isBuffering = isBuffering,
-                            estimatedProgress = estimatedProgress
+                            estimatedProgress = estimatedProgress,
+                            epgPrograms = epgPrograms,
+                            cycleDurationMs = (localCycleDuration * 1000).toLong()
                         )
 
                         Spacer(modifier = Modifier.width(8.dp))
@@ -248,7 +257,7 @@ fun PlayerControlsOverlay(
                                 modifier = Modifier.offset(x = (-2).dp)
                             ) {
                                 Icon(
-                                    imageVector = Icons.Default.List,
+                                    imageVector = Icons.AutoMirrored.Filled.List,
                                     contentDescription = "EPG",
                                     tint = Color.White,
                                     modifier = Modifier.size(28.dp)
@@ -282,11 +291,27 @@ fun PlayerControlsOverlay(
 private fun ProgressBar(
     modifier: Modifier = Modifier,
     isBuffering: Boolean,
-    estimatedProgress: Float
+    estimatedProgress: Float,
+    epgPrograms: List<EpgProgram> = emptyList(),
+    cycleDurationMs: Long = 0L
 ) {
+    val currentTime = System.currentTimeMillis()
+    val currentProgram = epgPrograms.find { currentTime in it.startTime..it.stopTime }
+    
     Column(modifier = modifier) {
         when {
             isBuffering -> UnifiedProgressBar(mode = ProgressBarMode.Indeterminate)
+            epgPrograms.isNotEmpty() && currentProgram != null -> {
+                val upcomingPrograms = epgPrograms.filter { it.startTime > currentTime }.take(2)
+                val currentRemaining = currentProgram.stopTime - currentTime
+                val totalDuration = currentRemaining + upcomingPrograms.sumOf { it.stopTime - it.startTime }
+                
+                UnifiedProgressBar(
+                    mode = ProgressBarMode.EpgBased(0f),
+                    epgPrograms = epgPrograms,
+                    totalDurationMs = totalDuration
+                )
+            }
             else -> UnifiedProgressBar(
                 mode = ProgressBarMode.Estimated(estimatedProgress)
             )
@@ -298,13 +323,16 @@ private sealed class ProgressBarMode {
     object Indeterminate : ProgressBarMode()
     data class Determinate(val currentPosition: Long, val duration: Long) : ProgressBarMode()
     data class Estimated(val progress: Float) : ProgressBarMode()
+    data class EpgBased(val progress: Float) : ProgressBarMode()
 }
 
 @Composable
 private fun UnifiedProgressBar(
     mode: ProgressBarMode,
     modifier: Modifier = Modifier,
-    onSeek: ((Long) -> Unit)? = null
+    onSeek: ((Long) -> Unit)? = null,
+    epgPrograms: List<EpgProgram> = emptyList(),
+    totalDurationMs: Long = 0L
 ) {
     when (mode) {
         is ProgressBarMode.Indeterminate -> {
@@ -369,6 +397,43 @@ private fun UnifiedProgressBar(
                     color = Color.White,
                     trackColor = Color.White.copy(alpha = 0.3f)
                 )
+            }
+        }
+        is ProgressBarMode.EpgBased -> {
+            val animatedProgress = remember { Animatable(0f) }
+            
+            LaunchedEffect(totalDurationMs) {
+                if (totalDurationMs > 0) {
+                    animatedProgress.snapTo(0f)
+                    animatedProgress.animateTo(
+                        targetValue = 0.95f,
+                        animationSpec = tween(
+                            durationMillis = totalDurationMs.toInt(),
+                            easing = LinearEasing
+                        )
+                    )
+                }
+            }
+            
+            Box(
+                modifier = modifier
+                    .fillMaxWidth()
+                    .height(6.dp)
+            ) {
+                LinearProgressIndicator(
+                    progress = { animatedProgress.value },
+                    modifier = Modifier.fillMaxSize(),
+                    color = Color.White,
+                    trackColor = Color.White.copy(alpha = 0.3f)
+                )
+                
+                if (epgPrograms.isNotEmpty() && totalDurationMs > 0) {
+                    EpgMarkers(
+                        programs = epgPrograms,
+                        totalDurationMs = totalDurationMs,
+                        modifier = Modifier.fillMaxSize()
+                    )
+                }
             }
         }
     }
@@ -759,6 +824,48 @@ private fun QualitySelectionContent(
                     )
                 }
             }
+        }
+    }
+}
+
+@Composable
+private fun EpgMarkers(
+    programs: List<EpgProgram>,
+    totalDurationMs: Long,
+    modifier: Modifier = Modifier
+) {
+    if (programs.isEmpty() || totalDurationMs <= 0) return
+    
+    val currentTime = System.currentTimeMillis()
+    val currentProgram = programs.find { currentTime in it.startTime..it.stopTime } ?: return
+    
+    val upcomingPrograms = programs.filter { it.startTime > currentTime }.take(2)
+    if (upcomingPrograms.isEmpty()) return
+    
+    val currentRemaining = currentProgram.stopTime - currentTime
+    
+    BoxWithConstraints(modifier = modifier) {
+        val progressBarWidth = maxWidth
+        
+        val marker1Position = (currentRemaining.toFloat() / totalDurationMs).coerceIn(0f, 0.95f)
+        Box(
+            modifier = Modifier
+                .align(Alignment.CenterStart)
+                .offset(x = progressBarWidth * marker1Position)
+                .size(4.dp)
+                .background(Color.White, CircleShape)
+        )
+        
+        if (upcomingPrograms.isNotEmpty()) {
+            val nextProgramDuration = upcomingPrograms[0].stopTime - upcomingPrograms[0].startTime
+            val marker2Position = ((currentRemaining + nextProgramDuration).toFloat() / totalDurationMs).coerceIn(0f, 0.95f)
+            Box(
+                modifier = Modifier
+                    .align(Alignment.CenterStart)
+                    .offset(x = progressBarWidth * marker2Position)
+                    .size(4.dp)
+                    .background(Color.White, CircleShape)
+            )
         }
     }
 }
