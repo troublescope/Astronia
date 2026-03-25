@@ -33,10 +33,7 @@ object SettingsManager {
     
     fun getAutoPlay(context: Context): Boolean = getInstance(context).getAutoPlay()
     fun setAutoPlay(context: Context, value: Boolean) = getInstance(context).setAutoPlay(value)
-    
-    fun getRememberPosition(context: Context): Boolean = getInstance(context).getRememberPosition()
-    fun setRememberPosition(context: Context, value: Boolean) = getInstance(context).setRememberPosition(value)
-    
+
     fun getAutoHideControls(context: Context): Boolean = getInstance(context).getAutoHideControls()
     fun setAutoHideControls(context: Context, value: Boolean) = getInstance(context).setAutoHideControls(value)
     
@@ -48,10 +45,7 @@ object SettingsManager {
     
     fun getBackgroundPlay(context: Context): Boolean = getInstance(context).getBackgroundPlay()
     fun setBackgroundPlay(context: Context, value: Boolean) = getInstance(context).setBackgroundPlay(value)
-    
-    fun getHardwareAcceleration(context: Context): Boolean = getInstance(context).getHardwareAcceleration()
-    fun setHardwareAcceleration(context: Context, value: Boolean) = getInstance(context).setHardwareAcceleration(value)
-    
+
     fun getAspectRatio(context: Context): Int = getInstance(context).getAspectRatio()
     fun setAspectRatio(context: Context, value: Int) = getInstance(context).setAspectRatio(value)
     

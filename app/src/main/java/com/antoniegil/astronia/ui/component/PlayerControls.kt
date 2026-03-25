@@ -295,21 +295,23 @@ private fun ProgressBar(
     epgPrograms: List<EpgProgram> = emptyList(),
     cycleDurationMs: Long = 0L
 ) {
+    val count = com.antoniegil.astronia.util.SettingsManager.getEpgMarkersCount(LocalContext.current)
     val currentTime = System.currentTimeMillis()
     val currentProgram = epgPrograms.find { currentTime in it.startTime..it.stopTime }
     
     Column(modifier = modifier) {
         when {
             isBuffering -> UnifiedProgressBar(mode = ProgressBarMode.Indeterminate)
-            epgPrograms.isNotEmpty() && currentProgram != null -> {
-                val upcomingPrograms = epgPrograms.filter { it.startTime > currentTime }.take(2)
+            epgPrograms.isNotEmpty() && currentProgram != null && count > 0 -> {
+                val upcomingPrograms = epgPrograms.filter { it.startTime > currentTime }.take(count)
                 val currentRemaining = currentProgram.stopTime - currentTime
-                val totalDuration = currentRemaining + upcomingPrograms.sumOf { it.stopTime - it.startTime }
+                val totalDuration = currentRemaining + upcomingPrograms.dropLast(1).sumOf { it.stopTime - it.startTime }
                 
                 UnifiedProgressBar(
                     mode = ProgressBarMode.EpgBased(0f),
                     epgPrograms = epgPrograms,
-                    totalDurationMs = totalDuration
+                    totalDurationMs = totalDuration,
+                    count = count
                 )
             }
             else -> UnifiedProgressBar(
@@ -332,7 +334,8 @@ private fun UnifiedProgressBar(
     modifier: Modifier = Modifier,
     onSeek: ((Long) -> Unit)? = null,
     epgPrograms: List<EpgProgram> = emptyList(),
-    totalDurationMs: Long = 0L
+    totalDurationMs: Long = 0L,
+    count: Int = 0
 ) {
     when (mode) {
         is ProgressBarMode.Indeterminate -> {
@@ -431,6 +434,7 @@ private fun UnifiedProgressBar(
                     EpgMarkers(
                         programs = epgPrograms,
                         totalDurationMs = totalDurationMs,
+                        count = count,
                         modifier = Modifier.fillMaxSize()
                     )
                 }
@@ -832,40 +836,33 @@ private fun QualitySelectionContent(
 private fun EpgMarkers(
     programs: List<EpgProgram>,
     totalDurationMs: Long,
+    count: Int,
     modifier: Modifier = Modifier
 ) {
-    if (programs.isEmpty() || totalDurationMs <= 0) return
+    if (programs.isEmpty() || totalDurationMs <= 0 || count <= 0) return
     
     val currentTime = System.currentTimeMillis()
     val currentProgram = programs.find { currentTime in it.startTime..it.stopTime } ?: return
     
-    val upcomingPrograms = programs.filter { it.startTime > currentTime }.take(2)
+    val upcomingPrograms = programs.filter { it.startTime > currentTime }.take(count)
     if (upcomingPrograms.isEmpty()) return
     
     val currentRemaining = currentProgram.stopTime - currentTime
     
     BoxWithConstraints(modifier = modifier) {
         val progressBarWidth = maxWidth
+        var accumulatedDuration = currentRemaining
         
-        val marker1Position = (currentRemaining.toFloat() / totalDurationMs).coerceIn(0f, 0.95f)
-        Box(
-            modifier = Modifier
-                .align(Alignment.CenterStart)
-                .offset(x = progressBarWidth * marker1Position)
-                .size(4.dp)
-                .background(Color.White, CircleShape)
-        )
-        
-        if (upcomingPrograms.isNotEmpty()) {
-            val nextProgramDuration = upcomingPrograms[0].stopTime - upcomingPrograms[0].startTime
-            val marker2Position = ((currentRemaining + nextProgramDuration).toFloat() / totalDurationMs).coerceIn(0f, 0.95f)
+        upcomingPrograms.forEach { program ->
+            val position = (accumulatedDuration.toFloat() / totalDurationMs).coerceIn(0f, 0.95f)
             Box(
                 modifier = Modifier
                     .align(Alignment.CenterStart)
-                    .offset(x = progressBarWidth * marker2Position)
+                    .offset(x = progressBarWidth * position)
                     .size(4.dp)
                     .background(Color.White, CircleShape)
             )
+            accumulatedDuration += (program.stopTime - program.startTime)
         }
     }
 }

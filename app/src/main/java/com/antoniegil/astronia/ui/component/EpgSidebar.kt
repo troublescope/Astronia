@@ -52,14 +52,14 @@ fun EpgSidebar(
             initialOffsetX = { it },
             animationSpec = tween(300)
         ) + expandHorizontally(
-            expandFrom = androidx.compose.ui.Alignment.End,
+            expandFrom = Alignment.End,
             animationSpec = tween(300)
         ),
         exit = slideOutHorizontally(
             targetOffsetX = { it },
             animationSpec = tween(300)
         ) + shrinkHorizontally(
-            shrinkTowards = androidx.compose.ui.Alignment.End,
+            shrinkTowards = Alignment.End,
             animationSpec = tween(300)
         )
     ) {

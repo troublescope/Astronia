@@ -13,6 +13,7 @@ import com.antoniegil.astronia.player.VideoQuality
 import com.antoniegil.astronia.util.ErrorHandler
 import com.antoniegil.astronia.util.HistoryManager
 import com.antoniegil.astronia.util.M3U8Channel
+import com.antoniegil.astronia.util.M3U8Parser
 import com.antoniegil.astronia.util.OrientationHelper
 import com.antoniegil.astronia.util.WatchTimeTracker
 import com.antoniegil.astronia.util.onError
@@ -113,6 +114,12 @@ class PlayerViewModel(application: Application) : AndroidViewModel(application) 
         }
         
         localPlayer?.stop()
+        
+        M3U8Parser.setEpgLoadedCallback { channelsWithEpg ->
+            viewModelScope.launch(Dispatchers.Main) {
+                _uiState.value = _uiState.value.copy(channels = channelsWithEpg)
+            }
+        }
         
         viewModelScope.launch {
             _uiState.value = _uiState.value.copy(
@@ -380,6 +387,7 @@ class PlayerViewModel(application: Application) : AndroidViewModel(application) 
     override fun onCleared() {
         super.onCleared()
         stopWatchTimeTracking()
+        M3U8Parser.clearEpgLoadedCallback()
         if (!isUsingGlobalPlayer) {
             releasePlayer()
         }

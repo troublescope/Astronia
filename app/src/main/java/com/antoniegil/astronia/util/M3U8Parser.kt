@@ -41,6 +41,8 @@ object M3U8Parser {
     
     private var epgUrl: String? = null
     private var epgData: Map<String, List<EpgProgram>> = emptyMap()
+    private var onEpgLoadedCallback: ((List<M3U8Channel>) -> Unit)? = null
+    private var cachedChannels: List<M3U8Channel> = emptyList()
     
     suspend fun parseM3U8(content: String): Result<List<M3U8Channel>> = withContext(Dispatchers.IO) {
         try {
@@ -102,8 +104,11 @@ object M3U8Parser {
                 }
             }
             
+            cachedChannels = channels
             scope.launch {
                 loadEpgData()
+                val channelsWithEpg = attachEpgToChannels(channels)
+                onEpgLoadedCallback?.invoke(channelsWithEpg)
             }
             
             Result.Success(channels)
@@ -135,8 +140,11 @@ object M3U8Parser {
                 return@withContext Result.Success(singleChannel)
             }
             
+            cachedChannels = result.channels
             scope.launch {
                 loadEpgData()
+                val channelsWithEpg = attachEpgToChannels(result.channels)
+                onEpgLoadedCallback?.invoke(channelsWithEpg)
             }
             
             Result.Success(result.channels)
@@ -157,8 +165,11 @@ object M3U8Parser {
                         return@withContext Result.Success(singleChannel)
                     }
                     
+                    cachedChannels = result.channels
                     scope.launch {
                         loadEpgData()
+                        val channelsWithEpg = attachEpgToChannels(result.channels)
+                        onEpgLoadedCallback?.invoke(channelsWithEpg)
                     }
                     
                     Result.Success(result.channels)
@@ -345,6 +356,34 @@ object M3U8Parser {
         }
     }
     
+    private fun attachEpgToChannels(channels: List<M3U8Channel>): List<M3U8Channel> {
+        if (epgData.isEmpty()) {
+            return channels
+        }
+        
+        val currentTime = System.currentTimeMillis()
+        return channels.map { channel ->
+            val tvgId = channel.tvgId.ifEmpty { channel.tvgName }
+            if (tvgId.isEmpty()) {
+                return@map channel
+            }
+            
+            val programs = epgData[tvgId] ?: epgData[tvgId.replace(".", "")] ?: emptyList()
+            
+            if (programs.isEmpty()) {
+                return@map channel
+            }
+            
+            val currentProgram = programs.find { currentTime in it.startTime..it.stopTime }
+            val epgTitle = currentProgram?.title ?: ""
+            
+            channel.copy(
+                epgTitle = epgTitle,
+                epgPrograms = programs
+            )
+        }
+    }
+    
     private fun parseEpgXml(xml: String): Map<String, List<EpgProgram>> {
         val result = mutableMapOf<String, MutableList<EpgProgram>>()
         val currentTime = System.currentTimeMillis()
@@ -401,5 +440,13 @@ object M3U8Parser {
         } catch (e: Exception) {
             return 0L
         }
+    }
+    
+    fun setEpgLoadedCallback(callback: (List<M3U8Channel>) -> Unit) {
+        onEpgLoadedCallback = callback
+    }
+    
+    fun clearEpgLoadedCallback() {
+        onEpgLoadedCallback = null
     }
 }
