@@ -82,9 +82,13 @@
     <string name="about_desc">应用信息和版本</string>
     
     <string name="playback_behavior">播放行为</string>
+    <string name="control_bar">控制栏</string>
     <string name="interface_control">界面控制</string>
     <string name="auto_play">自动播放</string>
     <string name="auto_play_desc">打开视频时自动开始播放</string>
+    <string name="epg_markers">EPG 标记</string>
+    <string name="epg_markers_desc">在进度条上显示 EPG 节目段的标记</string>
+    <string name="epg_markers_off">关闭</string>
     <string name="auto_hide_controls">自动隐藏控制栏</string>
     <string name="auto_hide_controls_desc">播放时自动隐藏控制栏</string>
     <string name="pip">画中画</string>

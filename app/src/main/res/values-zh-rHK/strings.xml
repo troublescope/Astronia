@@ -82,9 +82,13 @@
     <string name="about_desc">應用程式資訊同版本</string>
     
     <string name="playback_behavior">播放行為</string>
+    <string name="control_bar">控制欄</string>
     <string name="interface_control">介面控制</string>
     <string name="auto_play">自動播放</string>
     <string name="auto_play_desc">開片嗰陣自動開始播放</string>
+    <string name="epg_markers">EPG 標記</string>
+    <string name="epg_markers_desc">喺進度條上面顯示 EPG 節目段嘅標記</string>
+    <string name="epg_markers_off">關閉</string>
     <string name="auto_hide_controls">自動隱藏控制欄</string>
     <string name="auto_hide_controls_desc">播放時自動收埋控制欄</string>
     <string name="pip">子母畫面</string>

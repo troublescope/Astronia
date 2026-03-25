@@ -85,9 +85,13 @@
     <string name="about_desc">App info and version</string>
     
     <string name="playback_behavior">Playback Behavior</string>
+    <string name="control_bar">Control Bar</string>
     <string name="interface_control">Interface Control</string>
     <string name="auto_play">Auto Play</string>
     <string name="auto_play_desc">Automatically start playing when opening video</string>
+    <string name="epg_markers">EPG Markers</string>
+    <string name="epg_markers_desc">Show EPG program segment markers on progress bar</string>
+    <string name="epg_markers_off">off</string>
     <string name="auto_hide_controls">Auto Hide Controls</string>
     <string name="auto_hide_controls_desc">Automatically hide controls during playback</string>
     <string name="pip">Picture in Picture</string>

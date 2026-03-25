@@ -40,6 +40,9 @@ object SettingsManager {
     fun getAutoHideControls(context: Context): Boolean = getInstance(context).getAutoHideControls()
     fun setAutoHideControls(context: Context, value: Boolean) = getInstance(context).setAutoHideControls(value)
     
+    fun getEpgMarkersCount(context: Context): Int = getInstance(context).getEpgMarkersCount()
+    fun setEpgMarkersCount(context: Context, value: Int) = getInstance(context).setEpgMarkersCount(value)
+    
     fun getEnablePip(context: Context): Boolean = getInstance(context).getEnablePip()
     fun setEnablePip(context: Context, value: Boolean) = getInstance(context).setEnablePip(value)
     
@@ -176,6 +179,9 @@ internal class PreferenceManagerImpl(context: Context) {
     
     fun getAutoHideControls(): Boolean = getBoolean(KEY_AUTO_HIDE_CONTROLS, true)
     fun setAutoHideControls(value: Boolean) = putBoolean(KEY_AUTO_HIDE_CONTROLS, value)
+    
+    fun getEpgMarkersCount(): Int = getInt(KEY_EPG_MARKERS_COUNT, 3)
+    fun setEpgMarkersCount(value: Int) = putInt(KEY_EPG_MARKERS_COUNT, value.coerceIn(0, 3))
     
     fun getEnablePip(): Boolean = getBoolean(KEY_ENABLE_PIP, true)
     fun setEnablePip(value: Boolean) = putBoolean(KEY_ENABLE_PIP, value)
@@ -330,6 +336,7 @@ internal class PreferenceManagerImpl(context: Context) {
         private const val KEY_AUTO_PLAY = "auto_play"
         private const val KEY_REMEMBER_POSITION = "remember_position"
         private const val KEY_AUTO_HIDE_CONTROLS = "auto_hide_controls"
+        private const val KEY_EPG_MARKERS_COUNT = "epg_markers_count"
         private const val KEY_ENABLE_PIP = "enable_pip"
         private const val KEY_BACKGROUND_PLAY = "background_play"
         private const val KEY_HARDWARE_ACCELERATION = "hardware_acceleration"

@@ -21,6 +21,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import com.antoniegil.astronia.R
 import com.antoniegil.astronia.ui.component.BackButton
+import com.antoniegil.astronia.ui.component.PreferenceNumberPicker
 import com.antoniegil.astronia.ui.component.PreferenceSwitch
 import com.antoniegil.astronia.ui.component.PreferenceSubtitle
 import com.antoniegil.astronia.util.SettingsManager
@@ -48,6 +49,7 @@ fun PlayerSettingsPage(onNavigateBack: () -> Unit) {
     
     var autoPlay by remember { mutableStateOf(SettingsManager.getAutoPlay(context)) }
     var autoHideControls by remember { mutableStateOf(SettingsManager.getAutoHideControls(context)) }
+    var epgMarkersCount by remember { mutableIntStateOf(SettingsManager.getEpgMarkersCount(context)) }
     var enablePictureInPicture by remember { mutableStateOf(SettingsManager.getEnablePip(context)) }
     var backgroundPlay by remember { mutableStateOf(SettingsManager.getBackgroundPlay(context)) }
     var keepScreenOn by remember { mutableStateOf(SettingsManager.getKeepScreenOn(context)) }
@@ -82,43 +84,7 @@ fun PlayerSettingsPage(onNavigateBack: () -> Unit) {
                     }
                 )
             }
-            
-            item {
-                PreferenceSubtitle(text = stringResource(R.string.interface_control))
-            }
-            
-            item {
-                PreferenceSwitch(
-                    title = stringResource(R.string.auto_hide_controls),
-                    description = stringResource(R.string.auto_hide_controls_desc),
-                    icon = Icons.Outlined.VisibilityOff,
-                    isChecked = autoHideControls,
-                    onCheckedChange = { 
-                        autoHideControls = it
-                        SettingsManager.setAutoHideControls(context, it)
-                    }
-                )
-            }
-            
-            item {
-                val isPipSupported = Build.VERSION.SDK_INT >= Build.VERSION_CODES.O
-                PreferenceSwitch(
-                    title = stringResource(R.string.pip),
-                    description = if (isPipSupported) {
-                        stringResource(R.string.pip_desc)
-                    } else {
-                        stringResource(R.string.pip_unsupported)
-                    },
-                    icon = Icons.Outlined.PictureInPicture,
-                    isChecked = enablePictureInPicture,
-                    enabled = isPipSupported,
-                    onCheckedChange = { 
-                        enablePictureInPicture = it
-                        SettingsManager.setEnablePip(context, it)
-                    }
-                )
-            }
-            
+
             item {
                 PreferenceSwitch(
                     title = stringResource(R.string.background_play),
@@ -136,6 +102,60 @@ fun PlayerSettingsPage(onNavigateBack: () -> Unit) {
                     onCheckedChange = { 
                         backgroundPlay = it
                         SettingsManager.setBackgroundPlay(context, it)
+                    }
+                )
+            }
+            
+            item {
+                PreferenceSubtitle(text = stringResource(R.string.control_bar))
+            }
+            
+            item {
+                PreferenceSwitch(
+                    title = stringResource(R.string.auto_hide_controls),
+                    description = stringResource(R.string.auto_hide_controls_desc),
+                    icon = Icons.Outlined.VisibilityOff,
+                    isChecked = autoHideControls,
+                    onCheckedChange = { 
+                        autoHideControls = it
+                        SettingsManager.setAutoHideControls(context, it)
+                    }
+                )
+            }
+            
+            item {
+                PreferenceNumberPicker(
+                    title = stringResource(R.string.epg_markers),
+                    description = stringResource(R.string.epg_markers_desc),
+                    icon = Icons.Outlined.Timeline,
+                    value = epgMarkersCount,
+                    valueRange = 0..3,
+                    onValueChange = {
+                        epgMarkersCount = it
+                        SettingsManager.setEpgMarkersCount(context, it)
+                    }
+                )
+            }
+            
+            item {
+                PreferenceSubtitle(text = stringResource(R.string.interface_control))
+            }
+            
+            item {
+                val isPipSupported = Build.VERSION.SDK_INT >= Build.VERSION_CODES.O
+                PreferenceSwitch(
+                    title = stringResource(R.string.pip),
+                    description = if (isPipSupported) {
+                        stringResource(R.string.pip_desc)
+                    } else {
+                        stringResource(R.string.pip_unsupported)
+                    },
+                    icon = Icons.Outlined.PictureInPicture,
+                    isChecked = enablePictureInPicture,
+                    enabled = isPipSupported,
+                    onCheckedChange = { 
+                        enablePictureInPicture = it
+                        SettingsManager.setEnablePip(context, it)
                     }
                 )
             }
