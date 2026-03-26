@@ -5,6 +5,7 @@
     <string name="clear">साफ करें</string>
     <string name="open">खोलें</string>
     <string name="close">बंद करें</string>
+    <string name="off">बंद</string>
     <string name="back">पीछे</string>
     <string name="cancel">रद्द करें</string>
     <string name="undo">पूर्ववत करें</string>
@@ -44,10 +45,12 @@
     <string name="quality">वीडियो गुणवत्ता</string>
     <string name="auto">ऑटो</string>
     <string name="bitrate">बिटरेट</string>
+    <string name="program_list">प्रोग्राम सूची</string>
     
     <string name="resolution">रेज़ोल्यूशन</string>
     <string name="frames">फ्रेम्स (ड्रॉप / कुल)</string>
-    <string name="codec">कोडेक</string>
+    <string name="video_codec">वीडियो कोडेक</string>
+    <string name="audio_codec">ऑडियो कोडेक</string>
     <string name="buffer_health">बफ़र हेल्थ</string>
     <string name="cpu_usage">CPU उपयोग</string>
 
@@ -82,9 +85,12 @@
     <string name="about_desc">ऐप जानकारी और वर्ज़न</string>
     
     <string name="playback_behavior">प्लेबैक व्यवहार</string>
+    <string name="control_bar">कंट्रोल बार</string>
     <string name="interface_control">इंटरफेस नियंत्रण</string>
     <string name="auto_play">ऑटो प्ले</string>
     <string name="auto_play_desc">वीडियो खोलते समय स्वचालित रूप से चलाना शुरू करें</string>
+    <string name="epg_markers">EPG मार्कर</string>
+    <string name="epg_markers_desc">प्रोग्रेस बार पर EPG प्रोग्राम सेगमेंट मार्कर दिखाएं</string>
     <string name="auto_hide_controls">कंट्रोल्स स्वचालित रूप से छिपाएं</string>
     <string name="auto_hide_controls_desc">प्लेबैक के दौरान कंट्रोल्स को स्वचालित रूप से छिपाएं</string>
     <string name="pip">पिक्चर इन पिक्चर</string>
@@ -95,6 +101,8 @@
     <string name="background_play_battery_hint">इसके लिए बैटरी ऑप्टिमाइज़ेशन छूट की आवश्यकता है</string>
     <string name="battery_configuration">बैटरी कॉन्फ़िगरेशन</string>
     <string name="battery_configuration_desc">स्थिर बैकग्राउंड प्लेबैक के लिए बैटरी ऑप्टिमाइज़ेशन छूट प्रदान करें</string>
+    <string name="keep_screen_on">स्क्रीन को चालू रखें</string>
+    <string name="keep_screen_on_desc">प्लेबैक के दौरान स्क्रीन को बंद होने से रोकें</string>
 
     <string name="display_settings">डिस्प्ले सेटिंग्स</string>
     <string name="decoder_settings">डिकोडर सेटिंग्स</string>

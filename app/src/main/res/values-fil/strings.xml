@@ -5,6 +5,7 @@
     <string name="clear">Burahin</string>
     <string name="open">Buksan</string>
     <string name="close">Isara</string>
+    <string name="off">Naka-off</string>
     <string name="back">Bumalik</string>
     <string name="cancel">Kanselahin</string>
     <string name="undo">Ibalik</string>
@@ -44,10 +45,12 @@
     <string name="quality">Kalidad</string>
     <string name="auto">Awtomatiko</string>
     <string name="bitrate">Bitrate</string>
+    <string name="program_list">Listahan ng programa</string>
     
     <string name="resolution">Resolusyon</string>
     <string name="frames">Mga frame (tinapon / kabuuan)</string>
-    <string name="codec">Codec</string>
+    <string name="video_codec">Video codec</string>
+    <string name="audio_codec">Audio codec</string>
     <string name="buffer_health">Kalusugan ng buffer</string>
     <string name="cpu_usage">Paggamit ng CPU</string>
 
@@ -82,9 +85,12 @@
     <string name="about_desc">Impormasyon ng app at bersyon</string>
     
     <string name="playback_behavior">Pag-uugali ng playback</string>
+    <string name="control_bar">Control bar</string>
     <string name="interface_control">Kontrol ng interface</string>
     <string name="auto_play">Awtomatikong pag-play</string>
     <string name="auto_play_desc">Awtomatikong magsimula ng pag-play kapag binuksan ang video</string>
+    <string name="epg_markers">Mga EPG marker</string>
+    <string name="epg_markers_desc">Ipakita ang mga EPG program segment marker sa progress bar</string>
     <string name="auto_hide_controls">Awtomatikong itago ang mga kontrol</string>
     <string name="auto_hide_controls_desc">Awtomatikong itago ang control bar habang nagpe-play</string>
     <string name="pip">Picture-in-picture</string>
@@ -95,6 +101,8 @@
     <string name="background_play_battery_hint">Kailangan ng exemption sa battery optimization</string>
     <string name="battery_configuration">Pagsasaayos ng baterya</string>
     <string name="battery_configuration_desc">Magbigay ng exemption sa battery optimization para sa matatag na pag-play sa background</string>
+    <string name="keep_screen_on">Panatilihing nakabukas ang screen</string>
+    <string name="keep_screen_on_desc">Pigilan ang screen na mamatay habang nagpe-play</string>
 
     <string name="display_settings">Mga setting ng display</string>
     <string name="decoder_settings">Mga setting ng decoder</string>

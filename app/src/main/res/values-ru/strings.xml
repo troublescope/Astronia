@@ -5,6 +5,7 @@
     <string name="clear">Очистить</string>
     <string name="open">Открыть</string>
     <string name="close">Закрыть</string>
+    <string name="off">Выкл</string>
     <string name="back">Назад</string>
     <string name="cancel">Отмена</string>
     <string name="undo">Отменить</string>
@@ -44,10 +45,12 @@
     <string name="quality">Качество</string>
     <string name="auto">Авто</string>
     <string name="bitrate">Битрейт</string>
+    <string name="program_list">Список программ</string>
     
     <string name="resolution">Разрешение</string>
     <string name="frames">Кадры (Пропущено / Всего)</string>
-    <string name="codec">Кодек</string>
+    <string name="video_codec">Видеокодек</string>
+    <string name="audio_codec">Аудиокодек</string>
     <string name="buffer_health">Состояние буфера</string>
     <string name="cpu_usage">Загрузка ЦП</string>
 
@@ -85,9 +88,12 @@
     
     
     <string name="playback_behavior">Поведение при воспроизведении</string>
+    <string name="control_bar">Панель управления</string>
     <string name="interface_control">Управление интерфейсом</string>
     <string name="auto_play">Автопроизведение</string>
     <string name="auto_play_desc">Автоматически начинать показ при открытии видео</string>
+    <string name="epg_markers">Маркеры EPG</string>
+    <string name="epg_markers_desc">Показывать маркеры сегментов программы EPG на полосе прогресса</string>
     <string name="auto_hide_controls">Автоскрытие кнопок</string>
     <string name="auto_hide_controls_desc">Автоматически скрывать элементы управления при просмотре</string>
     <string name="pip">Картинка в картинке</string>
@@ -98,6 +104,8 @@
     <string name="background_play_battery_hint">Требуется разрешение на работу без оптимизации батареи</string>
     <string name="battery_configuration">Настройка батареи</string>
     <string name="battery_configuration_desc">Добавьте приложение в исключения экономии заряда для стабильной работы в фоне</string>
+    <string name="keep_screen_on">Не выключать экран</string>
+    <string name="keep_screen_on_desc">Предотвращать выключение экрана во время воспроизведения</string>
     
     <string name="display_settings">Настройки экрана</string>
     <string name="decoder_settings">Настройки декодера</string>

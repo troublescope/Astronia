@@ -5,6 +5,7 @@
     <string name="clear">Șterge</string>
     <string name="open">Deschide</string>
     <string name="close">Închide</string>
+    <string name="off">Oprit</string>
     <string name="back">Înapoi</string>
     <string name="cancel">Anulează</string>
     <string name="undo">Anulează</string>
@@ -44,10 +45,12 @@
     <string name="quality">Calitate</string>
     <string name="auto">Automat</string>
     <string name="bitrate">Rată de biți</string>
+    <string name="program_list">Lista programelor</string>
     
     <string name="resolution">Rezoluție</string>
     <string name="frames">Cadre (Pierdute / Total)</string>
-    <string name="codec">Codec</string>
+    <string name="video_codec">Codec video</string>
+    <string name="audio_codec">Codec audio</string>
     <string name="buffer_health">Stare buffer</string>
     <string name="cpu_usage">Utilizare CPU</string>
 
@@ -83,9 +86,12 @@
     <string name="about_desc">Informații aplicație și versiune</string>
     
     <string name="playback_behavior">Comportament redare</string>
+    <string name="control_bar">Bară de control</string>
     <string name="interface_control">Control interfață</string>
     <string name="auto_play">Redare automată</string>
     <string name="auto_play_desc">Începe redarea automat la deschiderea video-ului</string>
+    <string name="epg_markers">Marcatori EPG</string>
+    <string name="epg_markers_desc">Afișează marcatori de segmente program EPG pe bara de progres</string>
     <string name="auto_hide_controls">Ascunde bara de control automat</string>
     <string name="auto_hide_controls_desc">Ascunde bara de control automat în timpul redării</string>
     <string name="pip">Picture-in-picture</string>
@@ -96,6 +102,8 @@
     <string name="background_play_battery_hint">Necesită excepție de la optimizarea bateriei</string>
     <string name="battery_configuration">Configurare baterie</string>
     <string name="battery_configuration_desc">Acordă excepție de la optimizarea bateriei pentru redare stabilă în fundal</string>
+    <string name="keep_screen_on">Menține ecranul aprins</string>
+    <string name="keep_screen_on_desc">Împiedică stingerea ecranului în timpul redării</string>
 
     <string name="display_settings">Setări afișare</string>
     <string name="decoder_settings">Setări decodor</string>

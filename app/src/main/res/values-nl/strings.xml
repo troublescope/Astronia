@@ -5,6 +5,7 @@
     <string name="clear">Wissen</string>
     <string name="open">Openen</string>
     <string name="close">Sluiten</string>
+    <string name="off">Uit</string>
     <string name="back">Terug</string>
     <string name="cancel">Annuleren</string>
     <string name="undo">Ongedaan maken</string>
@@ -44,10 +45,12 @@
     <string name="quality">Kwaliteit</string>
     <string name="auto">Automatisch</string>
     <string name="bitrate">Bitrate</string>
+    <string name="program_list">Programmalijst</string>
     
     <string name="resolution">Resolutie</string>
     <string name="frames">Frames (Verloren / Totaal)</string>
-    <string name="codec">Codec</string>
+    <string name="video_codec">Videocodec</string>
+    <string name="audio_codec">Audiocodec</string>
     <string name="buffer_health">Buffergezondheid</string>
     <string name="cpu_usage">CPU-gebruik</string>
 
@@ -82,9 +85,12 @@
     <string name="about_desc">App-info en versie</string>
     
     <string name="playback_behavior">Afspeelgedrag</string>
+    <string name="control_bar">Bedieningsbalk</string>
     <string name="interface_control">Interfacebediening</string>
     <string name="auto_play">Automatisch afspelen</string>
     <string name="auto_play_desc">Afspelen automatisch starten bij openen video</string>
+    <string name="epg_markers">EPG-markeringen</string>
+    <string name="epg_markers_desc">EPG-programmasegmentmarkeringen weergeven op voortgangsbalk</string>
     <string name="auto_hide_controls">Bedieningsbalk automatisch verbergen</string>
     <string name="auto_hide_controls_desc">Bedieningsbalk automatisch verbergen tijdens afspelen</string>
     <string name="pip">Beeld-in-beeld</string>
@@ -95,6 +101,8 @@
     <string name="background_play_battery_hint">Vereist uitzondering op batterij-optimalisatie</string>
     <string name="battery_configuration">Batterijconfiguratie</string>
     <string name="battery_configuration_desc">Uitzondering op batterij-optimalisatie verlenen voor stabiel afspelen op achtergrond</string>
+    <string name="keep_screen_on">Scherm aan houden</string>
+    <string name="keep_screen_on_desc">Voorkomen dat scherm uitgaat tijdens afspelen</string>
 
     <string name="display_settings">Weergave-instellingen</string>
     <string name="decoder_settings">Decoder-instellingen</string>

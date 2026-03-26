@@ -5,6 +5,7 @@
     <string name="clear">ล้าง</string>
     <string name="open">เปิด</string>
     <string name="close">ปิด</string>
+    <string name="off">ปิด</string>
     <string name="back">กลับ</string>
     <string name="cancel">ยกเลิก</string>
     <string name="undo">เลิกทำ</string>
@@ -44,10 +45,12 @@
     <string name="quality">คุณภาพภาพ</string>
     <string name="auto">อัตโนมัติ</string>
     <string name="bitrate">อัตราบิต</string>
+    <string name="program_list">รายการโปรแกรม</string>
     
     <string name="resolution">ความละเอียด</string>
     <string name="frames">เฟรม (ตกหล่น / ทั้งหมด)</string>
-    <string name="codec">ตัวแปลงสัญญาณ</string>
+    <string name="video_codec">ตัวแปลงสัญญาณวิดีโอ</string>
+    <string name="audio_codec">ตัวแปลงสัญญาณเสียง</string>
     <string name="buffer_health">ความสมบูรณ์ของบัฟเฟอร์</string>
     <string name="cpu_usage">การใช้งาน CPU</string>
 
@@ -81,9 +84,12 @@
     <string name="about_desc">ข้อมูลแอปและเวอร์ชัน</string>
     
     <string name="playback_behavior">พฤติกรรมการเล่น</string>
+    <string name="control_bar">แถบควบคุม</string>
     <string name="interface_control">การควบคุมอินเทอร์เฟซ</string>
     <string name="auto_play">เล่นอัตโนมัติ</string>
     <string name="auto_play_desc">เริ่มเล่นโดยอัตโนมัติเมื่อเปิดวิดีโอ</string>
+    <string name="epg_markers">เครื่องหมาย EPG</string>
+    <string name="epg_markers_desc">แสดงเครื่องหมายส่วนโปรแกรม EPG บนแถบความคืบหน้า</string>
     <string name="auto_hide_controls">ซ่อนตัวควบคุมอัตโนมัติ</string>
     <string name="auto_hide_controls_desc">ซ่อนตัวควบคุมโดยอัตโนมัติระหว่างการเล่น</string>
     <string name="pip">ภาพซ้อนภาพ (PiP)</string>
@@ -94,6 +100,8 @@
     <string name="background_play_battery_hint">ต้องได้รับการยกเว้นจากการเพิ่มประสิทธิภาพแบตเตอรี่</string>
     <string name="battery_configuration">การกำหนดค่าแบตเตอรี่</string>
     <string name="battery_configuration_desc">อนุญาตการยกเว้นการเพิ่มประสิทธิภาพแบตเตอรี่เพื่อการเล่นเบื้องหลังที่เสถียร</string>
+    <string name="keep_screen_on">เปิดหน้าจอค้าง</string>
+    <string name="keep_screen_on_desc">ป้องกันไม่ให้หน้าจอดับระหว่างการเล่น</string>
 
     <string name="display_settings">การตั้งค่าการแสดงผล</string>
     <string name="decoder_settings">การตั้งค่าตัวถอดรหัส</string>

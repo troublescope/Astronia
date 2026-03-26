@@ -5,6 +5,7 @@
     <string name="clear">Xóa</string>
     <string name="open">Mở</string>
     <string name="close">Đóng</string>
+    <string name="off">Tắt</string>
     <string name="back">Quay lại</string>
     <string name="cancel">Hủy</string>
     <string name="undo">Hoàn tác</string>
@@ -44,10 +45,12 @@
     <string name="quality">Chất lượng hình ảnh</string>
     <string name="auto">Tự động</string>
     <string name="bitrate">Bitrate</string>
+    <string name="program_list">Danh sách chương trình</string>
 
     <string name="resolution">Độ phân giải</string>
     <string name="frames">Khung hình (Bỏ lỡ / Tổng)</string>
-    <string name="codec">Bộ mã hóa</string>
+    <string name="video_codec">Codec video</string>
+    <string name="audio_codec">Codec âm thanh</string>
     <string name="buffer_health">Sức khỏe bộ đệm</string>
     <string name="cpu_usage">Sử dụng CPU</string>
 
@@ -81,9 +84,12 @@
     <string name="about_desc">Thông tin ứng dụng và phiên bản</string>
     
     <string name="playback_behavior">Hành vi phát</string>
+    <string name="control_bar">Thanh điều khiển</string>
     <string name="interface_control">Điều khiển giao diện</string>
     <string name="auto_play">Tự động phát</string>
     <string name="auto_play_desc">Tự động bắt đầu phát khi mở video</string>
+    <string name="epg_markers">Dấu hiệu EPG</string>
+    <string name="epg_markers_desc">Hiển thị dấu hiệu phân đoạn chương trình EPG trên thanh tiến trình</string>
     <string name="auto_hide_controls">Tự động ẩn điều khiển</string>
     <string name="auto_hide_controls_desc">Tự động ẩn các nút điều khiển trong khi phát</string>
     <string name="pip">Ảnh trong ảnh (PiP)</string>
@@ -94,6 +100,8 @@
     <string name="background_play_battery_hint">Yêu cầu quyền miễn trừ tối ưu hóa pin</string>
     <string name="battery_configuration">Cấu hình pin</string>
     <string name="battery_configuration_desc">Cấp quyền miễn trừ tối ưu hóa pin để phát trong nền ổn định</string>
+    <string name="keep_screen_on">Giữ màn hình sáng</string>
+    <string name="keep_screen_on_desc">Ngăn màn hình tắt trong khi phát</string>
 
     <string name="display_settings">Cài đặt hiển thị</string>
     <string name="decoder_settings">Cài đặt bộ giải mã</string>

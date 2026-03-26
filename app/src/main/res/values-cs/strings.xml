@@ -5,6 +5,7 @@
     <string name="clear">Vymazat</string>
     <string name="open">Otevřít</string>
     <string name="close">Zavřít</string>
+    <string name="off">Vypnuto</string>
     <string name="back">Zpět</string>
     <string name="cancel">Zrušit</string>
     <string name="undo">Obnovit</string>
@@ -44,10 +45,12 @@
     <string name="quality">Kvalita</string>
     <string name="auto">Automaticky</string>
     <string name="bitrate">Bitrate</string>
-    
+    <string name="program_list">Seznam programů</string>
+
     <string name="resolution">Rozlišení</string>
     <string name="frames">Snímky (zahozené / celkem)</string>
-    <string name="codec">Kodek</string>
+    <string name="video_codec">Video kodek</string>
+    <string name="audio_codec">Audio kodek</string>
     <string name="buffer_health">Stav vyrovnávací paměti</string>
     <string name="cpu_usage">Využití CPU</string>
 
@@ -84,9 +87,12 @@
     <string name="about_desc">Informace o aplikaci a verzi</string>
     
     <string name="playback_behavior">Chování přehrávání</string>
+    <string name="control_bar">Ovládací panel</string>
     <string name="interface_control">Ovládání rozhraní</string>
     <string name="auto_play">Automatické přehrávání</string>
     <string name="auto_play_desc">Automaticky spustit přehrávání při otevření videa</string>
+    <string name="epg_markers">EPG značky</string>
+    <string name="epg_markers_desc">Zobrazit značky segmentů EPG programů na panelu průběhu</string>
     <string name="auto_hide_controls">Automaticky skrýt ovládací prvky</string>
     <string name="auto_hide_controls_desc">Automaticky skrýt ovládací panel během přehrávání</string>
     <string name="pip">Obraz v obraze</string>
@@ -97,6 +103,8 @@
     <string name="background_play_battery_hint">Vyžaduje výjimku z optimalizace baterie</string>
     <string name="battery_configuration">Konfigurace baterie</string>
     <string name="battery_configuration_desc">Udělit výjimku z optimalizace baterie pro stabilní přehrávání na pozadí</string>
+    <string name="keep_screen_on">Ponechat obrazovku zapnutou</string>
+    <string name="keep_screen_on_desc">Zabránit vypnutí obrazovky během přehrávání</string>
 
     <string name="display_settings">Nastavení zobrazení</string>
     <string name="decoder_settings">Nastavení dekodéru</string>

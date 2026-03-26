@@ -5,6 +5,7 @@
     <string name="clear">クリア</string>
     <string name="open">開く</string>
     <string name="close">閉じる</string>
+    <string name="off">オフ</string>
     <string name="back">戻る</string>
     <string name="cancel">キャンセル</string>
     <string name="undo">元に戻す</string>
@@ -44,10 +45,12 @@
     <string name="quality">画質</string>
     <string name="auto">自動</string>
     <string name="bitrate">ビットレート</string>
+    <string name="program_list">番組リスト</string>
     
     <string name="resolution">解像度</string>
     <string name="frames">フレーム（ドロップ / 合計）</string>
-    <string name="codec">コーデック</string>
+    <string name="video_codec">ビデオコーデック</string>
+    <string name="audio_codec">オーディオコーデック</string>
     <string name="buffer_health">バッファ状態</string>
     <string name="cpu_usage">CPU使用率</string>
 
@@ -81,9 +84,12 @@
     <string name="about_desc">アプリ情報とバージョン</string>
     
     <string name="playback_behavior">再生動作</string>
+    <string name="control_bar">コントロールバー</string>
     <string name="interface_control">インターフェース制御</string>
     <string name="auto_play">自動再生</string>
     <string name="auto_play_desc">動画を開いたときに自動的に再生を開始</string>
+    <string name="epg_markers">EPGマーカー</string>
+    <string name="epg_markers_desc">プログレスバーにEPG番組セグメントマーカーを表示</string>
     <string name="auto_hide_controls">コントロールバーを自動的に非表示</string>
     <string name="auto_hide_controls_desc">再生中にコントロールバーを自動的に非表示にする</string>
     <string name="pip">ピクチャーインピクチャー</string>
@@ -94,6 +100,8 @@
     <string name="background_play_battery_hint">バッテリー最適化の除外が必要です</string>
     <string name="battery_configuration">バッテリー設定</string>
     <string name="battery_configuration_desc">安定したバックグラウンド再生のためにバッテリー最適化の除外を許可</string>
+    <string name="keep_screen_on">画面をオンのままにする</string>
+    <string name="keep_screen_on_desc">再生中に画面がオフにならないようにする</string>
 
     <string name="display_settings">表示設定</string>
     <string name="decoder_settings">デコーダー設定</string>

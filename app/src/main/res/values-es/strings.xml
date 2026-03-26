@@ -5,6 +5,7 @@
     <string name="clear">Limpiar</string>
     <string name="open">Abrir</string>
     <string name="close">Cerrar</string>
+    <string name="off">Apagado</string>
     <string name="back">Atrás</string>
     <string name="cancel">Cancelar</string>
     <string name="undo">Deshacer</string>
@@ -44,10 +45,12 @@
     <string name="quality">Calidad</string>
     <string name="auto">Automático</string>
     <string name="bitrate">Tasa de bits</string>
+    <string name="program_list">Lista de programas</string>
     
     <string name="resolution">Resolución</string>
     <string name="frames">Fotogramas (Perdidos / Total)</string>
-    <string name="codec">Códec</string>
+    <string name="video_codec">Códec de video</string>
+    <string name="audio_codec">Códec de audio</string>
     <string name="buffer_health">Salud del búfer</string>
     <string name="cpu_usage">Uso de CPU</string>
 
@@ -82,9 +85,12 @@
     <string name="about_desc">Info de la app y versión</string>
     
     <string name="playback_behavior">Comportamiento de reproducción</string>
+    <string name="control_bar">Barra de control</string>
     <string name="interface_control">Control de interfaz</string>
     <string name="auto_play">Reproducción automática</string>
     <string name="auto_play_desc">Iniciar reproducción automáticamente al abrir video</string>
+    <string name="epg_markers">Marcadores EPG</string>
+    <string name="epg_markers_desc">Mostrar marcadores de segmentos de programa EPG en la barra de progreso</string>
     <string name="auto_hide_controls">Ocultar controles automáticamente</string>
     <string name="auto_hide_controls_desc">Ocultar controles automáticamente durante la reproducción</string>
     <string name="pip">Imagen en imagen (PiP)</string>
@@ -95,6 +101,8 @@
     <string name="background_play_battery_hint">Requiere exención de optimización de batería</string>
     <string name="battery_configuration">Configuración de batería</string>
     <string name="battery_configuration_desc">Permitir uso sin restricciones de batería para una reproducción estable</string>
+    <string name="keep_screen_on">Mantener pantalla encendida</string>
+    <string name="keep_screen_on_desc">Evitar que la pantalla se apague durante la reproducción</string>
 
     <string name="display_settings">Ajustes de pantalla</string>
     <string name="decoder_settings">Ajustes del decodificador</string>

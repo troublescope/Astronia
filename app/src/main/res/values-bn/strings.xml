@@ -5,6 +5,7 @@
     <string name="clear">সাফ করুন</string>
     <string name="open">খুলুন</string>
     <string name="close">বন্ধ করুন</string>
+    <string name="off">বন্ধ</string>
     <string name="back">ফিরে যান</string>
     <string name="cancel">বাতিল</string>
     <string name="undo">পূর্বাবস্থায় ফিরুন</string>
@@ -44,10 +45,12 @@
     <string name="quality">ভিডিও কোয়ালিটি</string>
     <string name="auto">অটো</string>
     <string name="bitrate">বিটরেট</string>
-    
+    <string name="program_list">প্রোগ্রাম তালিকা</string>
+
     <string name="resolution">রেজোলিউশন</string>
     <string name="frames">ফ্রেম (ড্রপড / মোট)</string>
-    <string name="codec">কোডেক</string>
+    <string name="video_codec">ভিডিও কোডেক</string>
+    <string name="audio_codec">অডিও কোডেক</string>
     <string name="buffer_health">বাফার হেলথ</string>
     <string name="cpu_usage">CPU ব্যবহার</string>
 
@@ -82,9 +85,12 @@
     <string name="about_desc">অ্যাপ তথ্য এবং ভার্সন</string>
     
     <string name="playback_behavior">প্লেব্যাক আচরণ</string>
+    <string name="control_bar">কন্ট্রোল বার</string>
     <string name="interface_control">ইন্টারফেস নিয়ন্ত্রণ</string>
     <string name="auto_play">অটো প্লে</string>
     <string name="auto_play_desc">ভিডিও খোলার সাথে সাথে স্বয়ংক্রিয়ভাবে চালানো শুরু করুন</string>
+    <string name="epg_markers">EPG মার্কার</string>
+    <string name="epg_markers_desc">প্রগ্রেস বারে EPG প্রোগ্রাম সেগমেন্ট মার্কার দেখান</string>
     <string name="auto_hide_controls">কন্ট্রোল স্বয়ংক্রিয়ভাবে লুকান</string>
     <string name="auto_hide_controls_desc">প্লেব্যাক চলাকালীন স্বয়ংক্রিয়ভাবে কন্ট্রোলগুলো লুকান</string>
     <string name="pip">পিকচার ইন পিকচার (PiP)</string>
@@ -95,6 +101,8 @@
     <string name="background_play_battery_hint">ব্যাটারি অপ্টিমাইজেশন ছাড় প্রয়োজন</string>
     <string name="battery_configuration">ব্যাটারি কনফিগারেশন</string>
     <string name="battery_configuration_desc">স্থিতিশীল ব্যাকগ্রাউন্ড প্লেব্যাকের জন্য ব্যাটারি অপ্টিমাইজেশন ছাড় দিন</string>
+    <string name="keep_screen_on">স্ক্রিন চালু রাখুন</string>
+    <string name="keep_screen_on_desc">প্লেব্যাক চলাকালীন স্ক্রিন বন্ধ হওয়া থেকে প্রতিরোধ করুন</string>
 
     <string name="display_settings">ডিসপ্লে সেটিংস</string>
     <string name="decoder_settings">ডিকোডার সেটিংস</string>

@@ -5,6 +5,7 @@
     <string name="clear">Очистити</string>
     <string name="open">Відкрити</string>
     <string name="close">Закрити</string>
+    <string name="off">Вимкнено</string>
     <string name="back">Назад</string>
     <string name="cancel">Скасувати</string>
     <string name="undo">Скасувати</string>
@@ -44,10 +45,12 @@
     <string name="quality">Якість</string>
     <string name="auto">Авто</string>
     <string name="bitrate">Бітрейт</string>
+    <string name="program_list">Список програм</string>
 
     <string name="resolution">Роздільна здатність</string>
     <string name="frames">Кадри (Втрачено / Всього)</string>
-    <string name="codec">Кодек</string>
+    <string name="video_codec">Відео кодек</string>
+    <string name="audio_codec">Аудіо кодек</string>
     <string name="buffer_health">Стан буфера</string>
     <string name="cpu_usage">Завантаження ЦП</string>
 
@@ -84,9 +87,12 @@
     <string name="about_desc">Інформація про додаток та версія</string>
     
     <string name="playback_behavior">Поведінка відтворення</string>
+    <string name="control_bar">Панель керування</string>
     <string name="interface_control">Керування інтерфейсом</string>
     <string name="auto_play">Автоматичне відтворення</string>
     <string name="auto_play_desc">Автоматично починати відтворення під час відкриття відео</string>
+    <string name="epg_markers">Маркери EPG</string>
+    <string name="epg_markers_desc">Показувати маркери сегментів програм EPG на панелі прогресу</string>
     <string name="auto_hide_controls">Автоприховування елементів керування</string>
     <string name="auto_hide_controls_desc">Автоматично приховувати елементи керування під час перегляду</string>
     <string name="pip">Картинка в картинці (PiP)</string>
@@ -97,6 +103,8 @@
     <string name="background_play_battery_hint">Потрібен виняток з оптимізації батареї</string>
     <string name="battery_configuration">Налаштування батареї</string>
     <string name="battery_configuration_desc">Надати виняток з оптимізації батареї для стабільного фонового відтворення</string>
+    <string name="keep_screen_on">Не вимикати екран</string>
+    <string name="keep_screen_on_desc">Запобігати вимкненню екрана під час відтворення</string>
 
     <string name="display_settings">Налаштування дисплея</string>
     <string name="decoder_settings">Налаштування декодера</string>

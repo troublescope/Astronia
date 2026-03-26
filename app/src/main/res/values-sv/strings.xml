@@ -5,6 +5,7 @@
     <string name="clear">Rensa</string>
     <string name="open">Öppna</string>
     <string name="close">Stäng</string>
+    <string name="off">Av</string>
     <string name="back">Bakåt</string>
     <string name="cancel">Avbryt</string>
     <string name="undo">Ångra</string>
@@ -44,10 +45,12 @@
     <string name="quality">Kvalitet</string>
     <string name="auto">Automatisk</string>
     <string name="bitrate">Bithastighet</string>
+    <string name="program_list">Programlista</string>
     
     <string name="resolution">Upplösning</string>
     <string name="frames">Bildrutor (Tappade / Totalt)</string>
-    <string name="codec">Codec</string>
+    <string name="video_codec">Videokodek</string>
+    <string name="audio_codec">Ljudkodek</string>
     <string name="buffer_health">Bufferstatus</string>
     <string name="cpu_usage">CPU-användning</string>
 
@@ -82,9 +85,12 @@
     <string name="about_desc">Appinformation och version</string>
     
     <string name="playback_behavior">Uppspelningsbeteende</string>
+    <string name="control_bar">Kontrollpanel</string>
     <string name="interface_control">Gränssnittskontroll</string>
     <string name="auto_play">Auto-uppspelning</string>
     <string name="auto_play_desc">Börja spela upp automatiskt när video öppnas</string>
+    <string name="epg_markers">EPG-markörer</string>
+    <string name="epg_markers_desc">Visa EPG-programsegmentmarkörer på förloppsraden</string>
     <string name="auto_hide_controls">Dölj kontroller automatiskt</string>
     <string name="auto_hide_controls_desc">Dölj kontroller automatiskt under uppspelning</string>
     <string name="pip">Bild-i-bild</string>
@@ -95,6 +101,8 @@
     <string name="background_play_battery_hint">Kräver undantag från batterioptimering</string>
     <string name="battery_configuration">Batterikonfiguration</string>
     <string name="battery_configuration_desc">Bevilja undantag från batterioptimering för stabil bakgrundsuppspelning</string>
+    <string name="keep_screen_on">Håll skärmen på</string>
+    <string name="keep_screen_on_desc">Förhindra att skärmen stängs av under uppspelning</string>
 
     <string name="display_settings">Skärminställningar</string>
     <string name="decoder_settings">Avkodarinställningar</string>

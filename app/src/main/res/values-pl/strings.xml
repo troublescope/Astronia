@@ -5,6 +5,7 @@
     <string name="clear">Wyczyść</string>
     <string name="open">Otwórz</string>
     <string name="close">Zamknij</string>
+    <string name="off">Wyłączone</string>
     <string name="back">Wstecz</string>
     <string name="cancel">Anuluj</string>
     <string name="undo">Cofnij</string>
@@ -44,10 +45,12 @@
     <string name="quality">Jakość</string>
     <string name="auto">Automatyczna</string>
     <string name="bitrate">Bitrate</string>
+    <string name="program_list">Lista programów</string>
     
     <string name="resolution">Rozdzielczość</string>
     <string name="frames">Klatki (Utracone / Całkowite)</string>
-    <string name="codec">Kodek</string>
+    <string name="video_codec">Kodek wideo</string>
+    <string name="audio_codec">Kodek audio</string>
     <string name="buffer_health">Stan bufora</string>
     <string name="cpu_usage">Użycie CPU</string>
 
@@ -84,9 +87,12 @@
     <string name="about_desc">Informacje o aplikacji i wersja</string>
     
     <string name="playback_behavior">Zachowanie odtwarzania</string>
+    <string name="control_bar">Pasek sterowania</string>
     <string name="interface_control">Sterowanie interfejsem</string>
     <string name="auto_play">Automatyczne odtwarzanie</string>
     <string name="auto_play_desc">Automatyczne rozpoczęcie odtwarzania po otwarciu wideo</string>
+    <string name="epg_markers">Znaczniki EPG</string>
+    <string name="epg_markers_desc">Pokaż znaczniki segmentów programu EPG na pasku postępu</string>
     <string name="auto_hide_controls">Automatyczne ukrywanie paska sterowania</string>
     <string name="auto_hide_controls_desc">Automatyczne ukrywanie paska sterowania podczas odtwarzania</string>
     <string name="pip">Obraz w obrazie</string>
@@ -97,6 +103,8 @@
     <string name="background_play_battery_hint">Wymaga wyłączenia optymalizacji baterii</string>
     <string name="battery_configuration">Konfiguracja baterii</string>
     <string name="battery_configuration_desc">Przyznaj wyłączenie optymalizacji baterii dla stabilnego odtwarzania w tle</string>
+    <string name="keep_screen_on">Nie wyłączaj ekranu</string>
+    <string name="keep_screen_on_desc">Zapobiegaj wyłączaniu ekranu podczas odtwarzania</string>
 
     <string name="display_settings">Ustawienia wyświetlania</string>
     <string name="decoder_settings">Ustawienia dekodera</string>

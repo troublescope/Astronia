@@ -5,6 +5,7 @@
     <string name="clear">Limpar</string>
     <string name="open">Abrir</string>
     <string name="close">Fechar</string>
+    <string name="off">Desligado</string>
     <string name="back">Voltar</string>
     <string name="cancel">Cancelar</string>
     <string name="undo">Anular</string>
@@ -44,10 +45,12 @@
     <string name="quality">Qualidade</string>
     <string name="auto">Automática</string>
     <string name="bitrate">Taxa de bits</string>
+    <string name="program_list">Lista de programas</string>
     
     <string name="resolution">Resolução</string>
     <string name="frames">Fotogramas (Perdidos / Total)</string>
-    <string name="codec">Codec</string>
+    <string name="video_codec">Codec de vídeo</string>
+    <string name="audio_codec">Codec de áudio</string>
     <string name="buffer_health">Estado do Buffer</string>
     <string name="cpu_usage">Uso da CPU</string>
 
@@ -82,9 +85,12 @@
     <string name="about_desc">Informações da app e versão</string>
     
     <string name="playback_behavior">Comportamento de reprodução</string>
+    <string name="control_bar">Barra de controlo</string>
     <string name="interface_control">Controlo da interface</string>
     <string name="auto_play">Reprodução automática</string>
     <string name="auto_play_desc">Iniciar reprodução automaticamente ao abrir o vídeo</string>
+    <string name="epg_markers">Marcadores EPG</string>
+    <string name="epg_markers_desc">Mostrar marcadores de segmentos de programa EPG na barra de progresso</string>
     <string name="auto_hide_controls">Ocultar controlos auto.</string>
     <string name="auto_hide_controls_desc">Ocultar controlos automaticamente durante a reprodução</string>
     <string name="pip">Picture-in-Picture (PiP)</string>
@@ -95,6 +101,8 @@
     <string name="background_play_battery_hint">Requer isenção de otimização de bateria</string>
     <string name="battery_configuration">Configuração da bateria</string>
     <string name="battery_configuration_desc">Conceder isenção de bateria para reprodução estável em segundo plano</string>
+    <string name="keep_screen_on">Manter ecrã ligado</string>
+    <string name="keep_screen_on_desc">Impedir que o ecrã se desligue durante a reprodução</string>
 
     <string name="display_settings">Definições de visualização</string>
     <string name="decoder_settings">Definições do descodificador</string>

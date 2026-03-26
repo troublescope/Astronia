@@ -5,6 +5,7 @@
     <string name="clear">مسح</string>
     <string name="open">فتح</string>
     <string name="close">إغلاق</string>
+    <string name="off">إيقاف</string>
     <string name="back">رجوع</string>
     <string name="cancel">إلغاء</string>
     <string name="undo">تراجع</string>
@@ -44,10 +45,12 @@
     <string name="quality">الجودة</string>
     <string name="auto">تلقائي</string>
     <string name="bitrate">معدل البت</string>
-    
+    <string name="program_list">قائمة البرامج</string>
+
     <string name="resolution">الدقة</string>
     <string name="frames">الإطارات (المفقودة / الإجمالي)</string>
-    <string name="codec">الترميز</string>
+    <string name="video_codec">ترميز الفيديو</string>
+    <string name="audio_codec">ترميز الصوت</string>
     <string name="buffer_health">حالة التخزين المؤقت</string>
     <string name="cpu_usage">استهلاك المعالج (CPU)</string>
 
@@ -86,9 +89,12 @@
     <string name="about_desc">معلومات التطبيق والإصدار</string>
     
     <string name="playback_behavior">سلوك التشغيل</string>
+    <string name="control_bar">شريط التحكم</string>
     <string name="interface_control">التحكم في الواجهة</string>
     <string name="auto_play">تشغيل تلقائي</string>
     <string name="auto_play_desc">بدء التشغيل تلقائياً عند فتح الفيديو</string>
+    <string name="epg_markers">علامات EPG</string>
+    <string name="epg_markers_desc">عرض علامات قطاعات برامج EPG على شريط التقدم</string>
     <string name="auto_hide_controls">إخفاء أدوات التحكم تلقائياً</string>
     <string name="auto_hide_controls_desc">إخفاء أدوات التحكم تلقائياً أثناء التشغيل</string>
     <string name="pip">صورة داخل صورة (PiP)</string>
@@ -99,6 +105,8 @@
     <string name="background_play_battery_hint">يتطلب استثناءً من تحسين البطارية</string>
     <string name="battery_configuration">إعدادات البطارية</string>
     <string name="battery_configuration_desc">منح استثناء من تحسين البطارية لضمان استقرار التشغيل في الخلفية</string>
+    <string name="keep_screen_on">إبقاء الشاشة مضاءة</string>
+    <string name="keep_screen_on_desc">منع إيقاف تشغيل الشاشة أثناء التشغيل</string>
 
     <string name="display_settings">إعدادات العرض</string>
     <string name="decoder_settings">إعدادات فك التشفير</string>

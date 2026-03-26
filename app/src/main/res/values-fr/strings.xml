@@ -5,6 +5,7 @@
     <string name="clear">Effacer</string>
     <string name="open">Ouvrir</string>
     <string name="close">Fermer</string>
+    <string name="off">Désactivé</string>
     <string name="back">Retour</string>
     <string name="cancel">Annuler</string>
     <string name="undo">Annuler</string>
@@ -44,10 +45,12 @@
     <string name="quality">Qualité</string>
     <string name="auto">Automatique</string>
     <string name="bitrate">Débit binaire</string>
+    <string name="program_list">Liste des programmes</string>
     
     <string name="resolution">Résolution</string>
     <string name="frames">Images (Perdues / Total)</string>
-    <string name="codec">Codec</string>
+    <string name="video_codec">Codec vidéo</string>
+    <string name="audio_codec">Codec audio</string>
     <string name="buffer_health">Santé du tampon</string>
     <string name="cpu_usage">Utilisation CPU</string>
 
@@ -82,9 +85,12 @@
     <string name="about_desc">Infos sur l\'appli et version</string>
     
     <string name="playback_behavior">Comportement de lecture</string>
+    <string name="control_bar">Barre de contrôle</string>
     <string name="interface_control">Contrôle de l\'interface</string>
     <string name="auto_play">Lecture automatique</string>
     <string name="auto_play_desc">Lancer la lecture automatiquement à l\'ouverture</string>
+    <string name="epg_markers">Marqueurs EPG</string>
+    <string name="epg_markers_desc">Afficher les marqueurs de segments de programme EPG sur la barre de progression</string>
     <string name="auto_hide_controls">Masquage auto. des contrôles</string>
     <string name="auto_hide_controls_desc">Masquer les contrôles automatiquement pendant la lecture</string>
     <string name="pip">Image dans l\'image (PiP)</string>
@@ -95,6 +101,8 @@
     <string name="background_play_battery_hint">Nécessite une exemption d\'optimisation de la batterie</string>
     <string name="battery_configuration">Configuration batterie</string>
     <string name="battery_configuration_desc">Accorder l\'exemption de batterie pour une lecture stable en arrière-plan</string>
+    <string name="keep_screen_on">Garder l\'écran allumé</string>
+    <string name="keep_screen_on_desc">Empêcher l\'écran de s\'éteindre pendant la lecture</string>
 
     <string name="display_settings">Paramètres d\'affichage</string>
     <string name="decoder_settings">Paramètres du décodeur</string>

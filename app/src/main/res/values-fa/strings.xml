@@ -5,6 +5,7 @@
     <string name="clear">پاک کردن</string>
     <string name="open">باز کردن</string>
     <string name="close">بستن</string>
+    <string name="off">خاموش</string>
     <string name="back">بازگشت</string>
     <string name="cancel">لغو</string>
     <string name="undo">بازیابی</string>
@@ -44,10 +45,12 @@
     <string name="quality">کیفیت</string>
     <string name="auto">خودکار</string>
     <string name="bitrate">نرخ بیت</string>
+    <string name="program_list">لیست برنامه‌ها</string>
     
     <string name="resolution">وضوح تصویر</string>
     <string name="frames">فریم‌ها (حذف شده / کل)</string>
-    <string name="codec">کدک</string>
+    <string name="video_codec">کدک ویدیو</string>
+    <string name="audio_codec">کدک صدا</string>
     <string name="buffer_health">سلامت بافر</string>
     <string name="cpu_usage">استفاده از CPU</string>
 
@@ -82,9 +85,12 @@
     <string name="about_desc">اطلاعات برنامه و نسخه</string>
     
     <string name="playback_behavior">رفتار پخش</string>
+    <string name="control_bar">نوار کنترل</string>
     <string name="interface_control">کنترل رابط کاربری</string>
     <string name="auto_play">پخش خودکار</string>
     <string name="auto_play_desc">شروع خودکار پخش هنگام باز کردن ویدیو</string>
+    <string name="epg_markers">نشانگرهای EPG</string>
+    <string name="epg_markers_desc">نمایش نشانگرهای بخش برنامه EPG در نوار پیشرفت</string>
     <string name="auto_hide_controls">مخفی کردن خودکار کنترل‌ها</string>
     <string name="auto_hide_controls_desc">مخفی کردن خودکار نوار کنترل در حین پخش</string>
     <string name="pip">تصویر در تصویر</string>
@@ -95,6 +101,8 @@
     <string name="background_play_battery_hint">نیاز به معافیت بهینه‌سازی باتری</string>
     <string name="battery_configuration">پیکربندی باتری</string>
     <string name="battery_configuration_desc">اعطای معافیت بهینه‌سازی باتری برای پخش پایدار در پس‌زمینه</string>
+    <string name="keep_screen_on">روشن نگه داشتن صفحه</string>
+    <string name="keep_screen_on_desc">جلوگیری از خاموش شدن صفحه در حین پخش</string>
 
     <string name="display_settings">تنظیمات نمایش</string>
     <string name="decoder_settings">تنظیمات رمزگشا</string>

@@ -5,6 +5,7 @@
     <string name="clear">Kosongkan</string>
     <string name="open">Buka</string>
     <string name="close">Tutup</string>
+    <string name="off">Mati</string>
     <string name="back">Kembali</string>
     <string name="cancel">Batal</string>
     <string name="undo">Buat asal</string>
@@ -44,10 +45,12 @@
     <string name="quality">Kualiti</string>
     <string name="auto">Auto</string>
     <string name="bitrate">Kadar bit</string>
+    <string name="program_list">Senarai Program</string>
     
     <string name="resolution">Resolusi</string>
     <string name="frames">Bingkai (Gugur / Jumlah)</string>
-    <string name="codec">Kodek</string>
+    <string name="video_codec">Kodek Video</string>
+    <string name="audio_codec">Kodek Audio</string>
     <string name="buffer_health">Kesihatan Penimbal</string>
     <string name="cpu_usage">Penggunaan CPU</string>
 
@@ -81,9 +84,12 @@
     <string name="about_desc">Info aplikasi dan versi</string>
     
     <string name="playback_behavior">Tingkah Laku Main Balik</string>
+    <string name="control_bar">Bar Kawalan</string>
     <string name="interface_control">Kawalan Antaramuka</string>
     <string name="auto_play">Main Automatik</string>
     <string name="auto_play_desc">Mula bermain secara automatik apabila membuka video</string>
+    <string name="epg_markers">Penanda EPG</string>
+    <string name="epg_markers_desc">Tunjukkan penanda segmen program EPG pada bar kemajuan</string>
     <string name="auto_hide_controls">Sembunyi Bar Kawalan Automatik</string>
     <string name="auto_hide_controls_desc">Sembunyikan bar kawalan secara automatik semasa main balik</string>
     <string name="pip">Gambar dalam Gambar</string>
@@ -94,6 +100,8 @@
     <string name="background_play_battery_hint">Memerlukan pengecualian pengoptimuman bateri</string>
     <string name="battery_configuration">Konfigurasi Bateri</string>
     <string name="battery_configuration_desc">Berikan pengecualian pengoptimuman bateri untuk main balik latar belakang yang stabil</string>
+    <string name="keep_screen_on">Kekalkan Skrin Hidup</string>
+    <string name="keep_screen_on_desc">Elakkan skrin daripada dimatikan semasa main balik</string>
 
     <string name="display_settings">Tetapan Paparan</string>
     <string name="decoder_settings">Tetapan Penyahkod</string>

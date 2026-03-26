@@ -5,6 +5,7 @@
     <string name="clear">Leeren</string>
     <string name="open">Öffnen</string>
     <string name="close">Schließen</string>
+    <string name="off">Aus</string>
     <string name="back">Zurück</string>
     <string name="cancel">Abbrechen</string>
     <string name="undo">Rückgängig</string>
@@ -44,10 +45,12 @@
     <string name="quality">Qualität</string>
     <string name="auto">Automatisch</string>
     <string name="bitrate">Bitrate</string>
-    
+    <string name="program_list">Programmliste</string>
+
     <string name="resolution">Auflösung</string>
     <string name="frames">Frames (Verworfen / Gesamt)</string>
-    <string name="codec">Codec</string>
+    <string name="video_codec">Video-Codec</string>
+    <string name="audio_codec">Audio-Codec</string>
     <string name="buffer_health">Puffer-Status</string>
     <string name="cpu_usage">CPU-Auslastung</string>
 
@@ -82,9 +85,12 @@
     <string name="about_desc">App-Infos und Version</string>
     
     <string name="playback_behavior">Wiedergabeverhalten</string>
+    <string name="control_bar">Steuerungsleiste</string>
     <string name="interface_control">Oberflächensteuerung</string>
     <string name="auto_play">Automatische Wiedergabe</string>
     <string name="auto_play_desc">Wiedergabe beim Öffnen des Videos automatisch starten</string>
+    <string name="epg_markers">EPG-Markierungen</string>
+    <string name="epg_markers_desc">EPG-Programmsegment-Markierungen auf der Fortschrittsleiste anzeigen</string>
     <string name="auto_hide_controls">Steuerung autom. ausblenden</string>
     <string name="auto_hide_controls_desc">Steuerelemente während der Wiedergabe automatisch ausblenden</string>
     <string name="pip">Bild im Bild (PiP)</string>
@@ -95,6 +101,8 @@
     <string name="background_play_battery_hint">Erfordert Ausnahme von der Akku-Optimierung</string>
     <string name="battery_configuration">Akku-Konfiguration</string>
     <string name="battery_configuration_desc">Ausnahme von der Akku-Optimierung für stabile Hintergrundwiedergabe gewähren</string>
+    <string name="keep_screen_on">Bildschirm eingeschaltet lassen</string>
+    <string name="keep_screen_on_desc">Verhindern, dass sich der Bildschirm während der Wiedergabe ausschaltet</string>
 
     <string name="display_settings">Anzeigeeinstellungen</string>
     <string name="decoder_settings">Decoder-Einstellungen</string>
