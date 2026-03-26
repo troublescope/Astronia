@@ -43,6 +43,7 @@ object M3U8Parser {
     private var epgData: Map<String, List<EpgProgram>> = emptyMap()
     private var onEpgLoadedCallback: ((List<M3U8Channel>) -> Unit)? = null
     private var cachedChannels: List<M3U8Channel> = emptyList()
+    private var epgJob: kotlinx.coroutines.Job? = null
     
     suspend fun parseM3U8(content: String): Result<List<M3U8Channel>> = withContext(Dispatchers.IO) {
         try {
@@ -105,7 +106,8 @@ object M3U8Parser {
             }
             
             cachedChannels = channels
-            scope.launch {
+            epgJob?.cancel()
+            epgJob = scope.launch {
                 loadEpgData()
                 val channelsWithEpg = attachEpgToChannels(channels)
                 onEpgLoadedCallback?.invoke(channelsWithEpg)
@@ -141,7 +143,8 @@ object M3U8Parser {
             }
             
             cachedChannels = result.channels
-            scope.launch {
+            epgJob?.cancel()
+            epgJob = scope.launch {
                 loadEpgData()
                 val channelsWithEpg = attachEpgToChannels(result.channels)
                 onEpgLoadedCallback?.invoke(channelsWithEpg)
@@ -166,7 +169,8 @@ object M3U8Parser {
                     }
                     
                     cachedChannels = result.channels
-                    scope.launch {
+                    epgJob?.cancel()
+                    epgJob = scope.launch {
                         loadEpgData()
                         val channelsWithEpg = attachEpgToChannels(result.channels)
                         onEpgLoadedCallback?.invoke(channelsWithEpg)
@@ -448,5 +452,7 @@ object M3U8Parser {
     
     fun clearEpgLoadedCallback() {
         onEpgLoadedCallback = null
+        epgJob?.cancel()
+        epgJob = null
     }
 }
