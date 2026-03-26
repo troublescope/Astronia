@@ -35,7 +35,8 @@ fun PlayerStatsDialog(
         val job = CoroutineScope(Dispatchers.Main).launch {
             while (isActive) {
                 media3Player?.exoPlayer?.let { player ->
-                    val format = player.videoFormat
+                    val videoFormat = player.videoFormat
+                    val audioFormat = player.audioFormat
                     val bufferedMs = player.bufferedPosition - player.currentPosition
                     val bufferPercentage = if (player.duration > 0) {
                         (bufferedMs.toFloat() / player.duration * 100).coerceIn(0f, 100f)
@@ -81,8 +82,9 @@ fun PlayerStatsDialog(
                     stats = PlayerStats(
                         droppedFrames = player.videoDecoderCounters?.droppedBufferCount ?: 0,
                         totalFrames = player.videoDecoderCounters?.renderedOutputBufferCount ?: 0,
-                        currentRes = "${format?.width ?: 0}x${format?.height ?: 0}@${format?.frameRate?.toInt() ?: 0}",
-                        codec = format?.codecs ?: "N/A",
+                        currentRes = "${videoFormat?.width ?: 0}x${videoFormat?.height ?: 0}@${videoFormat?.frameRate?.toInt() ?: 0}",
+                        videoCodec = videoFormat?.codecs ?: "N/A",
+                        audioCodec = audioFormat?.codecs ?: "N/A",
                         bufferHealth = bufferedMs / 1000f,
                         bufferPercentage = bufferPercentage,
                         playbackState = playbackState,
@@ -108,7 +110,8 @@ fun PlayerStatsDialog(
                     StatsRow(stringResource(R.string.state), s.playbackState)
                     StatsRow(stringResource(R.string.resolution), s.currentRes)
                     StatsRow(stringResource(R.string.frames), "${s.droppedFrames} / ${s.totalFrames}")
-                    StatsRow(stringResource(R.string.codec), s.codec)
+                    StatsRow(stringResource(R.string.video_codec), s.videoCodec)
+                    StatsRow(stringResource(R.string.audio_codec), s.audioCodec)
                     StatsRow(stringResource(R.string.decoder), if (s.isHardwareDecoder) stringResource(R.string.decoder_hardware) else stringResource(R.string.decoder_software))
                     StatsRow(stringResource(R.string.buffer_health), "%.2f s (%.1f%%)".format(s.bufferHealth, s.bufferPercentage))
                     StatsRow(stringResource(R.string.cpu_usage), "${s.cpuUsage}%")
@@ -127,7 +130,8 @@ fun PlayerStatsDialog(
                         appendLine("${resources.getString(R.string.state)}: ${s.playbackState}")
                         appendLine("${resources.getString(R.string.resolution)}: ${s.currentRes}")
                         appendLine("${resources.getString(R.string.frames)}: ${s.droppedFrames} / ${s.totalFrames}")
-                        appendLine("${resources.getString(R.string.codec)}: ${s.codec}")
+                        appendLine("${resources.getString(R.string.video_codec)}: ${s.videoCodec}")
+                        appendLine("${resources.getString(R.string.audio_codec)}: ${s.audioCodec}")
                         appendLine("${resources.getString(R.string.decoder)}: ${if (s.isHardwareDecoder) resources.getString(R.string.decoder_hardware) else resources.getString(R.string.decoder_software)}")
                         appendLine("${resources.getString(R.string.buffer_health)}: ${"%.2f s (%.1f%%)".format(s.bufferHealth, s.bufferPercentage)}")
                         appendLine("${resources.getString(R.string.cpu_usage)}: ${s.cpuUsage}%")
@@ -167,7 +171,8 @@ private data class PlayerStats(
     val droppedFrames: Int,
     val totalFrames: Int,
     val currentRes: String,
-    val codec: String,
+    val videoCodec: String,
+    val audioCodec: String,
     val bufferHealth: Float,
     val bufferPercentage: Float,
     val playbackState: String,

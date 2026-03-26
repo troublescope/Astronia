@@ -51,7 +51,8 @@
 
     <string name="resolution">Resolution</string>
     <string name="frames">Frames (Dropped / Total)</string>
-    <string name="codec">Codec</string>
+    <string name="video_codec">Video Codec</string>
+    <string name="audio_codec">Audio Codec</string>
     <string name="buffer_health">Buffer Health</string>
     <string name="cpu_usage">CPU Usage</string>
 

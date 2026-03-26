@@ -49,7 +49,8 @@
     
     <string name="resolution">分辨率</string>
     <string name="frames">帧数（丢弃 / 总数）</string>
-    <string name="codec">编码</string>
+    <string name="video_codec">视频编码</string>
+    <string name="audio_codec">音频编码</string>
     <string name="buffer_health">缓冲健康度</string>
     <string name="cpu_usage">CPU 使用率</string>
 
