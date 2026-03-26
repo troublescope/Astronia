@@ -304,11 +304,12 @@ private fun ProgressBar(
             isBuffering -> UnifiedProgressBar(mode = ProgressBarMode.Indeterminate)
             epgPrograms.isNotEmpty() && currentProgram != null && count > 0 -> {
                 val upcomingPrograms = epgPrograms.filter { it.startTime > currentTime }.take(count)
-                val currentRemaining = currentProgram.stopTime - currentTime
-                val totalDuration = currentRemaining + upcomingPrograms.dropLast(1).sumOf { it.stopTime - it.startTime }
+                val totalDuration = (currentProgram.stopTime - currentProgram.startTime) + upcomingPrograms.dropLast(1).sumOf { it.stopTime - it.startTime }
+                val currentPassed = currentTime - currentProgram.startTime
+                val progress = if (totalDuration > 0) currentPassed.toFloat() / totalDuration else 0f
                 
                 UnifiedProgressBar(
-                    mode = ProgressBarMode.EpgBased(0f),
+                    mode = ProgressBarMode.EpgBased(progress),
                     epgPrograms = epgPrograms,
                     totalDurationMs = totalDuration,
                     count = count
@@ -403,28 +404,13 @@ private fun UnifiedProgressBar(
             }
         }
         is ProgressBarMode.EpgBased -> {
-            val animatedProgress = remember { Animatable(0f) }
-            
-            LaunchedEffect(totalDurationMs) {
-                if (totalDurationMs > 0) {
-                    animatedProgress.snapTo(0f)
-                    animatedProgress.animateTo(
-                        targetValue = 0.95f,
-                        animationSpec = tween(
-                            durationMillis = totalDurationMs.toInt(),
-                            easing = LinearEasing
-                        )
-                    )
-                }
-            }
-            
             Box(
                 modifier = modifier
                     .fillMaxWidth()
                     .height(6.dp)
             ) {
                 LinearProgressIndicator(
-                    progress = { animatedProgress.value },
+                    progress = { mode.progress.coerceIn(0f, 0.95f) },
                     modifier = Modifier.fillMaxSize(),
                     color = Color.White,
                     trackColor = Color.White.copy(alpha = 0.3f)
@@ -847,11 +833,9 @@ private fun EpgMarkers(
     val upcomingPrograms = programs.filter { it.startTime > currentTime }.take(count)
     if (upcomingPrograms.isEmpty()) return
     
-    val currentRemaining = currentProgram.stopTime - currentTime
-    
     BoxWithConstraints(modifier = modifier) {
         val progressBarWidth = maxWidth
-        var accumulatedDuration = currentRemaining
+        var accumulatedDuration = currentProgram.stopTime - currentProgram.startTime
         
         upcomingPrograms.forEach { program ->
             val position = (accumulatedDuration.toFloat() / totalDurationMs).coerceIn(0f, 0.95f)
