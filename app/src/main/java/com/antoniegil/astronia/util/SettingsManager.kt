@@ -167,10 +167,7 @@ internal class PreferenceManagerImpl(context: Context) {
     
     fun getAutoPlay(): Boolean = getBoolean(KEY_AUTO_PLAY, true)
     fun setAutoPlay(value: Boolean) = putBoolean(KEY_AUTO_PLAY, value)
-    
-    fun getRememberPosition(): Boolean = getBoolean(KEY_REMEMBER_POSITION, true)
-    fun setRememberPosition(value: Boolean) = putBoolean(KEY_REMEMBER_POSITION, value)
-    
+
     fun getAutoHideControls(): Boolean = getBoolean(KEY_AUTO_HIDE_CONTROLS, true)
     fun setAutoHideControls(value: Boolean) = putBoolean(KEY_AUTO_HIDE_CONTROLS, value)
     
@@ -182,10 +179,7 @@ internal class PreferenceManagerImpl(context: Context) {
     
     fun getBackgroundPlay(): Boolean = getBoolean(KEY_BACKGROUND_PLAY, false)
     fun setBackgroundPlay(value: Boolean) = putBoolean(KEY_BACKGROUND_PLAY, value)
-    
-    fun getHardwareAcceleration(): Boolean = getBoolean(KEY_HARDWARE_ACCELERATION, true)
-    fun setHardwareAcceleration(value: Boolean) = putBoolean(KEY_HARDWARE_ACCELERATION, value)
-    
+
     fun getAspectRatio(): Int = getInt(KEY_ASPECT_RATIO, 3)
     fun setAspectRatio(value: Int) = putInt(KEY_ASPECT_RATIO, value)
     
@@ -306,12 +300,7 @@ internal class PreferenceManagerImpl(context: Context) {
         val jsonString = serializeHistoryToJson(list)
         historyPrefs.edit { putString(KEY_HISTORY, jsonString) }
     }
-    
-    fun clearHistory() {
-        _historyFlow.value = emptyList()
-        historyPrefs.edit { remove(KEY_HISTORY) }
-    }
-    
+
     fun restoreHistoryList(list: List<HistoryItem>) {
         _historyFlow.value = list.sortedByDescending { it.timestamp }
         saveHistory(_historyFlow.value)

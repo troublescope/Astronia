@@ -1,0 +1,7 @@
+Add setting to keep the screen on during video playback.
+Add EPG sidebar in fullscreen mode.
+Add EPG markers display on the progress bar.
+Add support for the RTSP (Real Time Streaming Protocol).
+Add support for audio codec display in "Player Stats".
+
+For full changelogs, please refer to GitHub
