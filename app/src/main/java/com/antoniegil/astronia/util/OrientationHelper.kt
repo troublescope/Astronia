@@ -57,9 +57,7 @@ class OrientationHelper(
                 }
                 
                 if (!autoRotateOn && rotateWithSystem) {
-                    if (isLand == LAND_TYPE_NULL) {
-                        return
-                    }
+                    return
                 }
                 
                 if (isPause) {
