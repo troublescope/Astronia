@@ -248,7 +248,7 @@ fun PlayerControlsOverlay(
                             }
                         }
 
-                        if (isFullscreen && enablePip && Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && hasEpgData) {
+                        if (isFullscreen && hasEpgData) {
                             IconButton(
                                 onClick = onEpgClick,
                                 modifier = Modifier.offset(x = (-2).dp)
