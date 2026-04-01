@@ -67,12 +67,17 @@ private fun PlayerPageContent(
     val lifecycleOwner = LocalLifecycleOwner.current
     
     DisposableEffect(Unit) {
+        PlaybackService.isPlayerPageActive = true
         activity?.window?.setSustainedPerformanceMode(true)
         val keepScreenOn = com.antoniegil.astronia.util.SettingsManager.getKeepScreenOn(context)
         if (keepScreenOn) {
             activity?.window?.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
         }
         onDispose {
+            PlaybackService.isPlayerPageActive = false
+            val serviceIntent = Intent(context, PlaybackService::class.java)
+            context.stopService(serviceIntent)
+            
             activity?.window?.setSustainedPerformanceMode(false)
             if (keepScreenOn) {
                 activity?.window?.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
@@ -253,7 +258,7 @@ private fun PlayerPageContent(
                     if (!backgroundPlay && !isInPictureInPictureMode) {
                         wasPlayingBeforePause = media3Player.isPlaying
                         media3Player.pause()
-                    } else if (backgroundPlay) {
+                    } else if (backgroundPlay && PlaybackService.isPlayerPageActive) {
                         media3Player.exoPlayer?.let { player ->
                             PlaybackService.currentPlayer = player
                             PlaybackService.currentTitle = uiState.videoTitle
@@ -332,6 +337,7 @@ private fun PlayerPageContent(
                 }
             }
         } else {
+            PlaybackService.isPlayerPageActive = false
             viewModel.saveHistory(force = true)
             media3Player.pause()
             onBack()
@@ -421,6 +427,7 @@ private fun PlayerPageContent(
                                             }
                                         }
                                     } else {
+                                        PlaybackService.isPlayerPageActive = false
                                         viewModel.saveHistory(force = true)
                                         onBack()
                                     }

@@ -16,9 +16,9 @@ import com.antoniegil.astronia.util.M3U8Channel
 
 @androidx.annotation.OptIn(androidx.media3.common.util.UnstableApi::class)
 class PlaybackService : MediaSessionService() {
-    
+
     private var mediaSession: MediaSession? = null
-    
+
     companion object {
         private const val NOTIFICATION_ID = 1001
         private const val CHANNEL_ID = "astronia_playback"
@@ -26,24 +26,28 @@ class PlaybackService : MediaSessionService() {
         var currentTitle: String = ""
         var currentChannel: M3U8Channel? = null
         var isBuffering: Boolean = false
+        var isPlayerPageActive: Boolean = false
     }
-    
+
     override fun onCreate() {
         super.onCreate()
         createNotificationChannel()
     }
-    
+
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         startForeground(NOTIFICATION_ID, createFallbackNotification())
-        
-        if (mediaSession == null) {
-            currentPlayer?.let { player ->
-                initMediaSession(player)
-            }
+
+        if (!isPlayerPageActive) {
+            stopSelfAndCleanup()
+            return START_NOT_STICKY
+        }
+
+       if (mediaSession == null) {
+            currentPlayer?.let { player -> initMediaSession(player) }
         }
         return super.onStartCommand(intent, flags, startId)
     }
-    
+
     private fun createMainActivityPendingIntent(): PendingIntent {
         val intent = Intent(this, MainActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_REORDER_TO_FRONT
@@ -53,48 +57,50 @@ class PlaybackService : MediaSessionService() {
             PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
         )
     }
-    
+
     private fun initMediaSession(player: Player) {
         val pendingIntent = createMainActivityPendingIntent()
-        
+
         mediaSession = MediaSession.Builder(this, player)
             .setSessionActivity(pendingIntent)
             .setCallback(object : MediaSession.Callback {})
             .build()
-        
-        player.addListener(object : Player.Listener {
-            override fun onIsPlayingChanged(isPlaying: Boolean) {
-                updateNotification()
-            }
-            
-            override fun onPlaybackStateChanged(playbackState: Int) {
-                isBuffering = playbackState == Player.STATE_BUFFERING
-                updateNotification()
-                
-                when (playbackState) {
-                    Player.STATE_ENDED -> {
-                        if (!player.isPlaying) {
-                            stopSelfAndCleanup()
+
+        player.addListener(
+                object : Player.Listener {
+                    override fun onIsPlayingChanged(isPlaying: Boolean) {
+                        updateNotification()
+                    }
+
+                    override fun onPlaybackStateChanged(playbackState: Int) {
+                        isBuffering = playbackState == Player.STATE_BUFFERING
+                        updateNotification()
+
+                        when (playbackState) {
+                            Player.STATE_ENDED -> {
+                                if (!player.isPlaying) {
+                                    stopSelfAndCleanup()
+                                }
+                            }
+                            Player.STATE_IDLE -> {
+                                if (!player.isPlaying && !isBuffering) {
+                                    stopSelfAndCleanup()
+                                }
+                            }
                         }
                     }
-                    Player.STATE_IDLE -> {
-                        if (!player.isPlaying && !isBuffering) {
-                            stopSelfAndCleanup()
-                        }
+
+                    override fun onPlayerError(error: androidx.media3.common.PlaybackException) {
+                        stopSelfAndCleanup()
                     }
                 }
-            }
-            
-            override fun onPlayerError(error: androidx.media3.common.PlaybackException) {
-                stopSelfAndCleanup()
-            }
-        })
-        
+        )
+
         if (player.isPlaying || isBuffering) {
             updateNotification()
         }
     }
-    
+
     private fun createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channel = NotificationChannel(
@@ -108,13 +114,13 @@ class PlaybackService : MediaSessionService() {
             manager.createNotificationChannel(channel)
         }
     }
-    
+
     private fun createNotification(): Notification {
         val session = mediaSession ?: return createFallbackNotification()
 
         val currentEpgTitle = currentChannel?.epgTitle ?: ""
         val pendingIntent = createMainActivityPendingIntent()
-        
+
         return NotificationCompat.Builder(this, CHANNEL_ID)
             .setContentTitle(currentTitle)
             .setContentText(currentEpgTitle)
@@ -125,7 +131,7 @@ class PlaybackService : MediaSessionService() {
             .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
             .build()
     }
-    
+
     private fun createFallbackNotification(): Notification {
         val pendingIntent = createMainActivityPendingIntent()
         
@@ -134,34 +140,38 @@ class PlaybackService : MediaSessionService() {
             .setContentIntent(pendingIntent)
             .build()
     }
-    
+
     private fun updateNotification() {
-        startForeground(NOTIFICATION_ID, createNotification())
+        if (isPlayerPageActive) {
+            startForeground(NOTIFICATION_ID, createNotification())
+        } else {
+            stopSelfAndCleanup()
+        }
     }
-    
+
     override fun onGetSession(controllerInfo: MediaSession.ControllerInfo): MediaSession? {
         return mediaSession
     }
-    
+
     private fun stopSelfAndCleanup() {
         mediaSession?.let {
             it.release()
             mediaSession = null
         }
         currentPlayer = null
-        
+
         val notificationManager = getSystemService(NotificationManager::class.java)
         notificationManager?.cancel(NOTIFICATION_ID)
-        
+
         stopForeground(STOP_FOREGROUND_REMOVE)
         stopSelf()
     }
-    
+
     override fun onDestroy() {
         stopSelfAndCleanup()
         super.onDestroy()
     }
-    
+
     override fun onTaskRemoved(rootIntent: Intent?) {
         super.onTaskRemoved(rootIntent)
         stopSelfAndCleanup()
