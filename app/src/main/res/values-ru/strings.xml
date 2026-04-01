@@ -88,7 +88,7 @@
     
     
     <string name="playback_behavior">Поведение при воспроизведении</string>
-    <string name="control_bar">Панель управления</string>
+    <string name="controls">Элементы управления</string>
     <string name="interface_control">Управление интерфейсом</string>
     <string name="auto_play">Автопроизведение</string>
     <string name="auto_play_desc">Автоматически начинать показ при открытии видео</string>
@@ -107,8 +107,8 @@
     <string name="keep_screen_on">Не выключать экран</string>
     <string name="keep_screen_on_desc">Предотвращать выключение экрана во время воспроизведения</string>
     
-    <string name="display_settings">Настройки экрана</string>
-    <string name="decoder_settings">Настройки декодера</string>
+    <string name="display">Экран</string>
+    <string name="decoder">Декодер</string>
     <string name="aspect_ratio">Соотношение сторон</string>
     <string name="aspect_ratio_fill">Заполнение</string>
     <string name="aspect_ratio_original">Оригинал</string>
@@ -117,7 +117,6 @@
     <string name="quality_preference_saver">Экономия трафика</string>
     <string name="mirror_flip">Зеркальное отражение</string>
     <string name="mirror_flip_desc">Отразить видео по горизонтали</string>
-    <string name="decoder">Декодер</string>
     <string name="decoder_hardware">Аппаратный</string>
     <string name="decoder_software">Программный</string>
 

@@ -87,7 +87,7 @@
     <string name="about_desc">Інформація про додаток та версія</string>
     
     <string name="playback_behavior">Поведінка відтворення</string>
-    <string name="control_bar">Панель керування</string>
+    <string name="controls">Керування</string>
     <string name="interface_control">Керування інтерфейсом</string>
     <string name="auto_play">Автоматичне відтворення</string>
     <string name="auto_play_desc">Автоматично починати відтворення під час відкриття відео</string>
@@ -106,8 +106,8 @@
     <string name="keep_screen_on">Не вимикати екран</string>
     <string name="keep_screen_on_desc">Запобігати вимкненню екрана під час відтворення</string>
 
-    <string name="display_settings">Налаштування дисплея</string>
-    <string name="decoder_settings">Налаштування декодера</string>
+    <string name="display">Дисплей</string>
+    <string name="decoder">Декодер</string>
     <string name="aspect_ratio">Співвідношення сторін</string>
     <string name="aspect_ratio_fill">Заповнити</string>
     <string name="aspect_ratio_original">Оригінал</string>
@@ -116,7 +116,6 @@
     <string name="quality_preference_saver">Економія трафіку</string>
     <string name="mirror_flip">Дзеркальне відображення</string>
     <string name="mirror_flip_desc">Відобразити відео горизонтально</string>
-    <string name="decoder">Декодер</string>
     <string name="decoder_hardware">Апаратний</string>
     <string name="decoder_software">Програмний</string>
 

@@ -84,7 +84,7 @@
     <string name="about_desc">應用程式資訊同版本</string>
     
     <string name="playback_behavior">播放行為</string>
-    <string name="control_bar">控制欄</string>
+    <string name="controls">控制欄</string>
     <string name="interface_control">介面控制</string>
     <string name="auto_play">自動播放</string>
     <string name="auto_play_desc">開片嗰陣自動開始播放</string>
@@ -103,8 +103,8 @@
     <string name="keep_screen_on">螢幕常亮</string>
     <string name="keep_screen_on_desc">播放時防止螢幕自動熄滅</string>
 
-    <string name="display_settings">顯示設定</string>
-    <string name="decoder_settings">解碼設定</string>
+    <string name="display">顯示</string>
+    <string name="decoder">解碼</string>
     <string name="aspect_ratio">畫面比例</string>
     <string name="aspect_ratio_fill">填滿</string>
     <string name="aspect_ratio_original">原始</string>
@@ -113,7 +113,6 @@
     <string name="quality_preference_saver">數據慳量</string>
     <string name="mirror_flip">鏡像翻轉</string>
     <string name="mirror_flip_desc">水平翻轉影片畫面</string>
-    <string name="decoder">解碼器</string>
     <string name="decoder_hardware">硬解</string>
     <string name="decoder_software">軟解</string>
 

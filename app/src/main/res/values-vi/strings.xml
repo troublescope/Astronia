@@ -84,7 +84,7 @@
     <string name="about_desc">Thông tin ứng dụng và phiên bản</string>
     
     <string name="playback_behavior">Hành vi phát</string>
-    <string name="control_bar">Thanh điều khiển</string>
+    <string name="controls">Điều khiển</string>
     <string name="interface_control">Điều khiển giao diện</string>
     <string name="auto_play">Tự động phát</string>
     <string name="auto_play_desc">Tự động bắt đầu phát khi mở video</string>
@@ -103,8 +103,8 @@
     <string name="keep_screen_on">Giữ màn hình sáng</string>
     <string name="keep_screen_on_desc">Ngăn màn hình tắt trong khi phát</string>
 
-    <string name="display_settings">Cài đặt hiển thị</string>
-    <string name="decoder_settings">Cài đặt bộ giải mã</string>
+    <string name="display">Hiển thị</string>
+    <string name="decoder">Bộ giải mã</string>
     <string name="aspect_ratio">Tỷ lệ khung hình</string>
     <string name="aspect_ratio_fill">Lấp đầy</string>
     <string name="aspect_ratio_original">Gốc</string>
@@ -113,7 +113,6 @@
     <string name="quality_preference_saver">Tiết kiệm dữ liệu</string>
     <string name="mirror_flip">Lật gương</string>
     <string name="mirror_flip_desc">Lật video theo chiều ngang</string>
-    <string name="decoder">Bộ giải mã</string>
     <string name="decoder_hardware">Phần cứng</string>
     <string name="decoder_software">Phần mềm</string>
 

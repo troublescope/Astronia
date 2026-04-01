@@ -87,7 +87,7 @@
     <string name="about_desc">Informace o aplikaci a verzi</string>
     
     <string name="playback_behavior">Chování přehrávání</string>
-    <string name="control_bar">Ovládací panel</string>
+    <string name="controls">Ovládání</string>
     <string name="interface_control">Ovládání rozhraní</string>
     <string name="auto_play">Automatické přehrávání</string>
     <string name="auto_play_desc">Automaticky spustit přehrávání při otevření videa</string>
@@ -106,8 +106,8 @@
     <string name="keep_screen_on">Ponechat obrazovku zapnutou</string>
     <string name="keep_screen_on_desc">Zabránit vypnutí obrazovky během přehrávání</string>
 
-    <string name="display_settings">Nastavení zobrazení</string>
-    <string name="decoder_settings">Nastavení dekodéru</string>
+    <string name="display">Zobrazení</string>
+    <string name="decoder">Dekodér</string>
     <string name="aspect_ratio">Poměr stran</string>
     <string name="aspect_ratio_fill">Vyplnit</string>
     <string name="aspect_ratio_original">Původní</string>
@@ -116,7 +116,6 @@
     <string name="quality_preference_saver">Úspora dat</string>
     <string name="mirror_flip">Zrcadlové převrácení</string>
     <string name="mirror_flip_desc">Horizontálně převrátit obraz videa</string>
-    <string name="decoder">Dekodér</string>
     <string name="decoder_hardware">Hardwarový</string>
     <string name="decoder_software">Softwarový</string>
 

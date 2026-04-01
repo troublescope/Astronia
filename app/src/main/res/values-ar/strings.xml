@@ -89,7 +89,7 @@
     <string name="about_desc">معلومات التطبيق والإصدار</string>
     
     <string name="playback_behavior">سلوك التشغيل</string>
-    <string name="control_bar">شريط التحكم</string>
+    <string name="controls">التحكم</string>
     <string name="interface_control">التحكم في الواجهة</string>
     <string name="auto_play">تشغيل تلقائي</string>
     <string name="auto_play_desc">بدء التشغيل تلقائياً عند فتح الفيديو</string>
@@ -108,8 +108,8 @@
     <string name="keep_screen_on">إبقاء الشاشة مضاءة</string>
     <string name="keep_screen_on_desc">منع إيقاف تشغيل الشاشة أثناء التشغيل</string>
 
-    <string name="display_settings">إعدادات العرض</string>
-    <string name="decoder_settings">إعدادات فك التشفير</string>
+    <string name="display">العرض</string>
+    <string name="decoder">فك التشفير</string>
     <string name="aspect_ratio">نسبة العرض إلى الارتفاع</string>
     <string name="aspect_ratio_fill">ملء</string>
     <string name="aspect_ratio_original">الأصلي</string>
@@ -118,7 +118,6 @@
     <string name="quality_preference_saver">توفير البيانات</string>
     <string name="mirror_flip">انعكاس مرآتي</string>
     <string name="mirror_flip_desc">قلب الفيديو أفقياً</string>
-    <string name="decoder">أداة فك التشفير</string>
     <string name="decoder_hardware">عتادي</string>
     <string name="decoder_software">برمجي</string>
 

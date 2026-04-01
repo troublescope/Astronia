@@ -84,7 +84,7 @@
     <string name="about_desc">ข้อมูลแอปและเวอร์ชัน</string>
     
     <string name="playback_behavior">พฤติกรรมการเล่น</string>
-    <string name="control_bar">แถบควบคุม</string>
+    <string name="controls">ตัวควบคุม</string>
     <string name="interface_control">การควบคุมอินเทอร์เฟซ</string>
     <string name="auto_play">เล่นอัตโนมัติ</string>
     <string name="auto_play_desc">เริ่มเล่นโดยอัตโนมัติเมื่อเปิดวิดีโอ</string>
@@ -103,8 +103,8 @@
     <string name="keep_screen_on">เปิดหน้าจอค้าง</string>
     <string name="keep_screen_on_desc">ป้องกันไม่ให้หน้าจอดับระหว่างการเล่น</string>
 
-    <string name="display_settings">การตั้งค่าการแสดงผล</string>
-    <string name="decoder_settings">การตั้งค่าตัวถอดรหัส</string>
+    <string name="display">การแสดงผล</string>
+    <string name="decoder">ตัวถอดรหัส</string>
     <string name="aspect_ratio">อัตราส่วนภาพ</string>
     <string name="aspect_ratio_fill">เต็มจอ</string>
     <string name="aspect_ratio_original">ต้นฉบับ</string>
@@ -113,7 +113,6 @@
     <string name="quality_preference_saver">ประหยัดข้อมูล</string>
     <string name="mirror_flip">พลิกกระจก</string>
     <string name="mirror_flip_desc">พลิกวิดีโอในแนวนอน</string>
-    <string name="decoder">ตัวถอดรหัส</string>
     <string name="decoder_hardware">ฮาร์ดแวร์</string>
     <string name="decoder_software">ซอฟต์แวร์</string>
 

@@ -85,7 +85,7 @@
     <string name="about_desc">ऐप जानकारी और वर्ज़न</string>
     
     <string name="playback_behavior">प्लेबैक व्यवहार</string>
-    <string name="control_bar">कंट्रोल बार</string>
+    <string name="controls">नियंत्रण</string>
     <string name="interface_control">इंटरफेस नियंत्रण</string>
     <string name="auto_play">ऑटो प्ले</string>
     <string name="auto_play_desc">वीडियो खोलते समय स्वचालित रूप से चलाना शुरू करें</string>
@@ -104,8 +104,8 @@
     <string name="keep_screen_on">स्क्रीन को चालू रखें</string>
     <string name="keep_screen_on_desc">प्लेबैक के दौरान स्क्रीन को बंद होने से रोकें</string>
 
-    <string name="display_settings">डिस्प्ले सेटिंग्स</string>
-    <string name="decoder_settings">डिकोडर सेटिंग्स</string>
+    <string name="display">डिस्प्ले</string>
+    <string name="decoder">डिकोडर</string>
     <string name="aspect_ratio">एस्पेक्ट रेशियो</string>
     <string name="aspect_ratio_fill">भरें (Fill)</string>
     <string name="aspect_ratio_original">मूल (Original)</string>
@@ -114,7 +114,6 @@
     <string name="quality_preference_saver">डेटा सेवर</string>
     <string name="mirror_flip">मिरर फ्लिप</string>
     <string name="mirror_flip_desc">वीडियो को क्षैतिज रूप से पलटें</string>
-    <string name="decoder">डिकोडर</string>
     <string name="decoder_hardware">हार्डवेयर</string>
     <string name="decoder_software">सॉफ्टवेयर</string>
 

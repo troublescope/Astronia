@@ -85,7 +85,7 @@
     <string name="about_desc">Appinformation och version</string>
     
     <string name="playback_behavior">Uppspelningsbeteende</string>
-    <string name="control_bar">Kontrollpanel</string>
+    <string name="controls">Kontroller</string>
     <string name="interface_control">Gränssnittskontroll</string>
     <string name="auto_play">Auto-uppspelning</string>
     <string name="auto_play_desc">Börja spela upp automatiskt när video öppnas</string>
@@ -104,8 +104,8 @@
     <string name="keep_screen_on">Håll skärmen på</string>
     <string name="keep_screen_on_desc">Förhindra att skärmen stängs av under uppspelning</string>
 
-    <string name="display_settings">Skärminställningar</string>
-    <string name="decoder_settings">Avkodarinställningar</string>
+    <string name="display">Skärm</string>
+    <string name="decoder">Avkodare</string>
     <string name="aspect_ratio">Bildförhållande</string>
     <string name="aspect_ratio_fill">Fyll</string>
     <string name="aspect_ratio_original">Original</string>
@@ -114,7 +114,6 @@
     <string name="quality_preference_saver">Databesparing</string>
     <string name="mirror_flip">Spegla</string>
     <string name="mirror_flip_desc">Vänd videon horisontellt</string>
-    <string name="decoder">Avkodare</string>
     <string name="decoder_hardware">Hårdvara</string>
     <string name="decoder_software">Mjukvara</string>
 

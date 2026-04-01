@@ -84,7 +84,7 @@
     <string name="about_desc">アプリ情報とバージョン</string>
     
     <string name="playback_behavior">再生動作</string>
-    <string name="control_bar">コントロールバー</string>
+    <string name="controls">コントロール</string>
     <string name="interface_control">インターフェース制御</string>
     <string name="auto_play">自動再生</string>
     <string name="auto_play_desc">動画を開いたときに自動的に再生を開始</string>
@@ -103,8 +103,8 @@
     <string name="keep_screen_on">画面をオンのままにする</string>
     <string name="keep_screen_on_desc">再生中に画面がオフにならないようにする</string>
 
-    <string name="display_settings">表示設定</string>
-    <string name="decoder_settings">デコーダー設定</string>
+    <string name="display">表示</string>
+    <string name="decoder">デコーダー</string>
     <string name="aspect_ratio">アスペクト比</string>
     <string name="aspect_ratio_fill">フィル</string>
     <string name="aspect_ratio_original">オリジナル</string>
@@ -113,7 +113,6 @@
     <string name="quality_preference_saver">データセーバー</string>
     <string name="mirror_flip">ミラー反転</string>
     <string name="mirror_flip_desc">動画を水平方向に反転</string>
-    <string name="decoder">デコーダー</string>
     <string name="decoder_hardware">ハードウェア</string>
     <string name="decoder_software">ソフトウェア</string>
 

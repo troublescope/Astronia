@@ -85,7 +85,7 @@
     <string name="about_desc">Info de la app y versión</string>
     
     <string name="playback_behavior">Comportamiento de reproducción</string>
-    <string name="control_bar">Barra de control</string>
+    <string name="controls">Controles</string>
     <string name="interface_control">Control de interfaz</string>
     <string name="auto_play">Reproducción automática</string>
     <string name="auto_play_desc">Iniciar reproducción automáticamente al abrir video</string>
@@ -104,8 +104,8 @@
     <string name="keep_screen_on">Mantener pantalla encendida</string>
     <string name="keep_screen_on_desc">Evitar que la pantalla se apague durante la reproducción</string>
 
-    <string name="display_settings">Ajustes de pantalla</string>
-    <string name="decoder_settings">Ajustes del decodificador</string>
+    <string name="display">Pantalla</string>
+    <string name="decoder">Decodificador</string>
     <string name="aspect_ratio">Relación de aspecto</string>
     <string name="aspect_ratio_fill">Rellenar</string>
     <string name="aspect_ratio_original">Original</string>
@@ -114,7 +114,6 @@
     <string name="quality_preference_saver">Ahorro de datos</string>
     <string name="mirror_flip">Modo espejo</string>
     <string name="mirror_flip_desc">Voltear video horizontalmente</string>
-    <string name="decoder">Decodificador</string>
     <string name="decoder_hardware">Hardware</string>
     <string name="decoder_software">Software</string>
 

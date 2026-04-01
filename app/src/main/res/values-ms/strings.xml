@@ -84,7 +84,7 @@
     <string name="about_desc">Info aplikasi dan versi</string>
     
     <string name="playback_behavior">Tingkah Laku Main Balik</string>
-    <string name="control_bar">Bar Kawalan</string>
+    <string name="controls">Kawalan</string>
     <string name="interface_control">Kawalan Antaramuka</string>
     <string name="auto_play">Main Automatik</string>
     <string name="auto_play_desc">Mula bermain secara automatik apabila membuka video</string>
@@ -103,8 +103,8 @@
     <string name="keep_screen_on">Kekalkan Skrin Hidup</string>
     <string name="keep_screen_on_desc">Elakkan skrin daripada dimatikan semasa main balik</string>
 
-    <string name="display_settings">Tetapan Paparan</string>
-    <string name="decoder_settings">Tetapan Penyahkod</string>
+    <string name="display">Paparan</string>
+    <string name="decoder">Penyahkod</string>
     <string name="aspect_ratio">Nisbah Aspek</string>
     <string name="aspect_ratio_fill">Isi</string>
     <string name="aspect_ratio_original">Asal</string>
@@ -113,7 +113,6 @@
     <string name="quality_preference_saver">Penjimat Data</string>
     <string name="mirror_flip">Cermin Balik</string>
     <string name="mirror_flip_desc">Terbalikkan video secara mendatar</string>
-    <string name="decoder">Penyahkod</string>
     <string name="decoder_hardware">Perkakasan</string>
     <string name="decoder_software">Perisian</string>
 

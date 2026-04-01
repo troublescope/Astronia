@@ -107,7 +107,7 @@ fun PlayerSettingsPage(onNavigateBack: () -> Unit) {
             }
             
             item {
-                PreferenceSubtitle(text = stringResource(R.string.control_bar))
+                PreferenceSubtitle(text = stringResource(R.string.controls))
             }
             
             item {

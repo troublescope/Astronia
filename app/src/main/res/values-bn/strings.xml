@@ -85,7 +85,7 @@
     <string name="about_desc">অ্যাপ তথ্য এবং ভার্সন</string>
     
     <string name="playback_behavior">প্লেব্যাক আচরণ</string>
-    <string name="control_bar">কন্ট্রোল বার</string>
+    <string name="controls">কন্ট্রোল</string>
     <string name="interface_control">ইন্টারফেস নিয়ন্ত্রণ</string>
     <string name="auto_play">অটো প্লে</string>
     <string name="auto_play_desc">ভিডিও খোলার সাথে সাথে স্বয়ংক্রিয়ভাবে চালানো শুরু করুন</string>
@@ -104,8 +104,8 @@
     <string name="keep_screen_on">স্ক্রিন চালু রাখুন</string>
     <string name="keep_screen_on_desc">প্লেব্যাক চলাকালীন স্ক্রিন বন্ধ হওয়া থেকে প্রতিরোধ করুন</string>
 
-    <string name="display_settings">ডিসপ্লে সেটিংস</string>
-    <string name="decoder_settings">ডিকোডার সেটিংস</string>
+    <string name="display">ডিসপ্লে</string>
+    <string name="decoder">ডিকোডার</string>
     <string name="aspect_ratio">অ্যাসপেক্ট রেশিও</string>
     <string name="aspect_ratio_fill">পুরো স্ক্রিন (Fill)</string>
     <string name="aspect_ratio_original">আসল (Original)</string>
@@ -114,7 +114,6 @@
     <string name="quality_preference_saver">ডেটা সেভার</string>
     <string name="mirror_flip">মিরর ফ্লিপ</string>
     <string name="mirror_flip_desc">ভিডিওটি আড়াআড়িভাবে উল্টান</string>
-    <string name="decoder">ডিকোডার</string>
     <string name="decoder_hardware">হার্ডওয়্যার</string>
     <string name="decoder_software">সফটওয়্যার</string>
 

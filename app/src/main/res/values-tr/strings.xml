@@ -85,7 +85,7 @@
     <string name="about_desc">Uygulama bilgisi ve sürüm</string>
     
     <string name="playback_behavior">Oynatma Davranışı</string>
-    <string name="control_bar">Kontrol Çubuğu</string>
+    <string name="controls">Kontroller</string>
     <string name="interface_control">Arayüz Kontrolü</string>
     <string name="auto_play">Otomatik Oynat</string>
     <string name="auto_play_desc">Videoyu açarken otomatik olarak oynatmaya başla</string>
@@ -104,8 +104,8 @@
     <string name="keep_screen_on">Ekranı Açık Tut</string>
     <string name="keep_screen_on_desc">Oynatma sırasında ekranın kapanmasını engelle</string>
 
-    <string name="display_settings">Ekran Ayarları</string>
-    <string name="decoder_settings">Kod Çözücü Ayarları</string>
+    <string name="display">Ekran</string>
+    <string name="decoder">Kod Çözücü</string>
     <string name="aspect_ratio">En Boy Oranı</string>
     <string name="aspect_ratio_fill">Doldur</string>
     <string name="aspect_ratio_original">Orijinal</string>
@@ -114,7 +114,6 @@
     <string name="quality_preference_saver">Veri Tasarrufu</string>
     <string name="mirror_flip">Aynala</string>
     <string name="mirror_flip_desc">Videoyu yatay olarak çevir</string>
-    <string name="decoder">Kod Çözücü</string>
     <string name="decoder_hardware">Donanım</string>
     <string name="decoder_software">Yazılım</string>
 

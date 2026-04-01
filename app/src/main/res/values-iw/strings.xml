@@ -86,7 +86,7 @@
     <string name="about_desc">מידע על האפליקציה וגרסה</string>
     
     <string name="playback_behavior">התנהגות השמעה</string>
-    <string name="control_bar">סרגל בקרה</string>
+    <string name="controls">בקרות</string>
     <string name="interface_control">בקרת ממשק</string>
     <string name="auto_play">השמעה אוטומטית</string>
     <string name="auto_play_desc">התחל השמעה אוטומטית בעת פתיחת וידאו</string>
@@ -105,8 +105,8 @@
     <string name="keep_screen_on">שמור על המסך דולק</string>
     <string name="keep_screen_on_desc">מנע כיבוי מסך במהלך ההשמעה</string>
 
-    <string name="display_settings">הגדרות תצוגה</string>
-    <string name="decoder_settings">הגדרות מפענח</string>
+    <string name="display">תצוגה</string>
+    <string name="decoder">מפענח</string>
     <string name="aspect_ratio">יחס גובה-רוחב</string>
     <string name="aspect_ratio_fill">מילוי</string>
     <string name="aspect_ratio_original">מקורי</string>
@@ -115,7 +115,6 @@
     <string name="quality_preference_saver">חיסכון בנתונים</string>
     <string name="mirror_flip">היפוך מראה</string>
     <string name="mirror_flip_desc">היפוך אופקי של תמונת הוידאו</string>
-    <string name="decoder">מפענח</string>
     <string name="decoder_hardware">חומרה</string>
     <string name="decoder_software">תוכנה</string>
 

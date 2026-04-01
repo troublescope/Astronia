@@ -85,7 +85,7 @@
     <string name="about_desc">اطلاعات برنامه و نسخه</string>
     
     <string name="playback_behavior">رفتار پخش</string>
-    <string name="control_bar">نوار کنترل</string>
+    <string name="controls">کنترل‌ها</string>
     <string name="interface_control">کنترل رابط کاربری</string>
     <string name="auto_play">پخش خودکار</string>
     <string name="auto_play_desc">شروع خودکار پخش هنگام باز کردن ویدیو</string>
@@ -104,8 +104,8 @@
     <string name="keep_screen_on">روشن نگه داشتن صفحه</string>
     <string name="keep_screen_on_desc">جلوگیری از خاموش شدن صفحه در حین پخش</string>
 
-    <string name="display_settings">تنظیمات نمایش</string>
-    <string name="decoder_settings">تنظیمات رمزگشا</string>
+    <string name="display">نمایش</string>
+    <string name="decoder">رمزگشا</string>
     <string name="aspect_ratio">نسبت تصویر</string>
     <string name="aspect_ratio_fill">پر کردن</string>
     <string name="aspect_ratio_original">اصلی</string>
@@ -114,7 +114,6 @@
     <string name="quality_preference_saver">صرفه‌جویی داده</string>
     <string name="mirror_flip">چرخش آینه‌ای</string>
     <string name="mirror_flip_desc">چرخش افقی تصویر ویدیو</string>
-    <string name="decoder">رمزگشا</string>
     <string name="decoder_hardware">سخت‌افزاری</string>
     <string name="decoder_software">نرم‌افزاری</string>
 

@@ -85,7 +85,7 @@
     <string name="about_desc">Infos sur l\'appli et version</string>
     
     <string name="playback_behavior">Comportement de lecture</string>
-    <string name="control_bar">Barre de contrôle</string>
+    <string name="controls">Contrôles</string>
     <string name="interface_control">Contrôle de l\'interface</string>
     <string name="auto_play">Lecture automatique</string>
     <string name="auto_play_desc">Lancer la lecture automatiquement à l\'ouverture</string>
@@ -104,8 +104,8 @@
     <string name="keep_screen_on">Garder l\'écran allumé</string>
     <string name="keep_screen_on_desc">Empêcher l\'écran de s\'éteindre pendant la lecture</string>
 
-    <string name="display_settings">Paramètres d\'affichage</string>
-    <string name="decoder_settings">Paramètres du décodeur</string>
+    <string name="display">Affichage</string>
+    <string name="decoder">Décodeur</string>
     <string name="aspect_ratio">Ratio d\'aspect</string>
     <string name="aspect_ratio_fill">Remplir</string>
     <string name="aspect_ratio_original">Original</string>
@@ -114,7 +114,6 @@
     <string name="quality_preference_saver">Économie de données</string>
     <string name="mirror_flip">Miroir</string>
     <string name="mirror_flip_desc">Inverser la vidéo horizontalement</string>
-    <string name="decoder">Décodeur</string>
     <string name="decoder_hardware">Matériel (Hardware)</string>
     <string name="decoder_software">Logiciel (Software)</string>
 

@@ -84,7 +84,7 @@
     <string name="about_desc">앱 정보 및 버전</string>
     
     <string name="playback_behavior">재생 동작</string>
-    <string name="control_bar">컨트롤 바</string>
+    <string name="controls">컨트롤</string>
     <string name="interface_control">인터페이스 제어</string>
     <string name="auto_play">자동 재생</string>
     <string name="auto_play_desc">동영상을 열 때 자동으로 재생 시작</string>
@@ -103,8 +103,8 @@
     <string name="keep_screen_on">화면 켜짐 유지</string>
     <string name="keep_screen_on_desc">재생 중 화면이 꺼지지 않도록 방지</string>
 
-    <string name="display_settings">표시 설정</string>
-    <string name="decoder_settings">디코더 설정</string>
+    <string name="display">표시</string>
+    <string name="decoder">디코더</string>
     <string name="aspect_ratio">화면 비율</string>
     <string name="aspect_ratio_fill">채우기</string>
     <string name="aspect_ratio_original">원본</string>
@@ -113,7 +113,6 @@
     <string name="quality_preference_saver">데이터 절약</string>
     <string name="mirror_flip">미러 반전</string>
     <string name="mirror_flip_desc">동영상을 수평으로 반전</string>
-    <string name="decoder">디코더</string>
     <string name="decoder_hardware">하드웨어</string>
     <string name="decoder_software">소프트웨어</string>
 

@@ -84,7 +84,7 @@
     <string name="about_desc">Info aplikasi dan versi</string>
     
     <string name="playback_behavior">Perilaku Pemutaran</string>
-    <string name="control_bar">Bilah kontrol</string>
+    <string name="controls">Kontrol</string>
     <string name="interface_control">Kontrol Antarmuka</string>
     <string name="auto_play">Putar Otomatis</string>
     <string name="auto_play_desc">Mulai memutar secara otomatis saat membuka video</string>
@@ -103,8 +103,8 @@
     <string name="keep_screen_on">Jaga Layar Tetap Menyala</string>
     <string name="keep_screen_on_desc">Cegah layar mati selama pemutaran</string>
 
-    <string name="display_settings">Pengaturan Tampilan</string>
-    <string name="decoder_settings">Pengaturan Dekoder</string>
+    <string name="display">Tampilan</string>
+    <string name="decoder">Dekoder</string>
     <string name="aspect_ratio">Rasio Aspek</string>
     <string name="aspect_ratio_fill">Penuhi</string>
     <string name="aspect_ratio_original">Asli</string>
@@ -113,7 +113,6 @@
     <string name="quality_preference_saver">Hemat Data</string>
     <string name="mirror_flip">Balik Cermin</string>
     <string name="mirror_flip_desc">Balikkan video secara horizontal</string>
-    <string name="decoder">Dekoder</string>
     <string name="decoder_hardware">Perangkat Keras</string>
     <string name="decoder_software">Perangkat Lunak</string>
 

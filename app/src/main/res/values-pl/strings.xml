@@ -87,7 +87,7 @@
     <string name="about_desc">Informacje o aplikacji i wersja</string>
     
     <string name="playback_behavior">Zachowanie odtwarzania</string>
-    <string name="control_bar">Pasek sterowania</string>
+    <string name="controls">Sterowanie</string>
     <string name="interface_control">Sterowanie interfejsem</string>
     <string name="auto_play">Automatyczne odtwarzanie</string>
     <string name="auto_play_desc">Automatyczne rozpoczęcie odtwarzania po otwarciu wideo</string>
@@ -106,8 +106,8 @@
     <string name="keep_screen_on">Nie wyłączaj ekranu</string>
     <string name="keep_screen_on_desc">Zapobiegaj wyłączaniu ekranu podczas odtwarzania</string>
 
-    <string name="display_settings">Ustawienia wyświetlania</string>
-    <string name="decoder_settings">Ustawienia dekodera</string>
+    <string name="display">Wyświetlanie</string>
+    <string name="decoder">Dekoder</string>
     <string name="aspect_ratio">Proporcje obrazu</string>
     <string name="aspect_ratio_fill">Wypełnij</string>
     <string name="aspect_ratio_original">Oryginalne</string>
@@ -116,7 +116,6 @@
     <string name="quality_preference_saver">Oszczędzanie danych</string>
     <string name="mirror_flip">Odbicie lustrzane</string>
     <string name="mirror_flip_desc">Odwróć wideo poziomo</string>
-    <string name="decoder">Dekoder</string>
     <string name="decoder_hardware">Sprzętowy</string>
     <string name="decoder_software">Programowy</string>
 

@@ -86,7 +86,7 @@
     <string name="about_desc">Informații aplicație și versiune</string>
     
     <string name="playback_behavior">Comportament redare</string>
-    <string name="control_bar">Bară de control</string>
+    <string name="controls">Controale</string>
     <string name="interface_control">Control interfață</string>
     <string name="auto_play">Redare automată</string>
     <string name="auto_play_desc">Începe redarea automat la deschiderea video-ului</string>
@@ -105,8 +105,8 @@
     <string name="keep_screen_on">Menține ecranul aprins</string>
     <string name="keep_screen_on_desc">Împiedică stingerea ecranului în timpul redării</string>
 
-    <string name="display_settings">Setări afișare</string>
-    <string name="decoder_settings">Setări decodor</string>
+    <string name="display">Afișare</string>
+    <string name="decoder">Decodor</string>
     <string name="aspect_ratio">Raport aspect</string>
     <string name="aspect_ratio_fill">Umplere</string>
     <string name="aspect_ratio_original">Original</string>
@@ -115,7 +115,6 @@
     <string name="quality_preference_saver">Economisire date</string>
     <string name="mirror_flip">Oglindire</string>
     <string name="mirror_flip_desc">Întoarce video-ul orizontal</string>
-    <string name="decoder">Decodor</string>
     <string name="decoder_hardware">Hardware</string>
     <string name="decoder_software">Software</string>
 

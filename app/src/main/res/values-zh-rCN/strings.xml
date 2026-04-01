@@ -84,7 +84,7 @@
     <string name="about_desc">应用信息和版本</string>
     
     <string name="playback_behavior">播放行为</string>
-    <string name="control_bar">控制栏</string>
+    <string name="controls">控制栏</string>
     <string name="interface_control">界面控制</string>
     <string name="auto_play">自动播放</string>
     <string name="auto_play_desc">打开视频时自动开始播放</string>
@@ -103,8 +103,8 @@
     <string name="keep_screen_on">屏幕常亮</string>
     <string name="keep_screen_on_desc">播放时防止屏幕自动关闭</string>
 
-    <string name="display_settings">显示设置</string>
-    <string name="decoder_settings">解码设置</string>
+    <string name="display">显示</string>
+    <string name="decoder">解码</string>
     <string name="aspect_ratio">画面比例</string>
     <string name="aspect_ratio_fill">填充</string>
     <string name="aspect_ratio_original">原始</string>
@@ -113,7 +113,6 @@
     <string name="quality_preference_saver">流量节省</string>
     <string name="mirror_flip">镜像翻转</string>
     <string name="mirror_flip_desc">水平翻转视频画面</string>
-    <string name="decoder">解码器</string>
     <string name="decoder_hardware">硬解</string>
     <string name="decoder_software">软解</string>
 

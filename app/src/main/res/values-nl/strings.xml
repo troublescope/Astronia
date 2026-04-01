@@ -85,7 +85,7 @@
     <string name="about_desc">App-info en versie</string>
     
     <string name="playback_behavior">Afspeelgedrag</string>
-    <string name="control_bar">Bedieningsbalk</string>
+    <string name="controls">Bediening</string>
     <string name="interface_control">Interfacebediening</string>
     <string name="auto_play">Automatisch afspelen</string>
     <string name="auto_play_desc">Afspelen automatisch starten bij openen video</string>
@@ -104,8 +104,8 @@
     <string name="keep_screen_on">Scherm aan houden</string>
     <string name="keep_screen_on_desc">Voorkomen dat scherm uitgaat tijdens afspelen</string>
 
-    <string name="display_settings">Weergave-instellingen</string>
-    <string name="decoder_settings">Decoder-instellingen</string>
+    <string name="display">Weergave</string>
+    <string name="decoder">Decoder</string>
     <string name="aspect_ratio">Beeldverhouding</string>
     <string name="aspect_ratio_fill">Vullen</string>
     <string name="aspect_ratio_original">Origineel</string>
@@ -114,7 +114,6 @@
     <string name="quality_preference_saver">Databesparing</string>
     <string name="mirror_flip">Spiegelen</string>
     <string name="mirror_flip_desc">Video horizontaal spiegelen</string>
-    <string name="decoder">Decoder</string>
     <string name="decoder_hardware">Hardware</string>
     <string name="decoder_software">Software</string>
 

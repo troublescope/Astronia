@@ -49,7 +49,7 @@ fun VideoSettingsPage(onNavigateBack: () -> Unit) {
             contentPadding = paddingValues
         ) {
             item {
-                PreferenceSubtitle(text = stringResource(R.string.display_settings))
+                PreferenceSubtitle(text = stringResource(R.string.display))
             }
             
             item {
@@ -94,7 +94,7 @@ fun VideoSettingsPage(onNavigateBack: () -> Unit) {
             }
             
             item {
-                PreferenceSubtitle(text = stringResource(R.string.decoder_settings))
+                PreferenceSubtitle(text = stringResource(R.string.decoder))
             }
             
             item {
