@@ -16,41 +16,15 @@ When reporting issues, please help us help you by providing the following inform
 
 ### Required Information
 - **Device Information**: Manufacturer, model, and Android version
-- **App Version**: Found in Settings → About
 - **Steps to Reproduce**: Clear, step-by-step instructions
 - **Expected Behavior**: What you expected to happen
 - **Actual Behavior**: What actually happened
-- **Logs/Screenshots**: If applicable, attach relevant logs or screenshots
 
 ### Before Submitting
 1. Search existing issues to avoid duplicates
 2. Update to the latest version and verify the issue persists
 3. Provide as much detail as possible
 4. Use a clear and descriptive title
-
-### Issue Template
-```
-**Device**: [e.g., Samsung Galaxy S21, Android 12]
-**App Version**: [e.g., 1.0.0 (10)]
-**Build Type**: [Debug/Release]
-
-**Description**:
-[Clear description of the issue]
-
-**Steps to Reproduce**:
-1. 
-2. 
-3. 
-
-**Expected Behavior**:
-[What should happen]
-
-**Actual Behavior**:
-[What actually happens]
-
-**Additional Context**:
-[Any other relevant information]
-```
 
 ---
 
