@@ -76,22 +76,9 @@ class PlaybackService : MediaSessionService() {
                         isBuffering = playbackState == Player.STATE_BUFFERING
                         updateNotification()
 
-                        when (playbackState) {
-                            Player.STATE_ENDED -> {
-                                if (!player.isPlaying) {
-                                    stopSelfAndCleanup()
-                                }
-                            }
-                            Player.STATE_IDLE -> {
-                                if (!player.isPlaying && !isBuffering) {
-                                    stopSelfAndCleanup()
-                                }
-                            }
+                        if (playbackState == Player.STATE_ENDED && !player.isPlaying) {
+                            stopSelfAndCleanup()
                         }
-                    }
-
-                    override fun onPlayerError(error: androidx.media3.common.PlaybackException) {
-                        stopSelfAndCleanup()
                     }
                 }
         )
