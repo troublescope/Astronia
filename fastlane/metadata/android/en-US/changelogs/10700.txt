@@ -1,0 +1,7 @@
+- Add application runtime log recording (users can record logs to help developers pinpoint issues).
+- Enhanced EPG parsing capabilities.
+- Fix app crash on specific older devices when using High contrast dark theme.
+- Fix full screen mode automatically rotating when the system turns off auto-rotation.
+- Fix EPG list icon not displaying in fullscreen on Android 7.
+
+For full changelogs, please refer to GitHub
