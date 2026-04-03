@@ -2,7 +2,8 @@ package com.antoniegil.astronia.ui.page.settings.data
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.Intent
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -32,6 +33,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 import androidx.core.content.edit
 import android.os.Process
+import android.widget.Toast
 
 data class LogcatRecord(
     val fileName: String,
@@ -124,6 +126,32 @@ fun LogcatPage(onNavigateBack: () -> Unit) {
     val configuration = LocalConfiguration.current
     val scope = rememberCoroutineScope()
     val snackbarHostState = remember { SnackbarHostState() }
+    val successMsg = stringResource(R.string.export_success)
+    val failedMsg = stringResource(R.string.export_failed)
+    
+    var exportContent by remember { mutableStateOf("") }
+    var exportFileName by remember { mutableStateOf("") }
+    
+    val exportLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.CreateDocument("text/plain")
+    ) { uri ->
+        uri?.let {
+            scope.launch(Dispatchers.IO) {
+                try {
+                    context.contentResolver.openOutputStream(it)?.use { outputStream ->
+                        outputStream.write(exportContent.toByteArray())
+                    }
+                    withContext(Dispatchers.Main) {
+                        Toast.makeText(context, successMsg, Toast.LENGTH_SHORT).show()
+                    }
+                } catch (e: Exception) {
+                    withContext(Dispatchers.Main) {
+                        Toast.makeText(context, failedMsg, Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+        }
+    }
 
     LaunchedEffect(Unit) {
         viewModel.loadData(context)
@@ -200,7 +228,7 @@ fun LogcatPage(onNavigateBack: () -> Unit) {
                             onDelete = {
                                 val deletedRecord = record
                                 val deletedIndex = viewModel.logcatRecords.indexOf(record)
-                                viewModel.logcatRecords = viewModel.logcatRecords.filter { it != record }
+                                viewModel.logcatRecords = viewModel.logcatRecords - record
                                 File(record.filePath).delete()
                                 viewModel.saveRecords(context)
                                 scope.launch {
@@ -217,20 +245,20 @@ fun LogcatPage(onNavigateBack: () -> Unit) {
                                     }
                                 }
                             },
-                            onClick = {
-                                context.startActivity(Intent(Intent.ACTION_CREATE_DOCUMENT).apply {
-                                    addCategory(Intent.CATEGORY_OPENABLE)
-                                    type = "text/plain"
-                                    putExtra(Intent.EXTRA_TITLE, record.fileName)
-                                })
-                            },
+                            onClick = {},
                             trailingIcon = {
                                 IconButton(onClick = {
-                                    context.startActivity(Intent(Intent.ACTION_CREATE_DOCUMENT).apply {
-                                        addCategory(Intent.CATEGORY_OPENABLE)
-                                        type = "text/plain"
-                                        putExtra(Intent.EXTRA_TITLE, record.fileName)
-                                    })
+                                    val file = File(record.filePath)
+                                    if (file.exists()) {
+                                        scope.launch(Dispatchers.IO) {
+                                            val content = file.readText()
+                                            withContext(Dispatchers.Main) {
+                                                exportContent = content
+                                                exportFileName = record.fileName
+                                                exportLauncher.launch(record.fileName)
+                                            }
+                                        }
+                                    }
                                 }) {
                                     Icon(
                                         imageVector = Icons.AutoMirrored.Outlined.DriveFileMove,
