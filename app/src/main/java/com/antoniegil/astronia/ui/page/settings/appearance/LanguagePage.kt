@@ -31,7 +31,7 @@ import com.antoniegil.astronia.ui.component.BackButton
 import com.antoniegil.astronia.ui.component.HorizontalDivider
 import com.antoniegil.astronia.ui.component.PreferenceSingleChoiceItem
 import com.antoniegil.astronia.ui.component.PreferenceSubtitle
-import com.antoniegil.astronia.util.SettingsManager
+import com.antoniegil.astronia.util.manager.SettingsManager
 import com.antoniegil.astronia.util.SupportedLocales
 import com.antoniegil.astronia.util.toDisplayName
 

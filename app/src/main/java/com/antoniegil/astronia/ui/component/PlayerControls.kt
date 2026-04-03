@@ -39,10 +39,11 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.List
 import com.antoniegil.astronia.player.Media3Player
 import com.antoniegil.astronia.player.VideoQuality
-import com.antoniegil.astronia.util.WatchTimeTracker
-import com.antoniegil.astronia.util.EpgProgram
+import com.antoniegil.astronia.util.common.WatchTimeTracker
+import com.antoniegil.astronia.util.parser.EpgProgram
 import kotlinx.coroutines.delay
 import com.antoniegil.astronia.R
+import com.antoniegil.astronia.util.manager.SettingsManager
 
 
 @Composable
@@ -292,7 +293,7 @@ private fun ProgressBar(
     epgPrograms: List<EpgProgram> = emptyList(),
     cycleDurationMs: Long = 0L
 ) {
-    val count = com.antoniegil.astronia.util.SettingsManager.getEpgMarkersCount(LocalContext.current)
+    val count = SettingsManager.getEpgMarkersCount(LocalContext.current)
     val currentTime = System.currentTimeMillis()
     val currentProgram = epgPrograms.find { currentTime in it.startTime..it.stopTime }
     

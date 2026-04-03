@@ -1,4 +1,4 @@
-package com.antoniegil.astronia.util
+package com.antoniegil.astronia.util.common
 
 import java.text.SimpleDateFormat
 import java.util.*

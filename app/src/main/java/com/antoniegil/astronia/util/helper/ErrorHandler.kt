@@ -1,4 +1,4 @@
-package com.antoniegil.astronia.util
+package com.antoniegil.astronia.util.helper
 
 import android.util.Log
 

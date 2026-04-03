@@ -20,7 +20,7 @@ import com.antoniegil.astronia.BuildConfig
 import com.antoniegil.astronia.ui.component.BackButton
 import com.antoniegil.astronia.ui.component.PreferenceItemLarge
 import com.antoniegil.astronia.ui.component.PreferenceSwitchWithDivider
-import com.antoniegil.astronia.util.SettingsManager
+import com.antoniegil.astronia.util.manager.SettingsManager
 
 private const val repoUrl = "https://github.com/antoniegil/astronia"
 private const val releaseUrl = "https://github.com/antoniegil/astronia/releases"

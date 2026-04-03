@@ -14,7 +14,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import com.antoniegil.astronia.ui.theme.monet.LocalTonalPalettes
 import com.antoniegil.astronia.ui.theme.monet.dynamicColorScheme
-import com.antoniegil.astronia.util.SettingsManager
+import com.antoniegil.astronia.util.manager.SettingsManager
 import com.kyant.monet.PaletteStyle
 import com.kyant.monet.TonalPalettes.Companion.toTonalPalettes
 

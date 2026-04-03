@@ -1,9 +1,11 @@
-package com.antoniegil.astronia.util
+package com.antoniegil.astronia.util.manager
 
 import android.content.Context
 import android.net.Uri
+import android.os.Build
 import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
@@ -11,6 +13,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.core.net.toUri
 import com.antoniegil.astronia.R
+import com.antoniegil.astronia.util.parser.M3U8Channel
+import com.antoniegil.astronia.util.common.generateTimestampFilename
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -179,12 +183,12 @@ fun rememberBackupExportLauncher(
 @Composable
 fun rememberHistoryRestoreLauncher(
     onComplete: (Boolean, Int) -> Unit = { _, _ -> }
-): Pair<androidx.activity.result.ActivityResultLauncher<String>, String> {
+): Pair<ActivityResultLauncher<String>, String> {
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
     val failedMsg = stringResource(R.string.restore_failed)
     
-    val mimeType = if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.Q) {
+    val mimeType = if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
         "*/*"
     } else {
         "application/json"

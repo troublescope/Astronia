@@ -25,7 +25,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.antoniegil.astronia.R
-import com.antoniegil.astronia.util.EpgProgram
+import com.antoniegil.astronia.util.parser.EpgProgram
 import java.text.SimpleDateFormat
 import java.util.*
 

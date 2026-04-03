@@ -29,7 +29,7 @@ import com.antoniegil.astronia.ui.component.HorizontalDivider
 import com.antoniegil.astronia.ui.component.PreferenceInfo
 import com.antoniegil.astronia.ui.component.PreferenceSingleChoiceItem
 import com.antoniegil.astronia.ui.component.PreferenceSubtitle
-import com.antoniegil.astronia.util.SettingsManager
+import com.antoniegil.astronia.util.manager.SettingsManager
 import com.antoniegil.astronia.util.UpdateUtil
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

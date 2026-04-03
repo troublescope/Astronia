@@ -1,4 +1,4 @@
-package com.antoniegil.astronia.util
+package com.antoniegil.astronia.util.common
 
 class WatchTimeTracker {
     private var accumulatedTime: Long = 0L

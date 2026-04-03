@@ -16,9 +16,9 @@ import com.antoniegil.astronia.R
 import com.antoniegil.astronia.ui.component.BackButton
 import com.antoniegil.astronia.ui.component.PreferenceItem
 import com.antoniegil.astronia.ui.component.PreferenceSubtitle
-import com.antoniegil.astronia.util.DataManager
-import com.antoniegil.astronia.util.rememberBackupExportLauncher
-import com.antoniegil.astronia.util.rememberHistoryRestoreLauncher
+import com.antoniegil.astronia.util.manager.DataManager
+import com.antoniegil.astronia.util.manager.rememberBackupExportLauncher
+import com.antoniegil.astronia.util.manager.rememberHistoryRestoreLauncher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext

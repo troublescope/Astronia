@@ -69,10 +69,10 @@ import com.antoniegil.astronia.R
 import com.antoniegil.astronia.ui.common.HapticFeedback.slightHapticFeedback
 import com.antoniegil.astronia.ui.component.ChannelCard
 import com.antoniegil.astronia.ui.component.SearchBar
-import com.antoniegil.astronia.util.DataManager
-import com.antoniegil.astronia.util.HistoryItem
-import com.antoniegil.astronia.util.M3U8Channel
-import com.antoniegil.astronia.util.rememberM3U8SaveAsLauncher
+import com.antoniegil.astronia.util.manager.DataManager
+import com.antoniegil.astronia.util.manager.HistoryItem
+import com.antoniegil.astronia.util.parser.M3U8Channel
+import com.antoniegil.astronia.util.manager.rememberM3U8SaveAsLauncher
 import kotlinx.coroutines.launch
 import sh.calvin.reorderable.ReorderableItem
 import sh.calvin.reorderable.rememberReorderableLazyListState

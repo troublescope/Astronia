@@ -1,9 +1,10 @@
-package com.antoniegil.astronia.util
+package com.antoniegil.astronia.util.helper
 
 import android.app.Activity
 import android.content.pm.ActivityInfo
 import android.os.Build
 import android.provider.Settings
+import android.util.Log
 import android.view.OrientationEventListener
 import android.view.Surface
 import java.lang.ref.WeakReference
@@ -160,7 +161,7 @@ class OrientationHelper(
         } catch (e: IllegalStateException) {
             if (Build.VERSION.SDK_INT == Build.VERSION_CODES.O || 
                 Build.VERSION.SDK_INT == Build.VERSION_CODES.O_MR1) {
-                android.util.Log.e("OrientationHelper", "setRequestedOrientation error", e)
+                Log.e("OrientationHelper", "setRequestedOrientation error", e)
             } else {
                 e.printStackTrace()
             }

@@ -12,7 +12,7 @@ import androidx.media3.session.MediaSession
 import androidx.media3.session.MediaSessionService
 import com.antoniegil.astronia.MainActivity
 import com.antoniegil.astronia.R
-import com.antoniegil.astronia.util.M3U8Channel
+import com.antoniegil.astronia.util.parser.M3U8Channel
 
 @androidx.annotation.OptIn(androidx.media3.common.util.UnstableApi::class)
 class PlaybackService : MediaSessionService() {

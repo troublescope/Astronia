@@ -23,7 +23,7 @@ import com.antoniegil.astronia.R
 import com.antoniegil.astronia.ui.component.BackButton
 import com.antoniegil.astronia.ui.component.PreferenceSwitch
 import com.antoniegil.astronia.ui.component.PreferenceSwitchWithDivider
-import com.antoniegil.astronia.util.SettingsManager
+import com.antoniegil.astronia.util.manager.SettingsManager
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

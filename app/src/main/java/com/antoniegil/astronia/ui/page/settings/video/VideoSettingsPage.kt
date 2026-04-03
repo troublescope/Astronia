@@ -16,7 +16,7 @@ import com.antoniegil.astronia.ui.component.PreferenceSwitch
 import com.antoniegil.astronia.ui.component.PreferenceSubtitle
 import com.antoniegil.astronia.ui.component.PreferenceItem
 import com.antoniegil.astronia.ui.component.RadioButtonDialog
-import com.antoniegil.astronia.util.SettingsManager
+import com.antoniegil.astronia.util.manager.SettingsManager
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

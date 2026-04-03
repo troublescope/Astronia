@@ -26,7 +26,8 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.antoniegil.astronia.R
 import com.antoniegil.astronia.ui.common.HapticFeedback.slightHapticFeedback
-import com.antoniegil.astronia.util.M3U8Channel
+import com.antoniegil.astronia.util.parser.M3U8Channel
+import com.antoniegil.astronia.util.manager.SettingsManager
 import kotlinx.coroutines.launch
 
 @Composable
@@ -43,7 +44,7 @@ fun ChannelListSection(
     val context = androidx.compose.ui.platform.LocalContext.current
     val view = LocalView.current
     val scope = rememberCoroutineScope()
-    val showPlayerStatsButton = remember { com.antoniegil.astronia.util.SettingsManager.getShowPlayerStats(context) }
+    val showPlayerStatsButton = remember { SettingsManager.getShowPlayerStats(context) }
     var searchQuery by remember { mutableStateOf("") }
     var isSearching by remember { mutableStateOf(false) }
     var selectedGroup by remember { mutableStateOf("") }

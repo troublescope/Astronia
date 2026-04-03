@@ -12,6 +12,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.antoniegil.astronia.R
 import com.antoniegil.astronia.player.Media3Player
+import com.antoniegil.astronia.util.manager.SettingsManager
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -52,7 +53,7 @@ fun PlayerStatsDialog(
                         else -> resources.getString(R.string.unknown)
                     }
                     
-                    val decoderType = com.antoniegil.astronia.util.SettingsManager.getDecoderType(context)
+                    val decoderType = SettingsManager.getDecoderType(context)
                     val isHardwareDecoder = decoderType == 0
                     
                     val cpuUsage = try {

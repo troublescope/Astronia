@@ -24,9 +24,10 @@ import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.antoniegil.astronia.player.PlaybackService
 import com.antoniegil.astronia.player.QualityManager
-import com.antoniegil.astronia.util.PlayerConstants
+import com.antoniegil.astronia.util.common.PlayerConstants
 import com.antoniegil.astronia.ui.component.*
 import com.antoniegil.astronia.ui.theme.LegacyThemeBackground
+import com.antoniegil.astronia.util.manager.SettingsManager
 import com.antoniegil.astronia.viewmodel.PlayerViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -69,7 +70,7 @@ private fun PlayerPageContent(
     DisposableEffect(Unit) {
         PlaybackService.isPlayerPageActive = true
         activity?.window?.setSustainedPerformanceMode(true)
-        val keepScreenOn = com.antoniegil.astronia.util.SettingsManager.getKeepScreenOn(context)
+        val keepScreenOn = SettingsManager.getKeepScreenOn(context)
         if (keepScreenOn) {
             activity?.window?.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
         }
@@ -102,7 +103,7 @@ private fun PlayerPageContent(
     }
     
     LaunchedEffect(media3Player, settingsVersion) {
-        val decoderType = com.antoniegil.astronia.util.SettingsManager.getDecoderType(context)
+        val decoderType = SettingsManager.getDecoderType(context)
         media3Player.setHardwareAcceleration(decoderType == 0)
         
         if (settingsVersion > 0 && uiState.availableQualities.isNotEmpty()) {
@@ -149,7 +150,7 @@ private fun PlayerPageContent(
     LaunchedEffect(url, uiState.currentChannelUrl) {
         if (uiState.currentChannelUrl.isNotEmpty()) {
             val currentMediaUrl = media3Player.exoPlayer?.currentMediaItem?.localConfiguration?.uri?.toString()
-            val autoPlayEnabled = com.antoniegil.astronia.util.SettingsManager.getAutoPlay(context)
+            val autoPlayEnabled = SettingsManager.getAutoPlay(context)
             
             if (currentMediaUrl != uiState.currentChannelUrl) {
                 media3Player.setDataSource(uiState.currentChannelUrl)
@@ -243,7 +244,7 @@ private fun PlayerPageContent(
                 }
 
                 Lifecycle.Event.ON_STOP -> {
-                    val backgroundPlay = com.antoniegil.astronia.util.SettingsManager.getBackgroundPlay(context)
+                    val backgroundPlay = SettingsManager.getBackgroundPlay(context)
                     val wasPipActive = isInPictureInPictureMode
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                         val isPip = activity?.isInPictureInPictureMode == true
@@ -275,7 +276,7 @@ private fun PlayerPageContent(
                 }
 
                 Lifecycle.Event.ON_START -> {
-                    val backgroundPlay = com.antoniegil.astronia.util.SettingsManager.getBackgroundPlay(context)
+                    val backgroundPlay = SettingsManager.getBackgroundPlay(context)
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                         val isPip = activity?.isInPictureInPictureMode == true
                         if (!isPip && isInPictureInPictureMode) {

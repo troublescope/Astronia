@@ -1,4 +1,4 @@
-package com.antoniegil.astronia.util
+package com.antoniegil.astronia.util.common
 
 sealed class Result<out T> {
     data class Success<T>(val data: T) : Result<T>()

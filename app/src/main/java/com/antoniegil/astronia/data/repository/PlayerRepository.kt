@@ -1,19 +1,19 @@
 package com.antoniegil.astronia.data.repository
 
 import android.content.Context
-import com.antoniegil.astronia.util.M3U8Channel
-import com.antoniegil.astronia.util.M3U8Parser
-import com.antoniegil.astronia.util.Result
-import com.antoniegil.astronia.util.SettingsManager
+import com.antoniegil.astronia.util.parser.M3U8Channel
+import com.antoniegil.astronia.util.parser.M3ULoader
+import com.antoniegil.astronia.util.common.Result
+import com.antoniegil.astronia.util.manager.SettingsManager
 
 class PlayerRepository(private val context: Context) {
     
     suspend fun parseM3U8FromUrl(url: String): Result<List<M3U8Channel>> {
-        return M3U8Parser.parseM3U8FromUrl(url)
+        return M3ULoader.parseM3U8FromUrl(url)
     }
     
     suspend fun parseM3U8FromContent(content: String): Result<List<M3U8Channel>> {
-        return M3U8Parser.parseM3U8(content)
+        return M3ULoader.parseM3U8(content)
     }
 
     fun getAutoHideControls(): Boolean = SettingsManager.getAutoHideControls(context)

@@ -38,8 +38,10 @@ import com.antoniegil.astronia.ui.page.settings.player.*
 import com.antoniegil.astronia.ui.page.settings.video.*
 import com.antoniegil.astronia.ui.theme.SettingsProvider
 import com.antoniegil.astronia.util.LanguageContextWrapper
-import com.antoniegil.astronia.util.SettingsManager
+import com.antoniegil.astronia.util.manager.SettingsManager
 import com.antoniegil.astronia.util.UpdateUtil
+import com.antoniegil.astronia.util.common.Result
+import com.antoniegil.astronia.util.parser.M3U8Channel
 import com.antoniegil.astronia.viewmodel.MainViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -219,12 +221,12 @@ fun MainScreen(initialNavigation: String = "", viewModel: MainViewModel = viewMo
                                         com.antoniegil.astronia.data.repository.PlayerRepository(
                                                 context
                                         )
-                                var channels = emptyList<com.antoniegil.astronia.util.M3U8Channel>()
+                                var channels = emptyList<M3U8Channel>()
                                 when {
                                     historyItem.url.startsWith("http") ||
                                             historyItem.url.startsWith("https") -> {
                                         val result = repository.parseM3U8FromUrl(historyItem.url)
-                                        if (result is com.antoniegil.astronia.util.Result.Success) {
+                                        if (result is Result.Success) {
                                             channels = result.data
                                         }
                                     }
@@ -236,7 +238,7 @@ fun MainScreen(initialNavigation: String = "", viewModel: MainViewModel = viewMo
                                             val content = inputStream.bufferedReader().readText()
                                             val result = repository.parseM3U8FromContent(content)
                                             if (result is
-                                                            com.antoniegil.astronia.util.Result.Success
+                                                            Result.Success
                                             ) {
                                                 channels = result.data
                                             }

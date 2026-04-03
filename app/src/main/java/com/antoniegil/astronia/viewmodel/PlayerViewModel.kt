@@ -10,14 +10,14 @@ import com.antoniegil.astronia.data.repository.PlayerRepository
 import com.antoniegil.astronia.player.Media3Player
 import com.antoniegil.astronia.player.QualityManager
 import com.antoniegil.astronia.player.VideoQuality
-import com.antoniegil.astronia.util.ErrorHandler
-import com.antoniegil.astronia.util.HistoryManager
-import com.antoniegil.astronia.util.M3U8Channel
-import com.antoniegil.astronia.util.M3U8Parser
-import com.antoniegil.astronia.util.OrientationHelper
-import com.antoniegil.astronia.util.WatchTimeTracker
-import com.antoniegil.astronia.util.onError
-import com.antoniegil.astronia.util.onSuccess
+import com.antoniegil.astronia.util.helper.ErrorHandler
+import com.antoniegil.astronia.util.manager.HistoryManager
+import com.antoniegil.astronia.util.parser.M3U8Channel
+import com.antoniegil.astronia.util.parser.M3ULoader
+import com.antoniegil.astronia.util.helper.OrientationHelper
+import com.antoniegil.astronia.util.common.WatchTimeTracker
+import com.antoniegil.astronia.util.common.onError
+import com.antoniegil.astronia.util.common.onSuccess
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -115,7 +115,7 @@ class PlayerViewModel(application: Application) : AndroidViewModel(application) 
         
         localPlayer?.stop()
         
-        M3U8Parser.setEpgLoadedCallback { channelsWithEpg ->
+        M3ULoader.setEpgLoadedCallback { channelsWithEpg ->
             viewModelScope.launch(Dispatchers.Main) {
                 _uiState.value = _uiState.value.copy(channels = channelsWithEpg)
             }
@@ -387,7 +387,7 @@ class PlayerViewModel(application: Application) : AndroidViewModel(application) 
     override fun onCleared() {
         super.onCleared()
         stopWatchTimeTracking()
-        M3U8Parser.clearEpgLoadedCallback()
+        M3ULoader.clearEpgLoadedCallback()
         if (!isUsingGlobalPlayer) {
             releasePlayer()
         }

@@ -1,8 +1,11 @@
-package com.antoniegil.astronia.util
+package com.antoniegil.astronia.util.manager
 
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.core.content.edit
+import com.antoniegil.astronia.util.helper.ErrorHandler
+import com.antoniegil.astronia.util.common.PlayerConstants
+import com.antoniegil.astronia.util.normalizeLocaleTag
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow

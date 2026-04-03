@@ -13,7 +13,7 @@ import androidx.compose.ui.viewinterop.AndroidView
 import androidx.media3.common.Player
 import androidx.media3.common.VideoSize
 import com.antoniegil.astronia.player.Media3Player
-import com.antoniegil.astronia.util.MeasureHelper
+import com.antoniegil.astronia.util.helper.MeasureHelper
 
 private class PlayerTextureView @JvmOverloads constructor(
     context: Context,

@@ -1,6 +1,11 @@
-package com.antoniegil.astronia.util
+package com.antoniegil.astronia.util.manager
 
 import android.content.Context
+import android.content.res.Resources
+import androidx.compose.material3.SnackbarDuration
+import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.SnackbarResult
+import com.antoniegil.astronia.R
 import kotlinx.coroutines.flow.StateFlow
 
 object HistoryManager {
@@ -23,16 +28,16 @@ object HistoryManager {
     suspend fun deleteHistoryItemWithUndo(
         context: Context,
         item: HistoryItem,
-        snackbarHostState: androidx.compose.material3.SnackbarHostState,
-        resources: android.content.res.Resources
+        snackbarHostState: SnackbarHostState,
+        resources: Resources
     ) {
         deleteHistoryItem(context, item)
         val result = snackbarHostState.showSnackbar(
-            message = resources.getString(com.antoniegil.astronia.R.string.item_deleted),
-            actionLabel = resources.getString(com.antoniegil.astronia.R.string.undo),
-            duration = androidx.compose.material3.SnackbarDuration.Short
+            message = resources.getString(R.string.item_deleted),
+            actionLabel = resources.getString(R.string.undo),
+            duration = SnackbarDuration.Short
         )
-        if (result == androidx.compose.material3.SnackbarResult.ActionPerformed) {
+        if (result == SnackbarResult.ActionPerformed) {
             addOrUpdateHistory(
                 context,
                 item.url,

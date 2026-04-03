@@ -29,10 +29,10 @@ import androidx.compose.ui.unit.dp
 import com.antoniegil.astronia.R
 import com.antoniegil.astronia.ui.common.HapticFeedback.slightHapticFeedback
 import com.antoniegil.astronia.ui.component.ChannelCard
-import com.antoniegil.astronia.util.ErrorHandler
-import com.antoniegil.astronia.util.HistoryItem
-import com.antoniegil.astronia.util.HistoryManager
-import com.antoniegil.astronia.util.formatDateTime
+import com.antoniegil.astronia.util.helper.ErrorHandler
+import com.antoniegil.astronia.util.manager.HistoryItem
+import com.antoniegil.astronia.util.manager.HistoryManager
+import com.antoniegil.astronia.util.common.formatDateTime
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)

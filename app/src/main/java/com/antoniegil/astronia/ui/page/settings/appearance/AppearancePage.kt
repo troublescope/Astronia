@@ -37,7 +37,7 @@ import com.antoniegil.astronia.ui.theme.monet.LocalTonalPalettes
 import com.antoniegil.astronia.ui.theme.monet.a1
 import com.antoniegil.astronia.ui.theme.monet.a2
 import com.antoniegil.astronia.ui.theme.monet.a3
-import com.antoniegil.astronia.util.SettingsManager
+import com.antoniegil.astronia.util.manager.SettingsManager
 import com.antoniegil.astronia.util.toDisplayName
 import com.google.accompanist.pager.HorizontalPagerIndicator
 import com.kyant.monet.PaletteStyle

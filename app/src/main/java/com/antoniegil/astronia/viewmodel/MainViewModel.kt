@@ -2,7 +2,8 @@ package com.antoniegil.astronia.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
-import com.antoniegil.astronia.util.HistoryItem
+import com.antoniegil.astronia.util.manager.HistoryItem
+import com.antoniegil.astronia.util.parser.M3U8Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -16,7 +17,7 @@ data class PlaybackState(
 
 data class ChannelEditState(
     val historyItem: HistoryItem? = null,
-    val channels: List<com.antoniegil.astronia.util.M3U8Channel> = emptyList()
+    val channels: List<M3U8Channel> = emptyList()
 )
 
 class MainViewModel(application: Application) : AndroidViewModel(application) {
@@ -54,11 +55,11 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         _playbackState.value = PlaybackState()
     }
     
-    fun startChannelEdit(historyItem: HistoryItem, channels: List<com.antoniegil.astronia.util.M3U8Channel>) {
+    fun startChannelEdit(historyItem: HistoryItem, channels: List<M3U8Channel>) {
         _channelEditState.value = ChannelEditState(historyItem = historyItem, channels = channels)
     }
     
-    fun updateChannels(channels: List<com.antoniegil.astronia.util.M3U8Channel>) {
+    fun updateChannels(channels: List<M3U8Channel>) {
         _channelEditState.value = _channelEditState.value.copy(channels = channels)
     }
     

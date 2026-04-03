@@ -24,7 +24,7 @@ import com.antoniegil.astronia.ui.component.BackButton
 import com.antoniegil.astronia.ui.component.PreferenceNumberPicker
 import com.antoniegil.astronia.ui.component.PreferenceSwitch
 import com.antoniegil.astronia.ui.component.PreferenceSubtitle
-import com.antoniegil.astronia.util.SettingsManager
+import com.antoniegil.astronia.util.manager.SettingsManager
 
 @SuppressLint("BatteryLife")
 @OptIn(ExperimentalMaterial3Api::class)
