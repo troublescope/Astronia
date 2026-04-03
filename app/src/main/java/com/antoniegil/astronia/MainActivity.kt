@@ -318,7 +318,15 @@ fun MainScreen(initialNavigation: String = "", viewModel: MainViewModel = viewMo
             animatedComposable(Route.DARK_THEME) { DarkThemePage(onNavigateBack = onNavigateBack) }
             animatedComposable(Route.LANGUAGE) { LanguagePage(onNavigateBack = onNavigateBack) }
             animatedComposable(Route.DATA_MANAGEMENT) {
-                DataManagementPage(onNavigateBack = onNavigateBack)
+                DataManagementPage(
+                    onNavigateBack = onNavigateBack,
+                    onNavigateToLogcat = {
+                        navController.navigate(Route.LOGCAT) { launchSingleTop = true }
+                    }
+                )
+            }
+            animatedComposable(Route.LOGCAT) {
+                LogcatPage(onNavigateBack = onNavigateBack)
             }
             animatedComposable(Route.NETWORK) { NetworkPage(onNavigateBack = onNavigateBack) }
             animatedComposable(Route.ABOUT) {

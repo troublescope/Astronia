@@ -126,15 +126,20 @@
     <string name="follow_system">跟随系统</string>
     <string name="system_settings">系统设置</string>
 
-    <string name="data_backup">数据备份</string>
-    <string name="export_data">导出资料</string>
-    <string name="export_data_desc">导出播放历史记录</string>
+    <string name="logcat">运行日志</string>
+    <string name="logcat_desc">应用运行日志</string>
+    <string name="logcat_subtitle">轻触以启动</string>
+    <string name="recording">录制中…</string>
+    <string name="stop_recording">停止录制</string>
+    <string name="no_logs_available">暂无日志</string>
+    <string name="export_history">导出记录</string>
+    <string name="export_history_desc">导出历史记录到文件进行备份</string>
     <string name="export_success">导出成功</string>
     <string name="export_success_at">导出成功，保存在 %s</string>
     <string name="export_failed">导出失败</string>
     <string name="no_history_to_export">没有历史记录可导出</string>
-    <string name="restore_data">导入资料</string>
-    <string name="restore_data_desc">从备份文件导入历史记录</string>
+    <string name="restore_history">导入记录</string>
+    <string name="restore_history_desc">从备份文件导入历史记录</string>
     <plurals name="restore_success">
         <item quantity="other">成功恢复 %d 条历史记录</item>
     </plurals>

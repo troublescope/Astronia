@@ -12,6 +12,7 @@ object Route {
     const val DARK_THEME = "dark_theme"
     const val LANGUAGE = "language"
     const val DATA_MANAGEMENT = "data_management"
+    const val LOGCAT = "logcat"
     const val NETWORK = "network"
     const val ABOUT = "about"
     const val LICENSE = "license"

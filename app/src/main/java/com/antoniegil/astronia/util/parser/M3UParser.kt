@@ -45,7 +45,7 @@ object M3UParser {
                     val infoContent = currentLine.drop(M3U_INFO_MARK.length).trim()
                     val commaIndex = infoContent.lastIndexOf(',')
                     if (commaIndex != -1) {
-                        val metadataText = infoContent.substring(0, commaIndex)
+                        val metadataText = infoContent.take(commaIndex)
                         title = infoContent.substring(commaIndex + 1).trim()
                         metadata = parseMetadata(metadataText)
                     }

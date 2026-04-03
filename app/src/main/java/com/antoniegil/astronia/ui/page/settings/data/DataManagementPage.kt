@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.DriveFileMove
+import androidx.compose.material.icons.automirrored.outlined.Assignment
 import androidx.compose.material.icons.outlined.Restore
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -15,7 +16,6 @@ import androidx.compose.ui.res.stringResource
 import com.antoniegil.astronia.R
 import com.antoniegil.astronia.ui.component.BackButton
 import com.antoniegil.astronia.ui.component.PreferenceItem
-import com.antoniegil.astronia.ui.component.PreferenceSubtitle
 import com.antoniegil.astronia.util.manager.DataManager
 import com.antoniegil.astronia.util.manager.rememberBackupExportLauncher
 import com.antoniegil.astronia.util.manager.rememberHistoryRestoreLauncher
@@ -25,7 +25,10 @@ import kotlinx.coroutines.withContext
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DataManagementPage(onNavigateBack: () -> Unit) {
+fun DataManagementPage(
+    onNavigateBack: () -> Unit,
+    onNavigateToLogcat: () -> Unit = {}
+) {
     val context = LocalContext.current
     val resources = androidx.compose.ui.platform.LocalResources.current
     val scope = rememberCoroutineScope()
@@ -56,13 +59,18 @@ fun DataManagementPage(onNavigateBack: () -> Unit) {
             contentPadding = paddingValues
         ) {
             item {
-                PreferenceSubtitle(text = stringResource(R.string.data_backup))
+                PreferenceItem(
+                    title = stringResource(R.string.logcat),
+                    description = stringResource(R.string.logcat_desc),
+                    icon = Icons.AutoMirrored.Outlined.Assignment,
+                    onClick = onNavigateToLogcat
+                )
             }
             
             item {
                 PreferenceItem(
-                    title = stringResource(R.string.export_data),
-                    description = stringResource(R.string.export_data_desc),
+                    title = stringResource(R.string.export_history),
+                    description = stringResource(R.string.export_history_desc),
                     icon = Icons.AutoMirrored.Outlined.DriveFileMove,
                     onClick = {
                         if (!isBackingUp) {
@@ -90,8 +98,8 @@ fun DataManagementPage(onNavigateBack: () -> Unit) {
             
             item {
                 PreferenceItem(
-                    title = stringResource(R.string.restore_data),
-                    description = stringResource(R.string.restore_data_desc),
+                    title = stringResource(R.string.restore_history),
+                    description = stringResource(R.string.restore_history_desc),
                     icon = Icons.Outlined.Restore,
                     onClick = {
                         restoreLauncher.launch(restoreMimeType)

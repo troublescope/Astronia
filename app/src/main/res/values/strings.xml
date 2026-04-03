@@ -129,15 +129,20 @@
     <string name="follow_system">Follow System</string>
     <string name="system_settings">System Settings</string>
 
-    <string name="data_backup">Data Backup</string>
-    <string name="export_data">Export Data</string>
-    <string name="export_data_desc">Export play history</string>
+    <string name="logcat">Logcat</string>
+    <string name="logcat_desc">Application runtime logs</string>
+    <string name="logcat_subtitle">Tap to start</string>
+    <string name="recording">Recording…</string>
+    <string name="stop_recording">Stop Recording</string>
+    <string name="no_logs_available">No logs available</string>
+    <string name="export_history">Export History</string>
+    <string name="export_history_desc">Export history to file for backup</string>
     <string name="export_success">Export successful</string>
     <string name="export_success_at">Export successful, saved at: %s</string>
     <string name="export_failed">Export failed</string>
     <string name="no_history_to_export">No history to export</string>
-    <string name="restore_data">Import Data</string>
-    <string name="restore_data_desc">Import history from backup file</string>
+    <string name="restore_history">Import History</string>
+    <string name="restore_history_desc">Import history from backup file</string>
     <plurals name="restore_success">
         <item quantity="one">Successfully restored %d history item</item>
         <item quantity="other">Successfully restored %d history items</item>
