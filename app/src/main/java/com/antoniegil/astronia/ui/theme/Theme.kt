@@ -125,14 +125,15 @@ fun AstroniaTheme(
     
     val colorScheme = dynamicColorScheme(!isDarkTheme).run {
         if (isHighContrastModeEnabled && isDarkTheme) {
+            val trueBlack = Color(0xFF010101)
             copy(
-                surface = Color.Black,
-                background = Color.Black,
-                surfaceContainerLowest = Color.Black,
-                surfaceContainerLow = surfaceContainerLowest,
-                surfaceContainer = surfaceContainerLow,
-                surfaceContainerHigh = surfaceContainerLow,
-                surfaceContainerHighest = surfaceContainer,
+                surface = trueBlack,
+                background = trueBlack,
+                surfaceContainerLowest = trueBlack,
+                surfaceContainerLow = this.surfaceContainerLowest,
+                surfaceContainer = this.surfaceContainerLow,
+                surfaceContainerHigh = this.surfaceContainer,
+                surfaceContainerHighest = this.surfaceContainerHigh,
             )
         } else {
             this

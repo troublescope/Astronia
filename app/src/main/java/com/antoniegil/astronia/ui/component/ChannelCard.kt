@@ -121,7 +121,7 @@ fun ChannelCard(
                             onClick = onClick,
                             onLongClick = onLongClick
                         ),
-                    color = MaterialTheme.colorScheme.surfaceContainerHighest,
+                    color = MaterialTheme.colorScheme.surfaceVariant,
                     shape = cardShape,
                     tonalElevation = 1.dp
                 ) {
