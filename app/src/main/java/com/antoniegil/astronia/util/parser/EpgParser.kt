@@ -1,20 +1,23 @@
 package com.antoniegil.astronia.util.parser
 
 import android.util.Xml
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
+import kotlinx.serialization.Serializable
 import org.xmlpull.v1.XmlPullParser
 import java.io.InputStream
 
+@Serializable
 data class EpgProgram(
     val title: String,
     val startTime: Long,
-    val stopTime: Long
+    val stopTime: Long,
+    val channelId: String
 )
 
 object EpgParser {
     
-    fun parse(input: InputStream): Map<String, List<EpgProgram>> {
-        val result = mutableMapOf<String, MutableList<EpgProgram>>()
-        
+    fun parse(input: InputStream): Flow<EpgProgram> = flow {
         val parser = Xml.newPullParser()
         parser.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false)
         parser.setInput(input, null)
@@ -29,18 +32,16 @@ object EpgParser {
                     "programme" -> {
                         val programme = readProgramme()
                         if (programme != null) {
-                            result.getOrPut(programme.first) { mutableListOf() }.add(programme.second)
+                            emit(programme)
                         }
                     }
                     else -> skip()
                 }
             }
         }
-        
-        return result
     }
     
-    private fun XmlPullParser.readProgramme(): Pair<String, EpgProgram>? {
+    private fun XmlPullParser.readProgramme(): EpgProgram? {
         require(XmlPullParser.START_TAG, null, "programme")
         
         val start = getAttributeValue(null, "start")
@@ -66,7 +67,7 @@ object EpgParser {
         val startTime = parseEpgTime(start)
         val stopTime = parseEpgTime(stop)
         
-        return channel to EpgProgram(title, startTime, stopTime)
+        return EpgProgram(title, startTime, stopTime, channel)
     }
     
     private fun XmlPullParser.readTitle(): String? = optional {
