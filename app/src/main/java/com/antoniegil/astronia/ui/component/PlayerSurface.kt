@@ -60,9 +60,7 @@ private class PlayerTextureView @JvmOverloads constructor(
             }
 
             override fun onSurfaceTextureDestroyed(surface: android.graphics.SurfaceTexture): Boolean {
-                if (!isBackgroundRetained) {
-                    player?.attachSurface(null)
-                }
+                player?.attachSurface(null)
                 return true
             }
 
