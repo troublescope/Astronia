@@ -87,12 +87,22 @@ class Media3Player(private val context: Context) {
         actualPlayingUrl = null
         
         val currentSurface = surface
+        val isRtmp = url.startsWith("rtmp", ignoreCase = true)
         
         exoPlayer?.apply {
             stop()
             clearMediaItems()
             clearVideoSurface()
-            setMediaItem(createMediaItem(url))
+            
+            if (isRtmp) {
+                val rtmpSource = androidx.media3.exoplayer.source.ProgressiveMediaSource.Factory(
+                    androidx.media3.datasource.rtmp.RtmpDataSource.Factory()
+                ).createMediaSource(androidx.media3.common.MediaItem.fromUri(url))
+                setMediaSource(rtmpSource)
+            } else {
+                setMediaItem(createMediaItem(url))
+            }
+            
             prepare()
             
             if (currentSurface != null && currentSurface.isValid) {
