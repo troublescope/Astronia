@@ -127,15 +127,19 @@
     <string name="follow_system">Sistemi İzle</string>
     <string name="system_settings">Sistem Ayarları</string>
 
-    <string name="data_backup">Veri Yedeği</string>
-    <string name="export_data">Verileri Dışa Aktar</string>
-    <string name="export_data_desc">Oynatma geçmişini dışa aktar</string>
+    <string name="logcat_desc">Uygulama çalışma günlükleri</string>
+    <string name="logcat_subtitle">Başlatmak için dokunun</string>
+    <string name="recording">Kaydediliyor…</string>
+    <string name="stop_recording">Kaydı Durdur</string>
+    <string name="no_logs_available">Kullanılabilir günlük yok</string>
+    <string name="export_history">Geçmişi Dışa Aktar</string>
+    <string name="export_history_desc">Yedekleme için geçmişi dosyaya aktar</string>
     <string name="export_success">Dışa aktarma başarılı</string>
     <string name="export_success_at">Dışa aktarma başarılı, şuraya kaydedildi: %s</string>
     <string name="export_failed">Dışa aktarma başarısız</string>
     <string name="no_history_to_export">Dışa aktarılacak geçmiş yok</string>
-    <string name="restore_data">Verileri İçe Aktar</string>
-    <string name="restore_data_desc">Yedekleme dosyasından geçmişi içe aktar</string>
+    <string name="restore_history">Geçmişi İçe Aktar</string>
+    <string name="restore_history_desc">Yedekleme dosyasından geçmişi içe aktar</string>
     <plurals name="restore_success">
         <item quantity="one">%d geçmiş öğesi başarıyla geri yüklendi</item>
         <item quantity="other">%d geçmiş öğesi başarıyla geri yüklendi</item>

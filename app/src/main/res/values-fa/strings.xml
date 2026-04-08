@@ -127,15 +127,19 @@
     <string name="follow_system">پیروی از سیستم</string>
     <string name="system_settings">تنظیمات سیستم</string>
 
-    <string name="data_backup">پشتیبان‌گیری داده</string>
-    <string name="export_data">صادرات داده</string>
-    <string name="export_data_desc">صادرات تاریخچه پخش</string>
+    <string name="logcat_desc">گزارش‌های زمان اجرای برنامه</string>
+    <string name="logcat_subtitle">برای شروع ضربه بزنید</string>
+    <string name="recording">در حال ضبط…</string>
+    <string name="stop_recording">توقف ضبط</string>
+    <string name="no_logs_available">گزارشی موجود نیست</string>
+    <string name="export_history">صادرات تاریخچه</string>
+    <string name="export_history_desc">صادرات تاریخچه به فایل برای پشتیبان‌گیری</string>
     <string name="export_success">صادرات موفق</string>
     <string name="export_success_at">صادرات موفق، ذخیره شده در %s</string>
     <string name="export_failed">صادرات ناموفق</string>
     <string name="no_history_to_export">تاریخچه‌ای برای صادرات وجود ندارد</string>
-    <string name="restore_data">وارد کردن داده</string>
-    <string name="restore_data_desc">وارد کردن تاریخچه از فایل پشتیبان</string>
+    <string name="restore_history">وارد کردن تاریخچه</string>
+    <string name="restore_history_desc">وارد کردن تاریخچه از فایل پشتیبان</string>
     <plurals name="restore_success">
         <item quantity="other">%d مورد تاریخچه با موفقیت بازیابی شد</item>
     </plurals>

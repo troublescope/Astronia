@@ -131,15 +131,19 @@
     <string name="follow_system">حسب لغة النظام</string>
     <string name="system_settings">إعدادات النظام</string>
 
-    <string name="data_backup">نسخ احتياطي للبيانات</string>
-    <string name="export_data">تصدير البيانات</string>
-    <string name="export_data_desc">تصدير سجل التشغيل</string>
+    <string name="logcat_desc">سجلات تشغيل التطبيق</string>
+    <string name="logcat_subtitle">اضغط للبدء</string>
+    <string name="recording">جاري التسجيل…</string>
+    <string name="stop_recording">إيقاف التسجيل</string>
+    <string name="no_logs_available">لا توجد سجلات متاحة</string>
+    <string name="export_history">تصدير السجل</string>
+    <string name="export_history_desc">تصدير السجل إلى ملف للنسخ الاحتياطي</string>
     <string name="export_success">تم التصدير بنجاح</string>
     <string name="export_success_at">تم التصدير بنجاح، حفظ في: %s</string>
     <string name="export_failed">فشل التصدير</string>
     <string name="no_history_to_export">لا يوجد سجل للتصدير</string>
-    <string name="restore_data">استيراد البيانات</string>
-    <string name="restore_data_desc">استيراد السجل من ملف نسخة احتياطية</string>
+    <string name="restore_history">استيراد السجل</string>
+    <string name="restore_history_desc">استيراد السجل من ملف نسخة احتياطية</string>
     <plurals name="restore_success">
         <item quantity="one">تم استعادة عنصر واحد بنجاح</item>
         <item quantity="other">تم استعادة %d عناصر بنجاح</item>

@@ -127,15 +127,19 @@
     <string name="follow_system">Systeem volgen</string>
     <string name="system_settings">Systeeminstellingen</string>
 
-    <string name="data_backup">Gegevensback-up</string>
-    <string name="export_data">Gegevens exporteren</string>
-    <string name="export_data_desc">Afspeelgeschiedenis exporteren</string>
+    <string name="logcat_desc">Applicatie runtime logs</string>
+    <string name="logcat_subtitle">Tik om te starten</string>
+    <string name="recording">Opnemen…</string>
+    <string name="stop_recording">Opname stoppen</string>
+    <string name="no_logs_available">Geen logs beschikbaar</string>
+    <string name="export_history">Geschiedenis exporteren</string>
+    <string name="export_history_desc">Geschiedenis exporteren naar bestand voor back-up</string>
     <string name="export_success">Exporteren geslaagd</string>
-    <string name="export_success_at">Exporteren geslaagd, opgeslagen in %s</string>
+    <string name="export_success_at">Exporteren geslaagd, opgeslagen op: %s</string>
     <string name="export_failed">Exporteren mislukt</string>
     <string name="no_history_to_export">Geen geschiedenis om te exporteren</string>
-    <string name="restore_data">Gegevens importeren</string>
-    <string name="restore_data_desc">Geschiedenis importeren uit back-upbestand</string>
+    <string name="restore_history">Geschiedenis importeren</string>
+    <string name="restore_history_desc">Geschiedenis importeren uit back-upbestand</string>
     <plurals name="restore_success">
         <item quantity="one">%d geschiedenis-item succesvol hersteld</item>
         <item quantity="other">%d geschiedenis-items succesvol hersteld</item>

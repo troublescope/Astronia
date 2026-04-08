@@ -127,15 +127,19 @@
     <string name="follow_system">Systemstandard</string>
     <string name="system_settings">Systemeinstellungen</string>
 
-    <string name="data_backup">Datensicherung</string>
-    <string name="export_data">Daten exportieren</string>
-    <string name="export_data_desc">Wiedergabeverlauf exportieren</string>
+    <string name="logcat_desc">Anwendungs-Laufzeitprotokolle</string>
+    <string name="logcat_subtitle">Zum Starten tippen</string>
+    <string name="recording">Aufnahme läuft…</string>
+    <string name="stop_recording">Aufnahme stoppen</string>
+    <string name="no_logs_available">Keine Protokolle verfügbar</string>
+    <string name="export_history">Verlauf exportieren</string>
+    <string name="export_history_desc">Verlauf zur Sicherung in Datei exportieren</string>
     <string name="export_success">Export erfolgreich</string>
     <string name="export_success_at">Export erfolgreich, gespeichert unter: %s</string>
     <string name="export_failed">Export fehlgeschlagen</string>
     <string name="no_history_to_export">Kein Verlauf zum Exportieren vorhanden</string>
-    <string name="restore_data">Daten importieren</string>
-    <string name="restore_data_desc">Verlauf aus einer Sicherungsdatei importieren</string>
+    <string name="restore_history">Verlauf importieren</string>
+    <string name="restore_history_desc">Verlauf aus einer Sicherungsdatei importieren</string>
     <plurals name="restore_success">
         <item quantity="one">%d Verlaufseintrag erfolgreich wiederhergestellt</item>
         <item quantity="other">%d Verlaufseinträge erfolgreich wiederhergestellt</item>

@@ -129,7 +129,6 @@
     <string name="follow_system">Follow System</string>
     <string name="system_settings">System Settings</string>
 
-    <string name="logcat">Logcat</string>
     <string name="logcat_desc">Application runtime logs</string>
     <string name="logcat_subtitle">Tap to start</string>
     <string name="recording">Recording…</string>

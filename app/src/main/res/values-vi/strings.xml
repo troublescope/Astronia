@@ -126,15 +126,19 @@
     <string name="follow_system">Theo hệ thống</string>
     <string name="system_settings">Cài đặt hệ thống</string>
 
-    <string name="data_backup">Sao lưu dữ liệu</string>
-    <string name="export_data">Xuất dữ liệu</string>
-    <string name="export_data_desc">Xuất lịch sử phát</string>
+    <string name="logcat_desc">Nhật ký chạy ứng dụng</string>
+    <string name="logcat_subtitle">Nhấn để bắt đầu</string>
+    <string name="recording">Đang ghi…</string>
+    <string name="stop_recording">Dừng ghi</string>
+    <string name="no_logs_available">Không có nhật ký</string>
+    <string name="export_history">Xuất lịch sử</string>
+    <string name="export_history_desc">Xuất lịch sử ra tệp để sao lưu</string>
     <string name="export_success">Xuất thành công</string>
     <string name="export_success_at">Xuất thành công, đã lưu tại: %s</string>
     <string name="export_failed">Xuất thất bại</string>
     <string name="no_history_to_export">Không có lịch sử để xuất</string>
-    <string name="restore_data">Nhập dữ liệu</string>
-    <string name="restore_data_desc">Nhập lịch sử từ tệp sao lưu</string>
+    <string name="restore_history">Nhập lịch sử</string>
+    <string name="restore_history_desc">Nhập lịch sử từ tệp sao lưu</string>
     <plurals name="restore_success">
         <item quantity="other">Đã khôi phục thành công %d mục lịch sử</item>
     </plurals>

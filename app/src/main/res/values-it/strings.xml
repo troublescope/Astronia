@@ -127,15 +127,19 @@
     <string name="follow_system">Segui sistema</string>
     <string name="system_settings">Impostazioni di sistema</string>
 
-    <string name="data_backup">Backup dati</string>
-    <string name="export_data">Esporta dati</string>
-    <string name="export_data_desc">Esporta cronologia di riproduzione</string>
+    <string name="logcat_desc">Log di runtime dell\'applicazione</string>
+    <string name="logcat_subtitle">Tocca per iniziare</string>
+    <string name="recording">Registrazione…</string>
+    <string name="stop_recording">Interrompi registrazione</string>
+    <string name="no_logs_available">Nessun log disponibile</string>
+    <string name="export_history">Esporta cronologia</string>
+    <string name="export_history_desc">Esporta cronologia su file per backup</string>
     <string name="export_success">Esportazione riuscita</string>
     <string name="export_success_at">Esportazione riuscita, salvato in: %s</string>
     <string name="export_failed">Esportazione fallita</string>
     <string name="no_history_to_export">Nessuna cronologia da esportare</string>
-    <string name="restore_data">Importa dati</string>
-    <string name="restore_data_desc">Importa cronologia da file di backup</string>
+    <string name="restore_history">Importa cronologia</string>
+    <string name="restore_history_desc">Importa cronologia da file di backup</string>
     <plurals name="restore_success">
         <item quantity="one">Ripristinato con successo %d elemento della cronologia</item>
         <item quantity="other">Ripristinati con successo %d elementi della cronologia</item>

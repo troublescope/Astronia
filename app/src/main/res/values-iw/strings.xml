@@ -128,15 +128,19 @@
     <string name="follow_system">עקוב אחר המערכת</string>
     <string name="system_settings">הגדרות מערכת</string>
 
-    <string name="data_backup">גיבוי נתונים</string>
-    <string name="export_data">ייצוא נתונים</string>
-    <string name="export_data_desc">ייצוא היסטוריית השמעה</string>
+    <string name="logcat_desc">יומני זמן ריצה של האפליקציה</string>
+    <string name="logcat_subtitle">הקש כדי להתחיל</string>
+    <string name="recording">מקליט…</string>
+    <string name="stop_recording">עצור הקלטה</string>
+    <string name="no_logs_available">אין יומנים זמינים</string>
+    <string name="export_history">ייצוא היסטוריה</string>
+    <string name="export_history_desc">ייצוא היסטוריה לקובץ לגיבוי</string>
     <string name="export_success">ייצוא הצליח</string>
     <string name="export_success_at">ייצוא הצליח, נשמר ב-%s</string>
     <string name="export_failed">הייצוא נכשל</string>
     <string name="no_history_to_export">אין היסטוריה לייצוא</string>
-    <string name="restore_data">ייבוא נתונים</string>
-    <string name="restore_data_desc">ייבוא היסטוריה מקובץ גיבוי</string>
+    <string name="restore_history">ייבוא היסטוריה</string>
+    <string name="restore_history_desc">ייבוא היסטוריה מקובץ גיבוי</string>
     <plurals name="restore_success">
         <item quantity="one">שוחזר פריט היסטוריה אחד בהצלחה</item>
         <item quantity="two">שוחזרו %d פריטי היסטוריה בהצלחה</item>

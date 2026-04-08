@@ -127,15 +127,19 @@
     <string name="follow_system">Följ systemet</string>
     <string name="system_settings">Systeminställningar</string>
 
-    <string name="data_backup">Säkerhetskopiering</string>
-    <string name="export_data">Exportera data</string>
-    <string name="export_data_desc">Exportera uppspelningshistorik</string>
+    <string name="logcat_desc">Applikationens körningsloggar</string>
+    <string name="logcat_subtitle">Tryck för att starta</string>
+    <string name="recording">Spelar in…</string>
+    <string name="stop_recording">Stoppa inspelning</string>
+    <string name="no_logs_available">Inga loggar tillgängliga</string>
+    <string name="export_history">Exportera historik</string>
+    <string name="export_history_desc">Exportera historik till fil för säkerhetskopiering</string>
     <string name="export_success">Export lyckades</string>
     <string name="export_success_at">Export lyckades, sparad på: %s</string>
     <string name="export_failed">Exporten misslyckades</string>
     <string name="no_history_to_export">Ingen historik att exportera</string>
-    <string name="restore_data">Importera data</string>
-    <string name="restore_data_desc">Importera historik från säkerhetskopia</string>
+    <string name="restore_history">Importera historik</string>
+    <string name="restore_history_desc">Importera historik från säkerhetskopia</string>
     <plurals name="restore_success">
         <item quantity="one">Återställde %d historikobjekt</item>
         <item quantity="other">Återställde %d historikobjekt</item>

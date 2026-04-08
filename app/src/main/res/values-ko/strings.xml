@@ -126,15 +126,19 @@
     <string name="follow_system">시스템 따르기</string>
     <string name="system_settings">시스템 설정</string>
 
-    <string name="data_backup">데이터 백업</string>
-    <string name="export_data">데이터 내보내기</string>
-    <string name="export_data_desc">재생 기록 내보내기</string>
+    <string name="logcat_desc">애플리케이션 런타임 로그</string>
+    <string name="logcat_subtitle">탭하여 시작</string>
+    <string name="recording">기록 중…</string>
+    <string name="stop_recording">기록 중지</string>
+    <string name="no_logs_available">사용 가능한 로그 없음</string>
+    <string name="export_history">기록 내보내기</string>
+    <string name="export_history_desc">백업을 위해 파일로 기록 내보내기</string>
     <string name="export_success">내보내기 성공</string>
     <string name="export_success_at">내보내기 성공, 저장 위치: %s</string>
     <string name="export_failed">내보내기 실패</string>
     <string name="no_history_to_export">내보낼 기록이 없습니다</string>
-    <string name="restore_data">데이터 가져오기</string>
-    <string name="restore_data_desc">백업 파일에서 기록 가져오기</string>
+    <string name="restore_history">기록 가져오기</string>
+    <string name="restore_history_desc">백업 파일에서 기록 가져오기</string>
     <plurals name="restore_success">
         <item quantity="other">%d개의 기록을 복원했습니다</item>
     </plurals>

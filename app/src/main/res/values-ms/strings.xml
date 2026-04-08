@@ -126,15 +126,19 @@
     <string name="follow_system">Ikut Sistem</string>
     <string name="system_settings">Tetapan Sistem</string>
 
-    <string name="data_backup">Sandaran Data</string>
-    <string name="export_data">Eksport Data</string>
-    <string name="export_data_desc">Eksport sejarah tontonan</string>
+    <string name="logcat_desc">Log runtime aplikasi</string>
+    <string name="logcat_subtitle">Ketik untuk mula</string>
+    <string name="recording">Merakam…</string>
+    <string name="stop_recording">Hentikan Rakaman</string>
+    <string name="no_logs_available">Tiada log tersedia</string>
+    <string name="export_history">Eksport Sejarah</string>
+    <string name="export_history_desc">Eksport sejarah ke fail untuk sandaran</string>
     <string name="export_success">Eksport berjaya</string>
-    <string name="export_success_at">Eksport berjaya, disimpan di %s</string>
+    <string name="export_success_at">Eksport berjaya, disimpan di: %s</string>
     <string name="export_failed">Eksport gagal</string>
     <string name="no_history_to_export">Tiada sejarah untuk dieksport</string>
-    <string name="restore_data">Import Data</string>
-    <string name="restore_data_desc">Import sejarah daripada fail sandaran</string>
+    <string name="restore_history">Import Sejarah</string>
+    <string name="restore_history_desc">Import sejarah daripada fail sandaran</string>
     <plurals name="restore_success">
         <item quantity="other">Berjaya memulihkan %d sejarah</item>
     </plurals>

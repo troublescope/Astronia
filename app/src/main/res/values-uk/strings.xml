@@ -129,15 +129,19 @@
     <string name="follow_system">Як у системі</string>
     <string name="system_settings">Системні налаштування</string>
 
-    <string name="data_backup">Резервне копіювання</string>
-    <string name="export_data">Експорт даних</string>
-    <string name="export_data_desc">Експортувати історію відтворень</string>
+    <string name="logcat_desc">Журнали виконання додатка</string>
+    <string name="logcat_subtitle">Натисніть, щоб почати</string>
+    <string name="recording">Запис…</string>
+    <string name="stop_recording">Зупинити запис</string>
+    <string name="no_logs_available">Журнали відсутні</string>
+    <string name="export_history">Експорт історії</string>
+    <string name="export_history_desc">Експортувати історію у файл для резервного копіювання</string>
     <string name="export_success">Експорт виконано</string>
     <string name="export_success_at">Експорт виконано, збережено в: %s</string>
     <string name="export_failed">Помилка експорту</string>
     <string name="no_history_to_export">Немає історії для експорту</string>
-    <string name="restore_data">Імпорт даних</string>
-    <string name="restore_data_desc">Імпортувати історію з файлу резервної копії</string>
+    <string name="restore_history">Імпорт історії</string>
+    <string name="restore_history_desc">Імпортувати історію з файлу резервної копії</string>
     <plurals name="restore_success">
         <item quantity="one">Успішно відновлено %d елемент історії</item>
         <item quantity="few">Успішно відновлено %d елементи історії</item>

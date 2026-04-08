@@ -127,15 +127,19 @@
     <string name="follow_system">Seguir sistema</string>
     <string name="system_settings">Configurações do sistema</string>
 
-    <string name="data_backup">Cópia de segurança</string>
-    <string name="export_data">Exportar dados</string>
-    <string name="export_data_desc">Exportar histórico de reprodução</string>
+    <string name="logcat_desc">Registos de execução da aplicação</string>
+    <string name="logcat_subtitle">Toque para iniciar</string>
+    <string name="recording">A gravar…</string>
+    <string name="stop_recording">Parar gravação</string>
+    <string name="no_logs_available">Sem registos disponíveis</string>
+    <string name="export_history">Exportar histórico</string>
+    <string name="export_history_desc">Exportar histórico para ficheiro de cópia de segurança</string>
     <string name="export_success">Exportação concluída</string>
     <string name="export_success_at">Exportação concluída, guardado em: %s</string>
     <string name="export_failed">Falha na exportação</string>
     <string name="no_history_to_export">Sem histórico para exportar</string>
-    <string name="restore_data">Importar dados</string>
-    <string name="restore_data_desc">Importar histórico de um ficheiro de cópia de segurança</string>
+    <string name="restore_history">Importar histórico</string>
+    <string name="restore_history_desc">Importar histórico de ficheiro de cópia de segurança</string>
     <plurals name="restore_success">
         <item quantity="one">%d item do histórico restaurado com sucesso</item>
         <item quantity="other">%d itens do histórico restaurados com sucesso</item>

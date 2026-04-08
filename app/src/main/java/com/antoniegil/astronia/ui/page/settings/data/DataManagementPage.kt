@@ -60,7 +60,7 @@ fun DataManagementPage(
         ) {
             item {
                 PreferenceItem(
-                    title = stringResource(R.string.logcat),
+                    title = "Logcat",
                     description = stringResource(R.string.logcat_desc),
                     icon = Icons.AutoMirrored.Outlined.Assignment,
                     onClick = onNavigateToLogcat

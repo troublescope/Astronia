@@ -128,15 +128,19 @@
     <string name="follow_system">Urmează sistemul</string>
     <string name="system_settings">Setări sistem</string>
 
-    <string name="data_backup">Backup date</string>
-    <string name="export_data">Exportă date</string>
-    <string name="export_data_desc">Exportă istoric redare</string>
+    <string name="logcat_desc">Jurnale de execuție aplicație</string>
+    <string name="logcat_subtitle">Apasă pentru a începe</string>
+    <string name="recording">Se înregistrează…</string>
+    <string name="stop_recording">Oprește înregistrarea</string>
+    <string name="no_logs_available">Fără jurnale disponibile</string>
+    <string name="export_history">Exportă istoric</string>
+    <string name="export_history_desc">Exportă istoric în fișier pentru backup</string>
     <string name="export_success">Export reușit</string>
     <string name="export_success_at">Export reușit, salvat în %s</string>
     <string name="export_failed">Export eșuat</string>
     <string name="no_history_to_export">Fără istoric de exportat</string>
-    <string name="restore_data">Importă date</string>
-    <string name="restore_data_desc">Importă istoric din fișier backup</string>
+    <string name="restore_history">Importă istoric</string>
+    <string name="restore_history_desc">Importă istoric din fișier backup</string>
     <plurals name="restore_success">
         <item quantity="one">%d istoric restaurat cu succes</item>
         <item quantity="few">%d istorice restaurate cu succes</item>

@@ -126,7 +126,6 @@
     <string name="follow_system">跟隨系統</string>
     <string name="system_settings">系統設定</string>
 
-    <string name="logcat">執行日誌</string>
     <string name="logcat_desc">應用程式執行日誌</string>
     <string name="logcat_subtitle">輕觸以啟動</string>
     <string name="recording">錄製中…</string>

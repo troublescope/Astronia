@@ -130,15 +130,19 @@
     <string name="follow_system">Как в системе</string>
     <string name="system_settings">Системные настройки</string>
 
-    <string name="data_backup">Резервное копирование</string>
-    <string name="export_data">Экспорт данных</string>
-    <string name="export_data_desc">Экспортировать историю воспроизведения</string>
+    <string name="logcat_desc">Журналы выполнения приложения</string>
+    <string name="logcat_subtitle">Нажмите для запуска</string>
+    <string name="recording">Запись…</string>
+    <string name="stop_recording">Остановить запись</string>
+    <string name="no_logs_available">Журналы отсутствуют</string>
+    <string name="export_history">Экспорт истории</string>
+    <string name="export_history_desc">Экспортировать историю в файл для резервного копирования</string>
     <string name="export_success">Экспорт выполнен</string>
     <string name="export_success_at">Экспорт выполнен, сохранено в: %s</string>
     <string name="export_failed">Ошибка экспорта</string>
     <string name="no_history_to_export">Нет данных для экспорта</string>
-    <string name="restore_data">Импорт данных</string>
-    <string name="restore_data_desc">Восстановить историю из файла бэкапа</string>
+    <string name="restore_history">Импорт истории</string>
+    <string name="restore_history_desc">Импортировать историю из файла резервной копии</string>
     <plurals name="restore_success">
         <item quantity="one">Успешно восстановлена %d запись</item>
         <item quantity="few">Успешно восстановлено %d записи</item>

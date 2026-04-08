@@ -127,15 +127,19 @@
     <string name="follow_system">সিস্টেম অনুযায়ী</string>
     <string name="system_settings">সিস্টেম সেটিংস</string>
 
-    <string name="data_backup">ডেটা ব্যাকআপ</string>
-    <string name="export_data">ডেটা এক্সপোর্ট</string>
-    <string name="export_data_desc">প্লে ইতিহাস এক্সপোর্ট করুন</string>
+    <string name="logcat_desc">অ্যাপ্লিকেশন রানটাইম লগ</string>
+    <string name="logcat_subtitle">শুরু করতে ট্যাপ করুন</string>
+    <string name="recording">রেকর্ডিং হচ্ছে…</string>
+    <string name="stop_recording">রেকর্ডিং বন্ধ করুন</string>
+    <string name="no_logs_available">কোনো লগ উপলব্ধ নেই</string>
+    <string name="export_history">ইতিহাস এক্সপোর্ট করুন</string>
+    <string name="export_history_desc">ব্যাকআপের জন্য ইতিহাস ফাইলে এক্সপোর্ট করুন</string>
     <string name="export_success">এক্সপোর্ট সফল হয়েছে</string>
     <string name="export_success_at">এক্সপোর্ট সফল হয়েছে, এখানে সংরক্ষিত: %s</string>
     <string name="export_failed">এক্সপোর্ট ব্যর্থ হয়েছে</string>
     <string name="no_history_to_export">এক্সপোর্ট করার মতো কোনো ইতিহাস নেই</string>
-    <string name="restore_data">ডেটা ইম্পোর্ট</string>
-    <string name="restore_data_desc">ব্যাকআপ ফাইল থেকে ইতিহাস ইম্পোর্ট করুন</string>
+    <string name="restore_history">ইতিহাস ইম্পোর্ট করুন</string>
+    <string name="restore_history_desc">ব্যাকআপ ফাইল থেকে ইতিহাস ইম্পোর্ট করুন</string>
     <plurals name="restore_success">
         <item quantity="one">সফলভাবে %dটি আইটেম রিস্টোর করা হয়েছে</item>
         <item quantity="other">সফলভাবে %dটি আইটেম রিস্টোর করা হয়েছে</item>

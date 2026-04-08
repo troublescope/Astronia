@@ -163,7 +163,7 @@ fun LogcatPage(onNavigateBack: () -> Unit) {
             modifier = Modifier.fillMaxSize(),
             topBar = {
                 TopAppBar(
-                        title = { Text(text = stringResource(R.string.logcat)) },
+                        title = { Text(text = "Logcat") },
                         navigationIcon = { BackButton(onClick = onNavigateBack) }
                 )
             },

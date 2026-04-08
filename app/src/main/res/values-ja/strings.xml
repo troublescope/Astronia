@@ -126,15 +126,19 @@
     <string name="follow_system">システムに従う</string>
     <string name="system_settings">システム設定</string>
 
-    <string name="data_backup">データバックアップ</string>
-    <string name="export_data">データをエクスポート</string>
-    <string name="export_data_desc">再生履歴をエクスポート</string>
+    <string name="logcat_desc">アプリケーションランタイムログ</string>
+    <string name="logcat_subtitle">タップして開始</string>
+    <string name="recording">記録中…</string>
+    <string name="stop_recording">記録を停止</string>
+    <string name="no_logs_available">利用可能なログがありません</string>
+    <string name="export_history">履歴をエクスポート</string>
+    <string name="export_history_desc">バックアップ用にファイルに履歴をエクスポート</string>
     <string name="export_success">エクスポート成功</string>
     <string name="export_success_at">エクスポート成功、保存先：%s</string>
     <string name="export_failed">エクスポート失敗</string>
     <string name="no_history_to_export">エクスポートする履歴がありません</string>
-    <string name="restore_data">データをインポート</string>
-    <string name="restore_data_desc">バックアップファイルから履歴をインポート</string>
+    <string name="restore_history">履歴をインポート</string>
+    <string name="restore_history_desc">バックアップファイルから履歴をインポート</string>
     <plurals name="restore_success">
         <item quantity="other">%d件の履歴を復元しました</item>
     </plurals>
