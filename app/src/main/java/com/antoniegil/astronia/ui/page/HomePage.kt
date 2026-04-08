@@ -28,7 +28,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import com.antoniegil.astronia.R
 import com.antoniegil.astronia.ui.common.HapticFeedback.slightHapticFeedback
-import com.antoniegil.astronia.ui.component.ChannelCard
+import com.antoniegil.astronia.ui.component.SwipeableCard
 import com.antoniegil.astronia.util.helper.ErrorHandler
 import com.antoniegil.astronia.util.manager.HistoryItem
 import com.antoniegil.astronia.util.manager.HistoryManager
@@ -227,7 +227,7 @@ fun HomePage(
                         Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                             historyList.take(3).forEach { item ->
                                 key(item.url) {
-                                    ChannelCard(
+                                    SwipeableCard(
                                         onDelete = {
                                             scope.launch {
                                                 HistoryManager.deleteHistoryItemWithUndo(

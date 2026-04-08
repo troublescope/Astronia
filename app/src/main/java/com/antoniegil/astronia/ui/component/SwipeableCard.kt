@@ -30,7 +30,7 @@ import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun ChannelCard(
+fun SwipeableCard(
     onDelete: () -> Unit,
     onClick: () -> Unit,
     onLongClick: () -> Unit = {},
@@ -42,7 +42,8 @@ fun ChannelCard(
     url: String? = null,
     tags: List<String> = emptyList(),
     leadingIcon: @Composable (() -> Unit)? = null,
-    content: (@Composable () -> Unit)? = null
+    content: (@Composable () -> Unit)? = null,
+    containerColor: androidx.compose.ui.graphics.Color? = null
 ) {
     val offsetX = remember { Animatable(0f) }
     val scope = rememberCoroutineScope()
@@ -121,7 +122,7 @@ fun ChannelCard(
                             onClick = onClick,
                             onLongClick = onLongClick
                         ),
-                    color = MaterialTheme.colorScheme.surfaceVariant,
+                    color = containerColor ?: MaterialTheme.colorScheme.surfaceVariant,
                     shape = cardShape,
                     tonalElevation = 1.dp
                 ) {

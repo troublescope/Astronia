@@ -67,7 +67,7 @@ import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
 import com.antoniegil.astronia.R
 import com.antoniegil.astronia.ui.common.HapticFeedback.slightHapticFeedback
-import com.antoniegil.astronia.ui.component.ChannelCard
+import com.antoniegil.astronia.ui.component.SwipeableCard
 import com.antoniegil.astronia.ui.component.SearchBar
 import com.antoniegil.astronia.util.manager.DataManager
 import com.antoniegil.astronia.util.manager.HistoryItem
@@ -377,7 +377,7 @@ fun ChannelEditPage(
             ) {
                 itemsIndexed(displayedChannels, key = { _, item -> item.id }) { _, channel ->
                     ReorderableItem(reorderableLazyListState, key = channel.id) { _ ->
-                        ChannelCard(
+                        SwipeableCard(
                             onDelete = {
                                 val deleteIndex = editableChannels.indexOfFirst { it.id == channel.id }
                                 if (deleteIndex >= 0) {

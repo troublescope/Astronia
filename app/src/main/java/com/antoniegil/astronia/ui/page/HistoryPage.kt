@@ -34,7 +34,7 @@ import android.widget.Toast
 import com.antoniegil.astronia.R
 import com.antoniegil.astronia.ui.common.HapticFeedback.slightHapticFeedback
 import com.antoniegil.astronia.ui.component.SearchBar
-import com.antoniegil.astronia.ui.component.ChannelCard
+import com.antoniegil.astronia.ui.component.SwipeableCard
 import com.antoniegil.astronia.util.manager.HistoryItem
 import com.antoniegil.astronia.util.manager.HistoryManager
 import com.antoniegil.astronia.util.manager.DataManager
@@ -298,7 +298,7 @@ fun HistoryPage(
                     verticalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
                     items(filteredHistoryList, key = { it.url }) { item ->
-                        ChannelCard(
+                        SwipeableCard(
                             onDelete = {
                                 scope.launch {
                                     HistoryManager.deleteHistoryItemWithUndo(

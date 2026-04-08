@@ -6,8 +6,6 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Stop
 import androidx.compose.material.icons.automirrored.outlined.DriveFileMove
@@ -24,7 +22,9 @@ import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.antoniegil.astronia.R
 import com.antoniegil.astronia.ui.component.BackButton
-import com.antoniegil.astronia.ui.component.ChannelCard
+import com.antoniegil.astronia.ui.component.SwipeableCard
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -32,7 +32,6 @@ import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
 import androidx.core.content.edit
-import android.os.Process
 import android.widget.Toast
 
 data class LogcatRecord(
@@ -206,29 +205,33 @@ fun LogcatPage(onNavigateBack: () -> Unit) {
                     color = MaterialTheme.colorScheme.surfaceVariant
             )
 
-            if (viewModel.logcatRecords.isNotEmpty()) {
-                Text(
-                        text = stringResource(R.string.history),
-                        style = MaterialTheme.typography.labelLarge,
-                        color = MaterialTheme.colorScheme.primary,
-                        modifier = Modifier.padding(horizontal = 16.dp, vertical = 16.dp)
-                )
+            LazyColumn(
+                modifier = Modifier.fillMaxSize(),
+                contentPadding = PaddingValues(horizontal = 16.dp),
+                verticalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                if (viewModel.logcatRecords.isNotEmpty()) {
+                    item {
+                        Text(
+                            text = stringResource(R.string.history),
+                            style = MaterialTheme.typography.labelLarge,
+                            color = MaterialTheme.colorScheme.primary,
+                            modifier = Modifier.padding(vertical = 16.dp)
+                        )
+                    }
 
-                LazyColumn(
-                    modifier = Modifier.fillMaxSize(),
-                    contentPadding = PaddingValues(horizontal = 16.dp),
-                    verticalArrangement = Arrangement.spacedBy(8.dp)
-                ) {
-                    items(viewModel.logcatRecords) { record ->
-                        val dateFormat = SimpleDateFormat("yy-MM-dd-HH-mm-ss", configuration.locales[0])
+                    items(
+                        items = viewModel.logcatRecords,
+                        key = { it.filePath }
+                    ) { record ->
+                        val dateFormat = SimpleDateFormat("yy-MM-dd HH:mm:ss", configuration.locales[0])
                         
-                        ChannelCard(
+                        SwipeableCard(
                             name = dateFormat.format(Date(record.timestamp)),
                             url = "${record.duration / 1000}s",
                             onDelete = {
-                                val deletedRecord = record
                                 val deletedIndex = viewModel.logcatRecords.indexOf(record)
-                                viewModel.logcatRecords = viewModel.logcatRecords - record
+                                viewModel.logcatRecords -= record
                                 File(record.filePath).delete()
                                 viewModel.saveRecords(context)
                                 scope.launch {
@@ -239,7 +242,7 @@ fun LogcatPage(onNavigateBack: () -> Unit) {
                                     )
                                     if (result == SnackbarResult.ActionPerformed) {
                                         viewModel.logcatRecords = viewModel.logcatRecords.toMutableList().apply {
-                                            add(deletedIndex.coerceAtMost(size), deletedRecord)
+                                            add(deletedIndex.coerceAtMost(size), record)
                                         }
                                         viewModel.saveRecords(context)
                                     }
