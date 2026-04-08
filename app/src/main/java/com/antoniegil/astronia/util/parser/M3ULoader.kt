@@ -19,8 +19,17 @@ data class M3U8Channel(
     val logoUrl: String = "",
     val relationId: String = "",
     val epgTitle: String = "",
-    val epgPrograms: List<EpgProgram> = emptyList()
-)
+    val epgPrograms: List<EpgProgram> = emptyList(),
+    val licenseType: String? = null,
+    val licenseKey: String? = null
+) {
+    companion object {
+        const val LICENSE_TYPE_WIDEVINE = "com.widevine.alpha"
+        const val LICENSE_TYPE_CLEAR_KEY = "clearkey"
+        const val LICENSE_TYPE_CLEAR_KEY_2 = "org.w3.clearkey"
+        const val LICENSE_TYPE_PLAY_READY = "com.microsoft.playready"
+    }
+}
 
 object M3ULoader {
     
@@ -130,6 +139,8 @@ object M3ULoader {
         url = url,
         group = group,
         logoUrl = logoUrl,
-        relationId = relationId
+        relationId = relationId,
+        licenseType = licenseType,
+        licenseKey = licenseKey
     )
 }
