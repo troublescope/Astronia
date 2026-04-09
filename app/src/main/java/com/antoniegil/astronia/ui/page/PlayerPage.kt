@@ -153,7 +153,11 @@ private fun PlayerPageContent(
             val autoPlayEnabled = SettingsManager.getAutoPlay(context)
             
             if (currentMediaUrl != uiState.currentChannelUrl) {
-                media3Player.setDataSource(uiState.currentChannelUrl)
+                media3Player.setDataSource(
+                    uiState.currentChannelUrl,
+                    uiState.currentLicenseType,
+                    uiState.currentLicenseKey
+                )
                 media3Player.updateMediaTitle(uiState.videoTitle)
                 if (autoPlayEnabled || uiState.isPlaying) {
                     pendingAutoPlay = true

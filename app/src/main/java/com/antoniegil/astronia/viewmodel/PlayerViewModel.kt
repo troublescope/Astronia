@@ -47,7 +47,9 @@ data class PlayerUiState(
     val isFullscreen: Boolean = false,
     val availableQualities: List<VideoQuality> = emptyList(),
     val currentQuality: VideoQuality? = null,
-    val isLocked: Boolean = false
+    val isLocked: Boolean = false,
+    val currentLicenseType: String? = null,
+    val currentLicenseKey: String? = null
 )
 
 data class PlayerProgressState(
@@ -107,7 +109,9 @@ class PlayerViewModel(application: Application) : AndroidViewModel(application) 
                     currentChannelUrl = startChannel.url,
                     currentChannelId = startChannel.id,
                     videoTitle = startChannel.name,
-                    shouldScrollToChannel = true
+                    shouldScrollToChannel = true,
+                    currentLicenseType = startChannel.licenseType,
+                    currentLicenseKey = startChannel.licenseKey
                 )
                 return
             }
@@ -204,7 +208,9 @@ class PlayerViewModel(application: Application) : AndroidViewModel(application) 
                     currentChannelId = startChannel?.id,
                     playlistUrl = if (isM3U8Playlist) url else "",
                     isLoadingChannels = false,
-                    shouldScrollToChannel = true
+                    shouldScrollToChannel = true,
+                    currentLicenseType = startChannel?.licenseType,
+                    currentLicenseKey = startChannel?.licenseKey
                 )
             } catch (e: Exception) {
                 ErrorHandler.logError("PlayerViewModel", "Failed to load channels", e)
@@ -301,7 +307,9 @@ class PlayerViewModel(application: Application) : AndroidViewModel(application) 
             shouldScrollToChannel = false,
             actualPlayingUrl = null,
             availableQualities = emptyList(),
-            currentQuality = null
+            currentQuality = null,
+            currentLicenseType = channel.licenseType,
+            currentLicenseKey = channel.licenseKey
         )
         _progressState.value = PlayerProgressState(currentCycleDuration = 20f)
         watchTimeTracker.reset()

@@ -12,8 +12,13 @@ import androidx.media3.exoplayer.DefaultRenderersFactory
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.exoplayer.RenderersFactory
 import androidx.media3.exoplayer.analytics.AnalyticsListener
+import androidx.media3.exoplayer.drm.DefaultDrmSessionManager
+import androidx.media3.exoplayer.drm.FrameworkMediaDrm
+import androidx.media3.exoplayer.drm.HttpMediaDrmCallback
+import androidx.media3.exoplayer.drm.LocalMediaDrmCallback
 import androidx.media3.exoplayer.source.DefaultMediaSourceFactory
 import androidx.media3.exoplayer.trackselection.DefaultTrackSelector
+import com.antoniegil.astronia.util.parser.M3U8Channel
 import io.github.anilbeesetti.nextlib.media3ext.ffdecoder.NextRenderersFactory
 
 @androidx.annotation.OptIn(androidx.media3.common.util.UnstableApi::class)
@@ -24,7 +29,10 @@ internal object PlayerFactory {
         hardwareAcceleration: Boolean,
         urlUpgradeListener: AnalyticsListener,
         latencyMonitor: AnalyticsListener,
-        combinedListener: androidx.media3.common.Player.Listener
+        combinedListener: androidx.media3.common.Player.Listener,
+        licenseType: String? = null,
+        licenseKey: String? = null,
+        userAgent: String? = null
     ): ExoPlayer {
         val tunnelingSupported = try {
             MediaCodecList(MediaCodecList.ALL_CODECS).codecInfos.any { codecInfo ->
@@ -59,6 +67,11 @@ internal object PlayerFactory {
             .setConnectTimeoutMs(15000)
             .setReadTimeoutMs(30000)
             .setAllowCrossProtocolRedirects(true)
+            .apply {
+                if (userAgent != null) {
+                    setUserAgent(userAgent)
+                }
+            }
         
         val compositeDataSourceFactory = androidx.media3.datasource.DefaultDataSource.Factory(
             context,
@@ -67,6 +80,37 @@ internal object PlayerFactory {
         
         val mediaSourceFactory = DefaultMediaSourceFactory(context)
             .setDataSourceFactory(compositeDataSourceFactory)
+        
+        if (!licenseType.isNullOrEmpty() && !licenseKey.isNullOrEmpty()) {
+            val drmCallback = when {
+                (licenseType in arrayOf(
+                    M3U8Channel.LICENSE_TYPE_CLEAR_KEY,
+                    M3U8Channel.LICENSE_TYPE_CLEAR_KEY_2
+                )) && !licenseKey.startsWith("http") -> LocalMediaDrmCallback(licenseKey.toByteArray())
+                
+                else -> HttpMediaDrmCallback(licenseKey, dataSourceFactory)
+            }
+            
+            val uuid = when (licenseType) {
+                M3U8Channel.LICENSE_TYPE_CLEAR_KEY, M3U8Channel.LICENSE_TYPE_CLEAR_KEY_2 -> C.CLEARKEY_UUID
+                M3U8Channel.LICENSE_TYPE_WIDEVINE -> C.WIDEVINE_UUID
+                M3U8Channel.LICENSE_TYPE_PLAY_READY -> C.PLAYREADY_UUID
+                else -> C.UUID_NIL
+            }
+            
+            if (uuid != C.UUID_NIL && FrameworkMediaDrm.isCryptoSchemeSupported(uuid)) {
+                val drmSessionManager = DefaultDrmSessionManager.Builder()
+                    .setUuidAndExoMediaDrmProvider(uuid, FrameworkMediaDrm.DEFAULT_PROVIDER)
+                    .setMultiSession(
+                        licenseType !in arrayOf(
+                            M3U8Channel.LICENSE_TYPE_CLEAR_KEY,
+                            M3U8Channel.LICENSE_TYPE_CLEAR_KEY_2
+                        )
+                    )
+                    .build(drmCallback)
+                mediaSourceFactory.setDrmSessionManagerProvider { drmSessionManager }
+            }
+        }
         
         return ExoPlayer.Builder(context)
             .setRenderersFactory(renderersFactory)

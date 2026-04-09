@@ -19,6 +19,9 @@ class Media3Player(private val context: Context) {
     private var currentHardwareAcceleration: Boolean = true
     private var initialM3uUrl: String? = null
     private var actualPlayingUrl: String? = null
+    private var currentLicenseType: String? = null
+    private var currentLicenseKey: String? = null
+    private var currentUserAgent: String? = null
     private val state = PlayerState(context = context)
 
     var onPreparedListener: (() -> Unit)? = null
@@ -53,7 +56,10 @@ class Media3Player(private val context: Context) {
                 onUrlResolved = { actualPlayingUrl = it }
             ),
             latencyMonitor = PlayerFactory.createLatencyMonitor { exoPlayer },
-            combinedListener = PlayerListeners.createCombinedListener({ exoPlayer }, state, callbacks)
+            combinedListener = PlayerListeners.createCombinedListener({ exoPlayer }, state, callbacks),
+            licenseType = currentLicenseType,
+            licenseKey = currentLicenseKey,
+            userAgent = currentUserAgent
         )
 
         exoPlayer?.addListener(object : androidx.media3.common.Player.Listener {
@@ -79,9 +85,16 @@ class Media3Player(private val context: Context) {
         }
     }
     
-    fun setDataSource(url: String) {
-        initialM3uUrl = url
-        state.currentMediaUrl = url
+    fun setDataSource(url: String, licenseType: String? = null, licenseKey: String? = null) {
+        val cleanedUrl = KodiUrlParser.cleanUrl(url)
+        val userAgent = KodiUrlParser.extractUserAgent(url)
+        
+        initialM3uUrl = cleanedUrl
+        currentLicenseType = licenseType
+        currentLicenseKey = licenseKey
+        currentUserAgent = userAgent
+        
+        state.currentMediaUrl = cleanedUrl
         state.isInitialLoad = true
         state.hasTriedM3u8Fix = false
         state.isFixingM3u8 = false
@@ -89,7 +102,26 @@ class Media3Player(private val context: Context) {
         actualPlayingUrl = null
         
         val currentSurface = surface
-        val isRtmp = url.startsWith("rtmp", ignoreCase = true)
+        val isRtmp = cleanedUrl.startsWith("rtmp", ignoreCase = true)
+        
+        val needsRecreate = (licenseType != null && licenseType != currentLicenseType) ||
+                            (licenseKey != null && licenseKey != currentLicenseKey) ||
+                            (userAgent != null && userAgent != currentUserAgent)
+        
+        if (needsRecreate && exoPlayer != null) {
+            val currentPos = exoPlayer?.currentPosition ?: 0L
+            val wasPlaying = exoPlayer?.isPlaying ?: false
+            
+            release()
+            createPlayer(currentHardwareAcceleration)
+            
+            if (currentPos > 0) {
+                exoPlayer?.seekTo(currentPos)
+            }
+            if (wasPlaying) {
+                state.shouldPlayWhenReady = true
+            }
+        }
         
         exoPlayer?.apply {
             stop()
@@ -99,10 +131,10 @@ class Media3Player(private val context: Context) {
             if (isRtmp) {
                 val rtmpSource = androidx.media3.exoplayer.source.ProgressiveMediaSource.Factory(
                     androidx.media3.datasource.rtmp.RtmpDataSource.Factory()
-                ).createMediaSource(androidx.media3.common.MediaItem.fromUri(url))
+                ).createMediaSource(androidx.media3.common.MediaItem.fromUri(cleanedUrl))
                 setMediaSource(rtmpSource)
             } else {
-                setMediaItem(createMediaItem(url))
+                setMediaItem(createMediaItem(cleanedUrl))
             }
             
             prepare()
@@ -169,7 +201,7 @@ class Media3Player(private val context: Context) {
             createPlayer(false)
             
             currentUrl?.let {
-                setDataSource(it)
+                setDataSource(it, currentLicenseType, currentLicenseKey)
                 exoPlayer?.seekTo(currentPos)
                 if (wasPlaying) start()
             }
@@ -215,7 +247,7 @@ class Media3Player(private val context: Context) {
             createPlayer(enabled)
             
             currentUrl?.let {
-                setDataSource(it)
+                setDataSource(it, currentLicenseType, currentLicenseKey)
                 exoPlayer?.seekTo(currentPos)
                 if (wasPlaying) start()
             }
