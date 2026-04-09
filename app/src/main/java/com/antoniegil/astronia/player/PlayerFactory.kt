@@ -34,14 +34,18 @@ internal object PlayerFactory {
         } catch (e: Exception) { false }
         
         val trackSelector = DefaultTrackSelector(context).apply {
-            setParameters(buildUponParameters().setTunnelingEnabled(hardwareAcceleration && tunnelingSupported))
+            setParameters(
+                buildUponParameters()
+                    .setForceHighestSupportedBitrate(true)
+                    .setTunnelingEnabled(hardwareAcceleration && tunnelingSupported)
+            )
         }
         
         val renderersFactory = DefaultRenderersFactory(context).apply {
             setEnableDecoderFallback(true)
             setExtensionRendererMode(
-                if (hardwareAcceleration) DefaultRenderersFactory.EXTENSION_RENDERER_MODE_OFF 
-                else DefaultRenderersFactory.EXTENSION_RENDERER_MODE_PREFER
+                if (hardwareAcceleration) DefaultRenderersFactory.EXTENSION_RENDERER_MODE_ON
+                else DefaultRenderersFactory.EXTENSION_RENDERER_MODE_ON
             )
         }
         

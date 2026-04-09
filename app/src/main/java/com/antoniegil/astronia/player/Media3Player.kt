@@ -40,7 +40,8 @@ class Media3Player(private val context: Context) {
             onStateChanged = { playing, pos, buffered, dur -> onPlaybackStateChanged?.invoke(playing, pos, buffered, dur) },
             onError = { msg, retriable -> onErrorListener?.invoke(msg, retriable) },
             onRetryWithFix = { retryWithFixedM3u8() },
-            onReloadOriginal = { reloadOriginalUrl() }
+            onReloadOriginal = { reloadOriginalUrl() },
+            onRetryWithSoftwareDecoder = { retryWithSoftwareDecoder() }
         )
         
         exoPlayer = PlayerFactory.createExoPlayer(
@@ -84,6 +85,7 @@ class Media3Player(private val context: Context) {
         state.isInitialLoad = true
         state.hasTriedM3u8Fix = false
         state.isFixingM3u8 = false
+        state.hasTriedSoftwareDecoder = false
         actualPlayingUrl = null
         
         val currentSurface = surface
@@ -153,6 +155,24 @@ class Media3Player(private val context: Context) {
             setMediaItem(createMediaItem(url))
             prepare()
             if (state.shouldPlayWhenReady) play()
+        }
+    }
+    
+    internal fun retryWithSoftwareDecoder() {
+        if (currentHardwareAcceleration) {
+            val currentUrl = exoPlayer?.currentMediaItem?.localConfiguration?.uri?.toString()
+            val currentPos = exoPlayer?.currentPosition ?: 0L
+            val wasPlaying = exoPlayer?.isPlaying ?: false
+            
+            currentHardwareAcceleration = false
+            release()
+            createPlayer(false)
+            
+            currentUrl?.let {
+                setDataSource(it)
+                exoPlayer?.seekTo(currentPos)
+                if (wasPlaying) start()
+            }
         }
     }
     

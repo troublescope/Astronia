@@ -86,6 +86,16 @@ internal object PlayerListeners {
                 if (isExitRelatedError) return
             }
             
+            val isDecoderError = error.errorCode in listOf(
+                PlaybackException.ERROR_CODE_DECODER_INIT_FAILED,
+                PlaybackException.ERROR_CODE_VIDEO_FRAME_PROCESSING_FAILED
+            )
+            if (isDecoderError && !state.hasTriedSoftwareDecoder) {
+                state.hasTriedSoftwareDecoder = true
+                callbacks.onRetryWithSoftwareDecoder()
+                return
+            }
+            
             val player = getPlayer()
             val httpError = error.cause as? androidx.media3.datasource.HttpDataSource.InvalidResponseCodeException
             val httpCode = httpError?.responseCode ?: 0
@@ -202,7 +212,8 @@ internal data class PlayerState(
     var currentMediaUrl: String? = null,
     var context: Context? = null,
     var hasTriedM3u8Fix: Boolean = false,
-    var isFixingM3u8: Boolean = false
+    var isFixingM3u8: Boolean = false,
+    var hasTriedSoftwareDecoder: Boolean = false
 )
 
 internal data class PlayerCallbacks(
@@ -211,5 +222,6 @@ internal data class PlayerCallbacks(
     val onStateChanged: (Boolean, Long, Long, Long) -> Unit,
     val onError: (String, Boolean) -> Unit,
     val onRetryWithFix: () -> Unit = {},
-    val onReloadOriginal: () -> Unit = {}
+    val onReloadOriginal: () -> Unit = {},
+    val onRetryWithSoftwareDecoder: () -> Unit = {}
 )
