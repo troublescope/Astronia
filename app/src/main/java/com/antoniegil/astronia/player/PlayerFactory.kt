@@ -10,9 +10,11 @@ import androidx.media3.datasource.rtmp.RtmpDataSource
 import androidx.media3.exoplayer.DefaultLoadControl
 import androidx.media3.exoplayer.DefaultRenderersFactory
 import androidx.media3.exoplayer.ExoPlayer
+import androidx.media3.exoplayer.RenderersFactory
 import androidx.media3.exoplayer.analytics.AnalyticsListener
 import androidx.media3.exoplayer.source.DefaultMediaSourceFactory
 import androidx.media3.exoplayer.trackselection.DefaultTrackSelector
+import io.github.anilbeesetti.nextlib.media3ext.ffdecoder.NextRenderersFactory
 
 @androidx.annotation.OptIn(androidx.media3.common.util.UnstableApi::class)
 internal object PlayerFactory {
@@ -41,12 +43,16 @@ internal object PlayerFactory {
             )
         }
         
-        val renderersFactory = DefaultRenderersFactory(context).apply {
-            setEnableDecoderFallback(true)
-            setExtensionRendererMode(
-                if (hardwareAcceleration) DefaultRenderersFactory.EXTENSION_RENDERER_MODE_ON
-                else DefaultRenderersFactory.EXTENSION_RENDERER_MODE_ON
-            )
+        val renderersFactory: RenderersFactory = if (hardwareAcceleration) {
+            DefaultRenderersFactory(context).apply {
+                setEnableDecoderFallback(true)
+                setExtensionRendererMode(DefaultRenderersFactory.EXTENSION_RENDERER_MODE_PREFER)
+            }
+        } else {
+            NextRenderersFactory(context).apply {
+                setEnableDecoderFallback(true)
+                setExtensionRendererMode(DefaultRenderersFactory.EXTENSION_RENDERER_MODE_ON)
+            }
         }
         
         val dataSourceFactory = DefaultHttpDataSource.Factory()

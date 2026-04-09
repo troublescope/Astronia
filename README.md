@@ -55,7 +55,7 @@ Additional UI elements and design concepts are borrowed from:
 - [Music You](https://github.com/Kyant0/MusicYou)
 
 Libraries and tools:
-- [Jellyfin Media3 FFmpeg Decoder](https://github.com/jellyfin/jellyfin-androidx-media)
+- [NextLib Media3 Extension](https://github.com/anilbeesetti/nextlib)
 - [Material color utilities](https://github.com/material-foundation/material-color-utilities)
 - [Monet](https://github.com/Kyant0/Monet)
 - [Compose Markdown](https://github.com/jeziellago/compose-markdown)

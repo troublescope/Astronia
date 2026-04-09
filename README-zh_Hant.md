@@ -55,7 +55,7 @@ UI 設計和實作深受 [Seal](https://github.com/JunkFood02/Seal) 啟發，許
 - [Music You](https://github.com/Kyant0/MusicYou)
 
 使用的函式庫和工具：
-- [Jellyfin Media3 FFmpeg Decoder](https://github.com/jellyfin/jellyfin-androidx-media)
+- [NextLib Media3 Extension](https://github.com/anilbeesetti/nextlib)
 - [Material color utilities](https://github.com/material-foundation/material-color-utilities)
 - [Monet](https://github.com/Kyant0/Monet)
 - [Compose Markdown](https://github.com/jeziellago/compose-markdown)

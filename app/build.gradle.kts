@@ -183,6 +183,10 @@ dependencies {
     implementation(libs.reorderable)
     
     implementation(libs.bundles.media3)
+    
+    // NextLib FFmpeg decoder
+    implementation(libs.nextlib.media3ext)
+    implementation(libs.nextlib.mediainfo)
 
     
     // Testing
