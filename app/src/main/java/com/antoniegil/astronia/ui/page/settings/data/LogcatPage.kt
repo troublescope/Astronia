@@ -129,7 +129,6 @@ fun LogcatPage(onNavigateBack: () -> Unit) {
     val failedMsg = stringResource(R.string.export_failed)
     
     var exportContent by remember { mutableStateOf("") }
-    var exportFileName by remember { mutableStateOf("") }
     
     val exportLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.CreateDocument("text/plain")

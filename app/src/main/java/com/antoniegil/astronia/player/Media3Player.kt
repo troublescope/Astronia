@@ -131,7 +131,7 @@ class Media3Player(private val context: Context) {
             if (isRtmp) {
                 val rtmpSource = androidx.media3.exoplayer.source.ProgressiveMediaSource.Factory(
                     androidx.media3.datasource.rtmp.RtmpDataSource.Factory()
-                ).createMediaSource(androidx.media3.common.MediaItem.fromUri(cleanedUrl))
+                ).createMediaSource(MediaItem.fromUri(cleanedUrl))
                 setMediaSource(rtmpSource)
             } else {
                 setMediaItem(createMediaItem(cleanedUrl))

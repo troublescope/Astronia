@@ -70,7 +70,6 @@ fun PlayerControlsOverlay(
 ) {
     var currentPosition by remember { mutableLongStateOf(media3Player?.currentPosition ?: 0L) }
     var bufferedPosition by remember { mutableLongStateOf(media3Player?.bufferedPosition ?: 0L) }
-    var duration by remember { mutableLongStateOf(media3Player?.duration ?: 0L) }
     
     var estimatedProgress by rememberSaveable { mutableFloatStateOf(0f) }
     var localCycleDuration by remember { mutableFloatStateOf(currentCycleDuration) }
@@ -83,7 +82,6 @@ fun PlayerControlsOverlay(
         while (true) {
             currentPosition = media3Player?.currentPosition ?: 0L
             bufferedPosition = media3Player?.bufferedPosition ?: 0L
-            duration = media3Player?.duration ?: 0L
             
             watchTimeTracker.update()
             val watchSeconds = watchTimeTracker.getAccumulatedTime() / 1000f

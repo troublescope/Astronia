@@ -9,8 +9,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.json.Json
@@ -36,8 +34,7 @@ object EpgManager {
     private var epgJob: kotlinx.coroutines.Job? = null
     
     private val _refreshingEpgUrls = MutableStateFlow<List<String>>(emptyList())
-    val refreshingEpgUrls: StateFlow<List<String>> = _refreshingEpgUrls.asStateFlow()
-    
+
     private const val CACHE_EXPIRY_MS = 7L * 24 * 60 * 60 * 1000
     private const val PAGE_SIZE = 50
     
@@ -168,21 +165,7 @@ object EpgManager {
         
         return emptyList()
     }
-    
-    fun getProgramsPage(relationId: String, offset: Int = 0, limit: Int = PAGE_SIZE): List<EpgProgram> {
-        val epgUrls = getEpgUrlsFromIndex(relationId)
-        
-        val allPrograms = if (epgUrls.isNotEmpty()) {
-            epgUrls.firstNotNullOfOrNull { epgUrl ->
-                epgDataBySource[epgUrl]?.get(relationId)
-            } ?: emptyList()
-        } else {
-            epgDataBySource.values.firstNotNullOfOrNull { it[relationId] } ?: emptyList()
-        }
-        
-        return allPrograms.drop(offset).take(limit)
-    }
-    
+
     private fun loadCachedEpgData() {
         val sourcesByUrl = mutableMapOf<String, Map<String, List<EpgProgram>>>()
         mmkv.allKeys()?.forEach { key ->

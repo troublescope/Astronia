@@ -20,7 +20,6 @@ private class PlayerTextureView @JvmOverloads constructor(
     private val player: Media3Player? = null,
     initialAspectRatio: Int = 0,
     initialMirrorFlip: Boolean = false,
-    private val isBackgroundRetained: Boolean = false,
     private val onSurfaceReady: () -> Unit = {}
 ) : TextureView(context), MeasureHelper.MeasureFormVideoParamsListener {
     
@@ -133,7 +132,6 @@ fun PlayerSurface(
     modifier: Modifier = Modifier,
     mirrorFlip: Boolean = false,
     onSurfaceReady: () -> Unit = {},
-    isBackgroundRetained: Boolean = false,
     currentChannelUrl: String = ""
 ) {
     val textureViewRef = remember { mutableStateOf<TextureView?>(null) }
@@ -190,7 +188,7 @@ fun PlayerSurface(
         if (surfaceReady) {
             AndroidView(
                 factory = { ctx ->
-                    PlayerTextureView(ctx, player, aspectRatio, mirrorFlip, isBackgroundRetained, onSurfaceReady).also {
+                    PlayerTextureView(ctx, player, aspectRatio, mirrorFlip, onSurfaceReady).also {
                         textureViewRef.value = it
                     }
                 },
