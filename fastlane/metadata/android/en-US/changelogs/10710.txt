@@ -1,0 +1,8 @@
+- Add support for RTMP (Real Time Messaging Protocol).
+- Add support for Kodi (Kodi Open Source Media Center).
+- Add support for DRM (Digital Rights Management).
+- Add application runtime log recording (users can record logs to help developers pinpoint issues).
+- Enhanced EPG parsing capabilities.
+- Fix app crash on specific older devices when using High contrast dark theme.
+
+For full changelogs, please refer to GitHub
