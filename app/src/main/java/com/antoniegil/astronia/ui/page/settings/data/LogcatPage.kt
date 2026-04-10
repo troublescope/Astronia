@@ -82,6 +82,7 @@ class LogcatViewModel : ViewModel() {
     fun startRecording(context: Context) {
         recordStartTime = System.currentTimeMillis()
         isRecording = true
+        Runtime.getRuntime().exec("logcat -c")
         getPrefs(context).edit {
             putBoolean("is_recording", true)
             putLong("start_time", recordStartTime)
@@ -256,7 +257,6 @@ fun LogcatPage(onNavigateBack: () -> Unit) {
                                             val content = file.readText()
                                             withContext(Dispatchers.Main) {
                                                 exportContent = content
-                                                exportFileName = record.fileName
                                                 exportLauncher.launch(record.fileName)
                                             }
                                         }

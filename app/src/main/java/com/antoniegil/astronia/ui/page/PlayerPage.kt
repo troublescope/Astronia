@@ -399,7 +399,6 @@ private fun PlayerPageContent(
                                     player = media3Player,
                                     aspectRatio = uiState.aspectRatio,
                                     mirrorFlip = uiState.mirrorFlip,
-                                    isBackgroundRetained = true,
                                     onSurfaceReady = {
                                         if (pendingAutoPlay && !media3Player.isPlaying) {
                                             pendingAutoPlay = false
