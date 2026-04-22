@@ -16,6 +16,7 @@ object M3UParser {
     private const val M3U_HEADER_MARK = "#EXTM3U"
     private const val M3U_INFO_MARK = "#EXTINF:"
     private const val KODI_MARK = "#KODIPROP:"
+    private const val VLC_OPT_MARK = "#EXTVLCOPT:"
     private const val M3U_TVG_ID_MARK = "tvg-id"
     private const val M3U_TVG_NAME_MARK = "tvg-name"
     private const val M3U_TVG_LOGO_MARK = "tvg-logo"
@@ -25,7 +26,7 @@ object M3UParser {
     
     private val infoRegex = """(-?\d+)(.*),(.+)""".toRegex()
     private val metadataRegex = """([\w-_.]+)=\s*(?:"([^"]*)"|(\S+))""".toRegex()
-    private val kodiPropRegex = """([^=]+)=(.+)""".toRegex()
+    private val propRegex = """([^=]+)=(.+)""".toRegex()
     
     fun parse(content: String): Pair<List<M3UChannel>, String?> {
         val channels = mutableListOf<M3UChannel>()
@@ -42,7 +43,7 @@ object M3UParser {
         
         var currentLine: String
         var infoMatch: MatchResult? = null
-        val kodiMatches = mutableListOf<MatchResult>()
+        val extraProps = mutableListOf<MatchResult>()
         
         while (lines.hasNext()) {
             currentLine = lines.next()
@@ -52,9 +53,14 @@ object M3UParser {
                     infoMatch = infoRegex.matchEntire(currentLine.drop(M3U_INFO_MARK.length).trim())
                 }
                 if (currentLine.startsWith(KODI_MARK)) {
-                    kodiPropRegex
+                    propRegex
                         .matchEntire(currentLine.drop(KODI_MARK.length).trim())
-                        ?.also { kodiMatches += it }
+                        ?.also { extraProps += it }
+                }
+                if (currentLine.startsWith(VLC_OPT_MARK)) {
+                    propRegex
+                        .matchEntire(currentLine.drop(VLC_OPT_MARK.length).trim())
+                        ?.also { extraProps += it }
                 }
                 if (lines.hasNext()) {
                     currentLine = lines.next()
@@ -75,8 +81,8 @@ object M3UParser {
                     }
                 }
                 
-                val kodiMetadata = buildMap {
-                    for (match in kodiMatches) {
+                val props = buildMap {
+                    for (match in extraProps) {
                         val key = match.groups[1]!!.value
                         val value = match.groups[2]?.value?.ifBlank { null } ?: continue
                         put(key.trim(), value.trim())
@@ -88,21 +94,33 @@ object M3UParser {
                 val relationId = tvgId.ifEmpty { tvgName }
                 val finalTitle = title.ifEmpty { "Channel ${channels.size + 1}" }
                 
+                val headers = mutableMapOf<String, String>()
+                props["http-user-agent"]?.let { headers["User-Agent"] = it }
+                props["http-referrer"]?.let { headers["Referer"] = it }
+                props["user-agent"]?.let { headers["User-Agent"] = it }
+                props["referer"]?.let { headers["Referer"] = it }
+                
+                var finalUrl = currentLine
+                if (headers.isNotEmpty()) {
+                    val headerString = headers.entries.joinToString("&") { "${it.key}=${it.value}" }
+                    finalUrl = "$finalUrl|$headerString"
+                }
+
                 channels.add(
                     M3UChannel(
                         id = "${currentLine.hashCode()}_${channels.size}",
                         name = finalTitle,
-                        url = currentLine,
+                        url = finalUrl,
                         group = metadata[M3U_GROUP_TITLE_MARK].orEmpty(),
                         logoUrl = metadata[M3U_TVG_LOGO_MARK].orEmpty(),
                         relationId = relationId,
-                        licenseType = kodiMetadata[KODI_LICENSE_TYPE],
-                        licenseKey = kodiMetadata[KODI_LICENSE_KEY]
+                        licenseType = props[KODI_LICENSE_TYPE],
+                        licenseKey = props[KODI_LICENSE_KEY]
                     )
                 )
                 
                 infoMatch = null
-                kodiMatches.clear()
+                extraProps.clear()
             }
         }
         

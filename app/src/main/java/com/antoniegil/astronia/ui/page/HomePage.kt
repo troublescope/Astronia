@@ -44,6 +44,7 @@ fun HomePage(
     onPlayHistoryItem: (HistoryItem) -> Unit = {}
 ) {
     var url by remember { mutableStateOf("") }
+    var headers by remember { mutableStateOf("") }
     var isLoading by remember { mutableStateOf(false) }
     val clipboard = LocalClipboard.current
     val keyboardController = LocalSoftwareKeyboardController.current
@@ -67,6 +68,15 @@ fun HomePage(
     }
 
     val view = LocalView.current
+
+    fun getFinalUrl(): String {
+        return if (headers.isNotBlank()) {
+            val cleanUrl = if (url.contains("|")) url.substringBefore("|") else url
+            "$cleanUrl|$headers"
+        } else {
+            url
+        }
+    }
 
     Box(modifier = Modifier.fillMaxSize()) {
         Scaffold(
@@ -125,9 +135,10 @@ fun HomePage(
 
                     FloatingActionButton(
                         onClick = {
-                            if (url.isNotBlank()) {
+                            val finalUrl = getFinalUrl()
+                            if (finalUrl.isNotBlank()) {
                                 keyboardController?.hide()
-                                onPlayUrl(url)
+                                onPlayUrl(finalUrl)
                             }
                         },
                         containerColor = MaterialTheme.colorScheme.primaryContainer,
@@ -206,14 +217,49 @@ fun HomePage(
                         },
                         keyboardActions = KeyboardActions(
                             onDone = {
-                                if (url.isNotBlank()) {
+                                val finalUrl = getFinalUrl()
+                                if (finalUrl.isNotBlank()) {
                                     keyboardController?.hide()
-                                    onPlayUrl(url)
+                                    onPlayUrl(finalUrl)
                                 }
                             }
                         ),
                         keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done)
                     )
+
+                    OutlinedTextField(
+                        value = headers,
+                        onValueChange = { headers = it },
+                        label = { Text(stringResource(R.string.headers)) },
+                        placeholder = { Text(stringResource(R.string.headers_hint)) },
+                        modifier = Modifier
+                            .padding(bottom = 16.dp)
+                            .fillMaxWidth(),
+                        textStyle = MaterialTheme.typography.bodyLarge,
+                        maxLines = 2,
+                        colors = OutlinedTextFieldDefaults.colors(
+                            focusedBorderColor = MaterialTheme.colorScheme.primary,
+                            unfocusedBorderColor = MaterialTheme.colorScheme.outline,
+                            focusedLabelColor = MaterialTheme.colorScheme.primary
+                        ),
+                        trailingIcon = {
+                            if (headers.isNotEmpty()) {
+                                IconButton(onClick = { headers = "" }) {
+                                    Icon(Icons.Outlined.Cancel, stringResource(R.string.clear))
+                                }
+                            }
+                        }
+                    )
+
+                    LaunchedEffect(url) {
+                        if (url.contains("|")) {
+                            val parts = url.split("|", limit = 2)
+                            url = parts[0]
+                            if (parts.size > 1) {
+                                headers = parts[1]
+                            }
+                        }
+                    }
 
                     val historyList by HistoryManager.historyFlow.collectAsState()
 
