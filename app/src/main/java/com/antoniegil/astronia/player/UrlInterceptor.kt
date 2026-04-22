@@ -11,7 +11,7 @@ object UrlInterceptor {
     
     class NetworkBlockedException(message: String) : Exception(message)
     
-    suspend fun fixMalformedM3u8(context: Context, url: String): String = withContext(Dispatchers.IO) {
+    suspend fun fixMalformedM3u8(context: Context, url: String, headers: Map<String, String>? = null): String = withContext(Dispatchers.IO) {
         try {
             val client = NetworkUtils.createHttpClient(3000, 5000, true)
             var currentUrl = url
@@ -19,7 +19,11 @@ object UrlInterceptor {
             val maxDepth = 5
             
             while (depth < maxDepth) {
-                val request = Request.Builder().url(currentUrl).build()
+                val requestBuilder = Request.Builder().url(currentUrl)
+                headers?.forEach { (key, value) ->
+                    requestBuilder.addHeader(key, value)
+                }
+                val request = requestBuilder.build()
                 val response = client.newCall(request).execute()
                 
                 val httpCode = response.code

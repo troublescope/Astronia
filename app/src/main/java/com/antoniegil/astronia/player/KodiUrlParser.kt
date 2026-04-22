@@ -10,7 +10,7 @@ internal object KodiUrlParser {
         return options
             .filter { it.isNotBlank() }
             .associate {
-                val pair = it.split("=")
+                val pair = it.split("=", limit = 2)
                 val key = pair.getOrNull(0).orEmpty()
                 val value = pair.getOrNull(1)
                 key to value

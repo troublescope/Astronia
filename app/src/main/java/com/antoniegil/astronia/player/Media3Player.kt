@@ -159,10 +159,11 @@ class Media3Player(private val context: Context) {
     
     internal fun retryWithFixedM3u8() {
         val url = initialM3uUrl ?: return
+        val headers = currentHeaders
         
         CoroutineScope(Dispatchers.Main).launch {
             try {
-                val fixedUrl = UrlInterceptor.fixMalformedM3u8(context, url)
+                val fixedUrl = UrlInterceptor.fixMalformedM3u8(context, url, headers)
                 state.currentMediaUrl = fixedUrl
                 
                 exoPlayer?.apply {
