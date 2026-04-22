@@ -22,6 +22,7 @@ class Media3Player(private val context: Context) {
     private var currentLicenseType: String? = null
     private var currentLicenseKey: String? = null
     private var currentUserAgent: String? = null
+    private var currentHeaders: Map<String, String>? = null
     private val state = PlayerState(context = context)
 
     var onPreparedListener: (() -> Unit)? = null
@@ -59,7 +60,8 @@ class Media3Player(private val context: Context) {
             combinedListener = PlayerListeners.createCombinedListener({ exoPlayer }, state, callbacks),
             licenseType = currentLicenseType,
             licenseKey = currentLicenseKey,
-            userAgent = currentUserAgent
+            userAgent = currentUserAgent,
+            headers = currentHeaders
         )
 
         exoPlayer?.addListener(object : androidx.media3.common.Player.Listener {
@@ -88,11 +90,18 @@ class Media3Player(private val context: Context) {
     fun setDataSource(url: String, licenseType: String? = null, licenseKey: String? = null) {
         val cleanedUrl = KodiUrlParser.cleanUrl(url)
         val userAgent = KodiUrlParser.extractUserAgent(url)
+        val headers = KodiUrlParser.extractHeaders(url)
         
+        val needsRecreate = (licenseType != null && licenseType != currentLicenseType) ||
+                            (licenseKey != null && licenseKey != currentLicenseKey) ||
+                            (userAgent != null && userAgent != currentUserAgent) ||
+                            (headers != currentHeaders)
+
         initialM3uUrl = cleanedUrl
         currentLicenseType = licenseType
         currentLicenseKey = licenseKey
         currentUserAgent = userAgent
+        currentHeaders = headers
         
         state.currentMediaUrl = cleanedUrl
         state.isInitialLoad = true
@@ -103,10 +112,6 @@ class Media3Player(private val context: Context) {
         
         val currentSurface = surface
         val isRtmp = cleanedUrl.startsWith("rtmp", ignoreCase = true)
-        
-        val needsRecreate = (licenseType != null && licenseType != currentLicenseType) ||
-                            (licenseKey != null && licenseKey != currentLicenseKey) ||
-                            (userAgent != null && userAgent != currentUserAgent)
         
         if (needsRecreate && exoPlayer != null) {
             val currentPos = exoPlayer?.currentPosition ?: 0L

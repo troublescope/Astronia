@@ -31,7 +31,8 @@ internal object PlayerFactory {
         combinedListener: androidx.media3.common.Player.Listener,
         licenseType: String? = null,
         licenseKey: String? = null,
-        userAgent: String? = null
+        userAgent: String? = null,
+        headers: Map<String, String>? = null
     ): ExoPlayer {
         val tunnelingSupported = try {
             MediaCodecList(MediaCodecList.ALL_CODECS).codecInfos.any { codecInfo ->
@@ -69,6 +70,9 @@ internal object PlayerFactory {
             .apply {
                 if (userAgent != null) {
                     setUserAgent(userAgent)
+                }
+                if (headers != null) {
+                    setDefaultRequestProperties(headers)
                 }
             }
         

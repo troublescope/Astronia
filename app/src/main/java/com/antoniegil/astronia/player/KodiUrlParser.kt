@@ -21,6 +21,11 @@ internal object KodiUrlParser {
         val kodiOptions = parseKodiUrlOptions(url)
         return kodiOptions[HTTP_OPTION_UA]
     }
+
+    fun extractHeaders(url: String): Map<String, String> {
+        val kodiOptions = parseKodiUrlOptions(url)
+        return kodiOptions.filterValues { it != null }.mapValues { it.value!! }
+    }
     
     fun cleanUrl(url: String): String {
         val index = url.indexOf('|')
