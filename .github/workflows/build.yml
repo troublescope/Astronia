@@ -37,7 +37,7 @@ jobs:
         ENCODED_STRING: ${{ secrets.KEYSTORE }}
       run: |
         if [ ! -z "$ENCODED_STRING" ]; then
-          echo $ENCODED_STRING | base64 -d > release.jks
+          echo "$ENCODED_STRING" | base64 -di > release.jks
           echo "storeFile=../release.jks" > keystore.properties
           echo "storePassword=${{ secrets.KEYSTORE_PASSWORD }}" >> keystore.properties
           echo "keyAlias=${{ secrets.KEY_ALIAS }}" >> keystore.properties
