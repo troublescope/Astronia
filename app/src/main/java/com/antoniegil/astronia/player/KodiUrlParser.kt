@@ -6,13 +6,23 @@ internal object KodiUrlParser {
     fun parseKodiUrlOptions(url: String): Map<String, String?> {
         val index = url.indexOf('|')
         if (index == -1) return emptyMap()
-        val options = url.drop(index + 1).split("&")
+        val optionsPart = url.drop(index + 1)
+
+        // Support both & (kodi) and \n (generic) as delimiters
+        val options = optionsPart.split(Regex("[&\n]"))
+
         return options
             .filter { it.isNotBlank() }
             .associate {
-                val pair = it.split("=", limit = 2)
-                val key = pair.getOrNull(0).orEmpty()
-                val value = pair.getOrNull(1)
+                // Support both : (standard) and = (kodi) as separators
+                val pair = when {
+                    it.contains(": ") -> it.split(": ", limit = 2)
+                    it.contains("=") -> it.split("=", limit = 2)
+                    else -> listOf(it, "")
+                }
+
+                val key = pair.getOrNull(0).orEmpty().trim()
+                val value = pair.getOrNull(1)?.trim()
                 key to value
             }
     }

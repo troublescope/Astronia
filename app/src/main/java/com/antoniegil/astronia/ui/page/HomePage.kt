@@ -233,10 +233,11 @@ fun HomePage(
                         label = { Text(stringResource(R.string.headers)) },
                         placeholder = { Text(stringResource(R.string.headers_hint)) },
                         modifier = Modifier
-                            .padding(bottom = 16.dp)
-                            .fillMaxWidth(),
+                            .fillMaxWidth()
+                            .padding(bottom = 16.dp),
+                        singleLine = false,
+                        maxLines = 5,
                         textStyle = MaterialTheme.typography.bodyLarge,
-                        maxLines = 2,
                         colors = OutlinedTextFieldDefaults.colors(
                             focusedBorderColor = MaterialTheme.colorScheme.primary,
                             unfocusedBorderColor = MaterialTheme.colorScheme.outline,
