@@ -33,7 +33,7 @@ android {
         abi {
             isEnable = true
             reset()
-            include("arm64-v8a", "armeabi-v7a", "x86", "x86_64")
+            include("arm64-v8a", "armeabi-v7a")
             isUniversalApk = true
         }
     }
@@ -62,7 +62,7 @@ android {
             )
             manifestPlaceholders["appAuthRedirectScheme"] = "com.antoniegil.astronia"
             ndk {
-                abiFilters.addAll(listOf("arm64-v8a", "armeabi-v7a", "x86", "x86_64"))
+                abiFilters.addAll(listOf("arm64-v8a", "armeabi-v7a"))
             }
         }
         debug {
@@ -117,7 +117,7 @@ android {
         checkDependencies = false
     }
     
-    val abiCodes = mapOf("armeabi-v7a" to 1, "arm64-v8a" to 2, "x86" to 3, "x86_64" to 4, "universal" to 0)
+    val abiCodes = mapOf("armeabi-v7a" to 1, "arm64-v8a" to 2, "universal" to 0)
 
     androidComponents {
         onVariants { variant ->
